@@ -1,25 +1,25 @@
 # Angular to React
-A playground repository that will be filled with educational resources and live code as our dev group (Angular experts) learns React/Redux by contrasting it to Angular concepts. This repository is best consumed by those that have been working with Angular 1.x for a good amount of time.a
+A playground repository that will be filled with educational resources and live code as our dev group (Angular experts) learns React/Redux by contrasting it to Angular concepts. This repository is best consumed by those that have been working with Angular 1.x for a good amount of time.
 
 ## Scope
-Using the list below, detail how the following are accomplished in React/Redux with reference to the "Angular way" (*code snippets are preferred*):
+Using the unordered list below, detail how the following are accomplished in React/Redux with reference to the "Angular way" (*code snippets are preferred*):
 
+#### Recommended project generator practices
 #### ng-repeat
 #### ng-show, ng-hide
 #### ng-if
 #### ng-style
 #### ng-class
 #### ng-click
-#### directives
+#### directives / directive controllers
 #### services
-#### directive controllers
 #### SCSS integration
 #### JavaScript vendoring
 #### CSS/SCSS vendoring
 #### Development flags
 #### JavaScript sourcemapping
 #### JavaScript obfuscation/minification
-#### Module namespacing
+#### Module namespacing / John Papa guide equivalency
 #### Global error handling
 #### Promise integration
 #### Provider decoration
@@ -34,17 +34,18 @@ Using the list below, detail how the following are accomplished in React/Redux w
 #### $broadcast
 #### Routing
 #### Subviews
-#### Fependency injection
+#### Dependency injection
 #### Unit testing
+#### Code style enforcement
 #### Recommended documentation practices
-
+#### Code linting practices
 
 
 ## Rationale
 
-Q: Wait... surely someone has documented this (e.g.: ![SitePoint: React for Angular Developers](https://www.sitepoint.com/react-for-angular-developers/)), why reinvent the wheel? 
+_Q:_ Wait... surely someone has documented this (e.g.: [SitePoint: React for Angular Developers](https://www.sitepoint.com/react-for-angular-developers/)), why reinvent the wheel? 
 
-A: Because first-person studies and writing code are the best approaches to learning.
+_A:_ Because first-person studies and writing code are the best approaches to learning.
 
 ## License
 
