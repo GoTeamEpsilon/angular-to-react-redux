@@ -11,6 +11,7 @@ Using the unordered list below, detail how the following are accomplished in Rea
 #### ng-style
 #### ng-class
 #### ng-click
+#### filters
 #### directives / directive controllers
 #### services
 #### SCSS integration
@@ -43,7 +44,7 @@ Using the unordered list below, detail how the following are accomplished in Rea
 
 ## Rationale
 
-_Q:_ Wait... surely someone has documented this (e.g.: [SitePoint: React for Angular Developers](https://www.sitepoint.com/react-for-angular-developers/)), why reinvent the wheel? 
+_Q:_ Wait... surely someone has researched and documented this (e.g.: [SitePoint: React for Angular Developers](https://www.sitepoint.com/react-for-angular-developers/)), why reinvent the wheel? 
 
 _A:_ Because first-person studies and writing code are the best approaches to learning.
 
