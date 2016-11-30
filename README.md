@@ -1,3 +1,5 @@
+![img](http://www.textfiles.com/underconstruction/BaBajaMesa3235construct.gif)
+
 # Angular to React
 A playground repository that will be filled with educational resources and live code as our dev group (Angular experts) learns React/Redux by contrasting it to Angular concepts. This repository is best consumed by those that have been working with Angular 1.x for a good amount of time.
 
