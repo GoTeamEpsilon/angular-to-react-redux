@@ -10,6 +10,17 @@ Similar to Yeoman's [Yo Angular](https://github.com/yeoman/generator-angular), t
 Be sure to provide your editor with plugins for [eslint](http://eslint.org/), [JavaScript ES6 syntax](https://www.google.com/search?q=es6+plugin) and [React JSX syntax](https://www.google.com/search?q=jsx+plugin).
 
 ## ng-repeat
+
+```jsx
+<div className="cards">
+  <div className="info">
+    {['x', 'y', 'z'].map((info) => <p>{info}</p>)}
+  </div>
+</div>
+```
+
+Note that you can get the index by specifying an index parameter: `['x', 'y', 'z'].map((key, index) =>`.
+
 ## ng-show, ng-hide
 ## ng-if
 ## ng-style
