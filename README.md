@@ -26,6 +26,13 @@ Note that you can get the index by specifying an index parameter: `['x', 'y', 'z
 ## ng-style
 ## ng-class
 ## ng-click
+
+```jsx
+<button onClick={clickHandler}>
+  Click Me
+</button>
+```
+
 ## filters
 ## directives / directive controllers
 ## services
