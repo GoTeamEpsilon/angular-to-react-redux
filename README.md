@@ -24,6 +24,98 @@ Note that you can get the index by specifying an index parameter: `['x', 'y', 'z
 ## ng-show, ng-hide
 ## ng-if
 ## ng-style
+
+In React, a variable that holds CSS values can be created and later assigned as the inline style of an element. Keep in mind that camelCase is used, so "background-color" becomes "backgroundColor", "font-size" becomes "fontSize", and so on. 
+
+If you want to alter the style of elements through a click event, similar to what is shown in the Angular documentation [here](https://docs.angularjs.org/api/ng/directive/ngStyle), you can attach a function to the "onClick" React Synthetic Event. This function can then for instance result in the changing of a class name, or the direct manipulation of a variable that is serving as the value for a CSS property like "marginBottom", "padding", etc. In Example 2 and 3 this will be demonstrated with a variable that exists in local React State (not to be confused with Redux State).
+
+### First Example That Uses a Variable in the Style Attribute of HTML Element
+```jsx
+
+class ngStyleExample1 extends React.Component {
+
+  constructor(props) {
+    super(props);
+  }  
+
+  render() {
+    var firstExampleStyle = {backgroundColor: "green"};
+    
+    return (
+		<div>
+        <p 
+	      	id="firstExampleWithNoEventHandler" 
+	      	style={firstExampleStyle}
+      	>
+	      	Example 1 Blah Blah Blah
+	      </p>
+		</div>
+
+    );
+  }
+
+}
+```
+
+### Second and Third Example That Manipulate the Style of An Element
+```jsx
+class ngStyleExample2and3 extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+    	cssClass : "show"
+    	styleValue : "20"
+    };
+  }
+
+  /*
+  	Second example
+  	Clicking on the <p> tag changes its class, which alters its style
+  */
+  handleClassClick() {
+    if(this.state.cssClass === "show") {
+    	this.setState(cssClass : "hide");
+    } else {
+    	this.setState(cssClass : "show");
+    }
+  }
+
+  /*
+    Third example
+    Clicking on the <p> tag directly alters the value on which the style is calculated (fontSize)
+	*/
+  handleStyleClick() {
+  	this.setState(styleValue : this.state.styleValue + 5);
+
+  }
+
+  render() {
+    return (
+		<div>
+	      <p 
+	      	id="changeClassExample" 
+	      	className={this.state.cssClass} 
+	      	onClick = {() => this.handleClassClick}
+      	  >
+	      	Example 1 Blah Blah Blah
+	      </p>
+
+	      <p 
+	      	id="directlyChangeStyleExample" 
+	      	style={{fontSize : this.state.styleValue}} 
+	      	onClick = { () => this.handleStyleClick
+  		  >
+  		  	Example 2 Blah Blah Blah	
+	      </p>
+		</div>
+
+    );
+  }
+
+}
+```
+
 ## ng-class
 ## ng-click
 ## filters
