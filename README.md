@@ -63,21 +63,22 @@ class ngStyleExample2and3 extends React.Component {
 
   constructor(props) {
     super(props);
+    this.handleStyleClick = this.handleStyleClick.bind(this); // n.b. ES6 React does not take care of 'this' binding
     this.state = {
-    	cssClass : "show"
+    	cssClass : "redBackground"
     	styleValue : "20"
     };
   }
 
   /*
-  	Second example
-  	Clicking on the <p> tag changes its class, which alters its style
+    Second example
+    Clicking on the <p> tag changes its class, which alters its style
   */
   handleClassClick() {
-    if(this.state.cssClass === "show") {
-    	this.setState(cssClass : "hide");
+    if(this.state.cssClass === "redBackground") {
+    	this.setState(cssClass : "blueBackground");
     } else {
-    	this.setState(cssClass : "show");
+    	this.setState(cssClass : "redBackground");
     }
   }
 
@@ -92,27 +93,26 @@ class ngStyleExample2and3 extends React.Component {
 
   render() {
     return (
-		<div>
-	      <p 
-	      	id="changeClassExample" 
-	      	className={this.state.cssClass} 
-	      	onClick = {() => this.handleClassClick}
-      	  >
-	      	Example 1 Blah Blah Blah
-	      </p>
+	     <div>
+  	     <p 
+  	      	id="changeClassExample" 
+  	      	className={this.state.cssClass} 
+  	      	onClick = {() => this.handleClassClick}
+        	 >
+  	       Example 2 Blah Blah Blah
+  	     </p>
 
-	      <p 
-	      	id="directlyChangeStyleExample" 
-	      	style={{fontSize : this.state.styleValue}} 
-	      	onClick = { () => this.handleStyleClick
-  		  >
-  		  	Example 2 Blah Blah Blah	
-	      </p>
-		</div>
+  	     <p 
+  	      	id="directlyChangeStyleExample" 
+  	      	style={{fontSize : this.state.styleValue}} 
+  	      	onClick = { this.handleStyleClick } 
+    		 >
+    		  Example 3 Blah Blah Blah	
+  	     </p>
+	     </div>
 
     );
   }
-
 }
 ```
 
