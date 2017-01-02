@@ -14,7 +14,7 @@ angular.module('patientDemographicsExampleApp')
                 '      <td><strong>Martial Status:</strong> {{vm.basic.martialStatus}}</td>' +
                 '    </tr>' +
                 '    <tr>' +
-                '      <td><strong>Billing Note:</strong> {{vm.basic.billingNote}}</td>' +
+                '      <td><strong>Gender:</strong> {{vm.basic.gender}} </td>' +
                 '      <td><strong>Address:</strong> {{vm.basic.address}}</td>' +
                 '    </tr>' +
                 '    <tr>' +
@@ -29,19 +29,25 @@ angular.module('patientDemographicsExampleApp')
                 '      <td><strong>Phone:</strong> {{vm.basic.phone}}</td>' +
                 '      <td><strong>Email:</strong> {{vm.basic.email}}</td>' +
                 '    </tr>' +
+                '    <tr>' +
+                '      <td><strong>Billing Note:</strong>{{vm.basic.billingNote}}</td>' +
+                '      <td><strong>Other Note:</strong>{{vm.basic.otherNote}}</td>' +
+                '    </tr>' +
                 '  </table>' +
                 '  <form ng-show="vm.inEditMode()" ng-submit="vm.changeMode(vm.MODES.SAVE)">' +
                 '    <table class="table">' +
                 '      <tr>' +
                 '        <td><strong>Name:</strong> <input type="text" ng-model="vm.basic.name" /></td>' +
-                '        <td><strong>DOB:</strong> <input type="text" ng-model="vm.basic.dob" /></td>' +
+                '        <td><strong>DOB:</strong> <input type="date" ng-model="vm.basic.dob" /></td>' +
                 '      </tr>' +
                 '      <tr>' +
                 '        <td><strong>S.S.:</strong> <input type="text" ng-model="vm.basic.ss" /></td>' +
                 '        <td><strong>Martial Status:</strong> <input type="text" ng-model="vm.basic.martialStatus" /></td>' +
                 '      </tr>' +
                 '      <tr>' +
-                '        <td><strong>Billing Note:</strong> <input type="text" ng-model="vm.basic.billingNote" /></td>' +
+                '        <td><strong>Gender:</strong> <select ng-model="vm.basic.gender">' +
+                '<option ng-repeat="gender in vm.genders" value="{{gender}}">{{gender}}</option>' +
+                '</select></td>' +
                 '        <td><strong>Address:</strong> <input type="text" ng-model="vm.basic.address" /></td>' +
                 '      </tr>' +
                 '       <tr>' +
@@ -55,6 +61,10 @@ angular.module('patientDemographicsExampleApp')
                 '      <tr>' +
                 '        <td><strong>Phone:</strong> <input type="text" ng-model="vm.basic.phone" /></td>' +
                 '        <td><strong>Email:</strong> <input type="text" ng-model="vm.basic.email" /></td>' +
+                '      </tr>' +
+                '      <tr>' +
+                '        <td><strong>Billing Note:</strong> <input type="text" ng-model="vm.basic.billingNote" /></td>' +
+                '        <td><strong>Other Note:</strong> <input type="text" ng-model="vm.basic.otherNote" /></td>' +
                 '      </tr>' +
                 '    </table>' +
                 '    <button class="btn btn-default btn-sm"' +
@@ -82,6 +92,12 @@ angular.module('patientDemographicsExampleApp')
 
         // Used for "edit" -> "cancel" reverts
         var _cachedDataForEditMode = null;
+        
+        vm.genders = {
+          Male: 'Male', 
+          Female: 'Female',
+           Other: 'Other'
+        };
 
         vm.mode = null;
 
