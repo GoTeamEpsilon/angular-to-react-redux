@@ -121,7 +121,7 @@ class ngStyleExample2and3 extends React.Component {
 ## filters
 ## directives / directive controllers
 ## services
-Temporary Notes: services are similar to "containers" in React. People use containers when they start to duplicate 
+**Temporary Notes:** services are similar to "containers" in React. People use containers when they start to duplicate 
 functionality in components, much like someone would realize they have duplicate logic in their
 directives. In React, containers would also be where you would want to make asynchronous calls.
 
@@ -133,14 +133,14 @@ state for the Redux store. These will be the files where you actually leverage t
 ## Development flags
 ## JavaScript sourcemapping
 ## JavaScript obfuscation/minification
-Temporary Notes: when you run Webpack, just append the "-p" flag to your command. 
+**Temporary Notes:** when you run Webpack, just append the "-p" flag to your command. 
 So instead of `webpack --config webpack.prod.config.js` do `webpack -p --config webpack.prod.config.js` in your package.json.
 This is the only easy part of Webpack.
 
 ## Module namespacing / John Papa guide equivalency
 ## Global error handling
 ## Promise integration
-Temporary Notes: There is no official promise library or standard for React or Redux. The two most popular libraries
+**Temporary Notes:** There is no official promise library or standard for React or Redux. The two most popular libraries
 currently are Bluebird and Axios. For straightforward API requests over HTTP, Axios is preferred.
 ## Provider decoration
 ## Logging best practices
@@ -153,7 +153,7 @@ currently are Bluebird and Axios. For straightforward API requests over HTTP, Ax
 ## Transclusion
 ## $broadcast
 ## Routing
-Temporary Notes: pretty much everyone uses React-Router for routing with React
+**Temporary Notes:** pretty much everyone uses React-Router for routing with React
 [https://github.com/ReactTraining/react-router](https://github.com/ReactTraining/react-router)
 ## Subviews
 ## Dependency injection
