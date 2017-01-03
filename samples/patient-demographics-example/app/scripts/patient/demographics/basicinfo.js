@@ -38,7 +38,8 @@ angular.module('patientDemographicsExampleApp')
                 '    <table class="table">' +
                 '      <tr>' +
                 '        <td><strong>Name:</strong> <input type="text" ng-model="vm.basic.name" /></td>' +
-                '        <td><strong>DOB:</strong> <input type="date" ng-model="vm.basic.dob" /></td>' +
+                '        <td><strong>DOB:</strong><datepicker date-format="yyyy-MM-dd">' +
+                '           <input ng-model="vm.basic.dob" type="text"/></datepicker></td>' +
                 '      </tr>' +
                 '      <tr>' +
                 '        <td><strong>S.S.:</strong> <input type="text" ng-model="vm.basic.ss" /></td>' +
@@ -87,6 +88,7 @@ angular.module('patientDemographicsExampleApp')
       controllerAs: 'vm',
       bindToController: true,
       controller: ['$log', function($log) {
+        
         var logger = $log.getInstance('BasicInfoDirective');
         var vm = this;
 
@@ -109,6 +111,7 @@ angular.module('patientDemographicsExampleApp')
         };
 
         vm.inEditMode = function() {
+          
           return vm.mode === vm.MODES.EDIT;
         };
 
@@ -132,6 +135,7 @@ angular.module('patientDemographicsExampleApp')
               break;
           }
         };
+     
 
         function _handleEditMode() {
           logger.debug('Caching previous contact state');
@@ -161,6 +165,7 @@ angular.module('patientDemographicsExampleApp')
 
           vm.changeMode(vm.MODES.READ); // Default mode
         }
+        
 
         _construct();
       }]

@@ -8,6 +8,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
+    '720kb.datepicker',
     'angular-logger' // enhances `$log` to have a better format/context-awareness
   ])
   .config(function ($routeProvider) {
