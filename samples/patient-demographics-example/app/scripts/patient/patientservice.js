@@ -68,22 +68,30 @@ angular.module('patientDemographicsExampleApp')
 
     // This needs to be called prior to any other call in this service.
     function _setPatientInContext(patientId) {
-      logger.info('attempting to set patient context to patient ' + patientId);
-      return $q(function(resolve, reject) {
-        var res = _testData[patientId];
-        if (!res) {
-          logger.warn('patient ' + patientId + ' doesn\'t exist');
-          return reject('patient doesn\'t exist');
-        }
+      var deferred = $q.defer();
 
+      logger.info('attempting to set patient context to patient ' + patientId);
+
+      var res = _testData[patientId];
+      if (!res) {
+        logger.warn('patient ' + patientId + ' doesn\'t exist');
+        deferred.reject('patient doesn\'t exist');
+      } else {
         _patientIdInContext = patientId;
-        return resolve();
-      });
+        deferred.resolve();
+      }
+
+      return deferred.promise;
+    }
+
+    function _getPatientInContext() {
+      return _patientIdInContext;
     }
 
     // Basic data.
     function _getPatientData() {
       logger.debug('retrieving patient basic data');
+
       return $q(function(resolve) {
         return resolve(_testData[_patientIdInContext].basic);
       });
@@ -98,11 +106,21 @@ angular.module('patientDemographicsExampleApp')
     }
 
     function _deleteContact(contact) {
-      logger.info('deleting contact "' + (contact.relation || 'N/A') + '"');
+      logger.info('deleting contact "' + contact.relation + '"');
       return $q(function(resolve) {
         var contacts = _testData[_patientIdInContext].contacts;
-        var index = contacts.indexOf(contact);
-        contacts.splice(index, 1);
+        var matchIndex;
+        contacts.some(function(element, index) {
+          if (element.name === contact.name) {
+            matchIndex = index;
+            return true;
+          }
+        });
+
+        if (matchIndex > -1) {
+          contacts.splice(matchIndex, 1);
+        }
+
         return resolve();
       });
     }
@@ -118,6 +136,7 @@ angular.module('patientDemographicsExampleApp')
 
     return {
       setPatientInContext: _setPatientInContext,
+      getPatientInContext: _getPatientInContext,
       getPatientData: _getPatientData,
       getPatientContacts: _getPatientContacts,
       deleteContact: _deleteContact,
