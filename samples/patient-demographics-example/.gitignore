@@ -3,6 +3,7 @@
 /.tmp
 /.sass-cache
 /bower_components
+/coverage
 
 # For Webstorm
 .idea
