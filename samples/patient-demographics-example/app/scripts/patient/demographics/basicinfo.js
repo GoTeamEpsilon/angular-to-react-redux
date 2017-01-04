@@ -38,7 +38,7 @@ angular.module('patientDemographicsExampleApp')
                 '    <table class="table">' +
                 '      <tr>' +
                 '        <td><strong>Name:</strong> <input type="text" ng-model="vm.basic.name" /></td>' +
-                '        <td><strong>DOB:</strong><datepicker date-format="yyyy-MM-dd">' +
+                '        <td><strong>DOB:</strong><datepicker date-set="{{vm.initialDate}}" date-format="yyyy-MM-dd">' +
                 '           <input ng-model="vm.basic.dob" type="text"/></datepicker></td>' +
                 '      </tr>' +
                 '      <tr>' +
@@ -87,18 +87,18 @@ angular.module('patientDemographicsExampleApp')
       },
       controllerAs: 'vm',
       bindToController: true,
-      controller: ['$log', function($log) {
-        
+      controller: ['$log', '$scope', function($log, $scope) {
+
         var logger = $log.getInstance('BasicInfoDirective');
         var vm = this;
 
         // Used for "edit" -> "cancel" reverts
         var _cachedDataForEditMode = null;
-        
+
         vm.genders = {
-          Male: 'Male', 
+          Male: 'Male',
           Female: 'Female',
-           Other: 'Other'
+          Other: 'Other'
         };
 
         vm.mode = null;
@@ -111,7 +111,6 @@ angular.module('patientDemographicsExampleApp')
         };
 
         vm.inEditMode = function() {
-          
           return vm.mode === vm.MODES.EDIT;
         };
 
@@ -135,7 +134,6 @@ angular.module('patientDemographicsExampleApp')
               break;
           }
         };
-     
 
         function _handleEditMode() {
           logger.debug('Caching previous contact state');
@@ -164,10 +162,19 @@ angular.module('patientDemographicsExampleApp')
           logger.debug('Constructing basic info directive');
 
           vm.changeMode(vm.MODES.READ); // Default mode
-        }
-        
 
-        _construct();
+          vm.initialDate = angular.copy(vm.basic.dob);
+        }
+
+        // vm.basic is not immediately available. Wait for it to be passed.
+        var _unregister = $scope.$watch(angular.bind(vm, function() {
+          return this.basic;
+        }), function (newVal) {
+          if (newVal) {
+            _unregister();
+            _construct();
+          }
+        });
       }]
     };
   });
