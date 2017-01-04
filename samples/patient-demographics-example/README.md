@@ -17,4 +17,3 @@ Run `grunt build`
 - Incorporate Angular form validation
 - Switch to formally use John Papa style guide
 - Write all unit tests (http://stackoverflow.com/questions/17624315/unit-testing-a-directive-that-defines-a-controller-in-angularjs)
-- Fix cssmin
