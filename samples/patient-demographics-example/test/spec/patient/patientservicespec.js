@@ -7,7 +7,7 @@ describe('PatientService', function () {
 
   beforeEach(module('patientDemographicsExampleApp'));
 
-  beforeEach(inject(function (_PatientService_, $rootScope) {
+  beforeEach(inject(function(_PatientService_, $rootScope) {
     patientService = _PatientService_;
     rootScope = $rootScope;
   }));

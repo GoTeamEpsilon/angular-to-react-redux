@@ -46,9 +46,11 @@ angular.module('patientDemographicsExampleApp')
                 '        <td><strong>Martial Status:</strong> <input type="text" ng-model="vm.basic.martialStatus" /></td>' +
                 '      </tr>' +
                 '      <tr>' +
-                '        <td><strong>Gender:</strong> <select ng-model="vm.basic.gender">' +
-                '<option ng-repeat="gender in vm.genders" value="{{gender}}">{{gender}}</option>' +
-                '</select></td>' +
+                '        <td><strong>Gender:</strong>' +
+                '          <select ng-model="vm.basic.gender">' +
+                '            <option ng-repeat="gender in vm.genders" value="{{gender}}">{{gender}}</option>' +
+                '          </select>' +
+                '        </td>' +
                 '        <td><strong>Address:</strong> <input type="text" ng-model="vm.basic.address" /></td>' +
                 '      </tr>' +
                 '       <tr>' +
@@ -88,8 +90,8 @@ angular.module('patientDemographicsExampleApp')
       controllerAs: 'vm',
       bindToController: true,
       controller: ['$log', '$scope', function($log, $scope) {
-
         var logger = $log.getInstance('BasicInfoDirective');
+
         var vm = this;
 
         // Used for "edit" -> "cancel" reverts
