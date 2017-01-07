@@ -34,36 +34,36 @@ angular.module('patientDemographicsExampleApp')
                 '      <td><strong>Other Note:</strong>{{vm.basic.otherNote}}</td>' +
                 '    </tr>' +
                 '  </table>' +
-                '  <form ng-show="vm.inEditMode()" ng-submit="vm.changeMode(vm.MODES.SAVE)">' +
+                '  <form class="basic-info-form" ng-show="vm.inEditMode()" ng-submit="vm.changeMode(vm.MODES.SAVE)">' +
                 '    <table class="table">' +
                 '      <tr>' +
-                '        <td><strong>Name:</strong> <input type="text" ng-model="vm.basic.name" /></td>' +
+                '        <td><strong>Name:</strong> <input type="text" ng-model="vm.basic.name" required/></td>' +
                 '        <td><strong>DOB:</strong><datepicker date-set="{{vm.initialDate}}" date-format="yyyy-MM-dd">' +
-                '           <input ng-model="vm.basic.dob" type="text"/></datepicker></td>' +
+                '           <input ng-model="vm.basic.dob" type="text" required/></datepicker></td>' +
                 '      </tr>' +
                 '      <tr>' +
-                '        <td><strong>S.S.:</strong> <input type="text" ng-model="vm.basic.ss" /></td>' +
-                '        <td><strong>Martial Status:</strong> <input type="text" ng-model="vm.basic.martialStatus" /></td>' +
+                '        <td><strong>S.S.:</strong> <input type="text" ng-model="vm.basic.ss" required/></td>' +
+                '        <td><strong>Martial Status:</strong> <input type="text" ng-model="vm.basic.martialStatus" required/></td>' +
                 '      </tr>' +
                 '      <tr>' +
                 '        <td><strong>Gender:</strong>' +
-                '          <select ng-model="vm.basic.gender">' +
+                '          <select ng-model="vm.basic.gender" required>' +
                 '            <option ng-repeat="gender in vm.genders" value="{{gender}}">{{gender}}</option>' +
                 '          </select>' +
                 '        </td>' +
-                '        <td><strong>Address:</strong> <input type="text" ng-model="vm.basic.address" /></td>' +
+                '        <td><strong>Address:</strong> <input type="text" ng-model="vm.basic.address" required/></td>' +
                 '      </tr>' +
                 '       <tr>' +
-                '        <td><strong>City:</strong> <input type="text" ng-model="vm.basic.city" /></td>' +
-                '        <td><strong>Postal:</strong> <input type="text" ng-model="vm.basic.postal" /></td>' +
+                '        <td><strong>City:</strong> <input type="text" ng-model="vm.basic.city" required/></td>' +
+                '        <td><strong>Postal:</strong> <input type="text" ng-model="vm.basic.postal" required/></td>' +
                 '      </tr>' +
                 '      <tr>' +
-                '        <td><strong>State:</strong> <input type="text" ng-model="vm.basic.state" /></td>' +
-                '        <td><strong>Country:</strong> <input type="text" ng-model="vm.basic.country" /></td>' +
+                '        <td><strong>State:</strong> <input type="text" ng-model="vm.basic.state" required/></td>' +
+                '        <td><strong>Country:</strong> <input type="text" ng-model="vm.basic.country" required/></td>' +
                 '      </tr>' +
                 '      <tr>' +
-                '        <td><strong>Phone:</strong> <input type="text" ng-model="vm.basic.phone" /></td>' +
-                '        <td><strong>Email:</strong> <input type="text" ng-model="vm.basic.email" /></td>' +
+                '        <td><strong>Phone:</strong> <input type="text" ng-model="vm.basic.phone" required/></td>' +
+                '        <td><strong>Email:</strong> <input type="email" ng-model="vm.basic.email" required/></td>' +
                 '      </tr>' +
                 '      <tr>' +
                 '        <td><strong>Billing Note:</strong> <input type="text" ng-model="vm.basic.billingNote" /></td>' +
