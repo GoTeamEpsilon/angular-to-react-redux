@@ -1,0 +1,3 @@
+.basic-info-form input.ng-invalid.ng-touched {
+  background-color: #FA787E;
+}
