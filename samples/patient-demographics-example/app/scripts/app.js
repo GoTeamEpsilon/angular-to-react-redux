@@ -9,6 +9,7 @@ angular
     'ngSanitize',
     'ngTouch',
     '720kb.datepicker',
+    'ui.mask',
     'angular-logger' // enhances `$log` to have a better format/context-awareness
   ])
   .config(function ($routeProvider) {

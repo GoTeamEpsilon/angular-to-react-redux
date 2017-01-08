@@ -39,12 +39,12 @@ angular.module('patientDemographicsExampleApp')
                 '      <tr>' +
                 '        <td><strong>Name:</strong> <input type="text" name="fullname" ng-model="vm.basic.name" required/>' +
                 '         <div><p ng-show="basicInfoForm.fullname.$invalid && !basicInfoForm.fullname.$pristine" class="help-block">A name is required</p></div></td>' +
-        
+
                 '        <td><strong>DOB:</strong><datepicker date-set="{{vm.initialDate}}" date-format="yyyy-MM-dd">' +
                 '           <input ng-model="vm.basic.dob" type="text" required/></datepicker></td>' +
                 '      </tr>' +
                 '      <tr>' +
-                '        <td><strong>SSN:</strong> <input type="text" name=ssn ng-model="vm.basic.ss" ng-minlength="9" required/>' +
+                '        <td><strong>SSN:</strong> <input type="text" name=ssn ng-model="vm.basic.ss" ng-minlength="9" ui-mask="999-99-9999" required/>' +
                 '         <div><p ng-show="basicInfoForm.ssn.$invalid && !basicInfoForm.ssn.$pristine" class="help-block">9 digits are required for SSN</p></div></td>' +
                 '        <td><strong>Martial Status:</strong> <input type="text" ng-model="vm.basic.martialStatus" required/></td>' +
                 '      </tr>' +
@@ -66,7 +66,7 @@ angular.module('patientDemographicsExampleApp')
                 '      </tr>' +
                 '      <tr>' +
                 '        <td><strong>Phone:</strong> <input type="text" ng-model="vm.basic.phone" required/></td>' +
-                '        <td><strong>Email:</strong> <input type="email" ng-model="vm.basic.email" required/></td>' +
+                '        <td><strong>Email:</strong> <input type="email" ng-model="vm.basic.email" ng-pattern=".*@.*" required/></td>' +
                 '      </tr>' +
                 '      <tr>' +
                 '        <td><strong>Billing Note:</strong> <input type="text" ng-model="vm.basic.billingNote" /></td>' +
