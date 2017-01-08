@@ -34,15 +34,18 @@ angular.module('patientDemographicsExampleApp')
                 '      <td><strong>Other Note:</strong>{{vm.basic.otherNote}}</td>' +
                 '    </tr>' +
                 '  </table>' +
-                '  <form class="basic-info-form" ng-show="vm.inEditMode()" ng-submit="vm.changeMode(vm.MODES.SAVE)">' +
+                '  <form name="basicInfoForm" class="basic-info-form" ng-show="vm.inEditMode()" ng-submit="vm.changeMode(vm.MODES.SAVE)" novalidate>' +
                 '    <table class="table">' +
                 '      <tr>' +
-                '        <td><strong>Name:</strong> <input type="text" ng-model="vm.basic.name" required/></td>' +
+                '        <td><strong>Name:</strong> <input type="text" name="fullname" ng-model="vm.basic.name" required/>' +
+                '         <div><p ng-show="basicInfoForm.fullname.$invalid && !basicInfoForm.fullname.$pristine" class="help-block">A name is required</p></div></td>' +
+        
                 '        <td><strong>DOB:</strong><datepicker date-set="{{vm.initialDate}}" date-format="yyyy-MM-dd">' +
                 '           <input ng-model="vm.basic.dob" type="text" required/></datepicker></td>' +
                 '      </tr>' +
                 '      <tr>' +
-                '        <td><strong>S.S.:</strong> <input type="text" ng-model="vm.basic.ss" required/></td>' +
+                '        <td><strong>SSN:</strong> <input type="text" name=ssn ng-model="vm.basic.ss" ng-minlength="9" required/>' +
+                '         <div><p ng-show="basicInfoForm.ssn.$invalid && !basicInfoForm.ssn.$pristine" class="help-block">9 digits are required for SSN</p></div></td>' +
                 '        <td><strong>Martial Status:</strong> <input type="text" ng-model="vm.basic.martialStatus" required/></td>' +
                 '      </tr>' +
                 '      <tr>' +
@@ -58,7 +61,7 @@ angular.module('patientDemographicsExampleApp')
                 '        <td><strong>Postal:</strong> <input type="text" ng-model="vm.basic.postal" required/></td>' +
                 '      </tr>' +
                 '      <tr>' +
-                '        <td><strong>State:</strong> <input type="text" ng-model="vm.basic.state" required/></td>' +
+                '        <td><strong>State:</strong> <input type="text" ng-model="vm.basic.state" ng-minlength="2" required/></td>' +
                 '        <td><strong>Country:</strong> <input type="text" ng-model="vm.basic.country" required/></td>' +
                 '      </tr>' +
                 '      <tr>' +
@@ -71,7 +74,7 @@ angular.module('patientDemographicsExampleApp')
                 '      </tr>' +
                 '    </table>' +
                 '    <button class="btn btn-default btn-sm"' +
-                '            type="submit">SAVE</button>'+
+                '            type="submit" ng-disabled="basicInfoForm.$invalid">SAVE</button>'+
                 '    <button type="button"' +
                 '            class="btn btn-default btn-sm" ' +
                 '            ng-show="vm.inEditMode()"' +
