@@ -26,7 +26,7 @@ angular.module('patientDemographicsExampleApp')
                 '      <td><strong>Country:</strong> {{vm.basic.country}}</td>' +
                 '    </tr>' +
                 '    <tr>' +
-                '      <td><strong>Phone:</strong> {{vm.basic.phone}}</td>' +
+                '      <td><strong>Phone:</strong> {{vm.basic.phone | telFilter }}</td>' +
                 '      <td><strong>Email:</strong> {{vm.basic.email}}</td>' +
                 '    </tr>' +
                 '    <tr>' +
@@ -88,8 +88,7 @@ angular.module('patientDemographicsExampleApp')
       restrict: 'E',
       link: function postLink() {},
       scope: {
-        'basic': '=',
-        'ssnFilter': '='
+        'basic': '='
       },
       controllerAs: 'vm',
       bindToController: true,

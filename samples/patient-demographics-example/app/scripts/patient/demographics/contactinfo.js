@@ -11,7 +11,7 @@ angular.module('patientDemographicsExampleApp')
                 '    </tr>' +
                 '    <tr>' +
                 '      <td><strong>Address:</strong> {{vm.contact.address}}</td>' +
-                '      <td><strong>Phone:</strong> {{vm.contact.phone}}</td>' +
+                '      <td><strong>Phone:</strong> {{vm.contact.phone | telFilter}}</td>' +
                 '    </tr>' +
                 '    <tr>' +
                 '      <td><strong>City:</strong> {{vm.contact.city}}</td>' +
@@ -34,7 +34,7 @@ angular.module('patientDemographicsExampleApp')
                 '      </tr>' +
                 '      <tr>' +
                 '        <td><strong>Address:</strong> <input type="text" ng-model="vm.contact.address" /></td>' +
-                '        <td><strong>Phone:</strong> <input type="text" ng-model="vm.contact.phone" /></td>' +
+                '        <td><strong>Phone:</strong> <input type="text" ng-model="vm.contact.phone" ui-mask="(999)-999-9999"/></td>' +
                 '      </tr>' +
                 '       <tr>' +
                 '        <td><strong>City:</strong> <input type="text" ng-model="vm.contact.city" /></td>' +

@@ -39,7 +39,7 @@ angular.module('patientDemographicsExampleApp')
           postal: 54321,
           state: 'Texas',
           country: 'US',
-          phone: 321321431,
+          phone: 1234567899,
           email: 'foo@bar.com'
         },
         contacts: [{
@@ -50,7 +50,7 @@ angular.module('patientDemographicsExampleApp')
           postal: 12345,
           state: 'Texas',
           country: 'US',
-          phone: 1231231234,
+          phone: 1234567899,
           email: 'bar@foo.com'
         }, {
           name: 'Sam Doe',
@@ -60,7 +60,7 @@ angular.module('patientDemographicsExampleApp')
           postal: 12345,
           state: 'Texas',
           country: 'US',
-          phone: 1231234321,
+          phone: 9876543211,
           email: 'baz@bop.com'
         }]
       }
