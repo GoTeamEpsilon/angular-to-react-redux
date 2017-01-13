@@ -1,0 +1,11 @@
+.basic-info-form input.ng-invalid.ng-touched {
+  background-color: #FA787E;
+}
+
+.help-block {
+  color: red;
+  border: red solid 1px;
+  display: inline-block;
+  padding: 0 5px;
+  margin-bottom: 5px;
+}
