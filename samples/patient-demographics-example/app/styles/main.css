@@ -1,6 +1,8 @@
-.basic-info-form input.ng-invalid.ng-touched {
+.basic-info-form input.ng-invalid.ng-touched,
+.contact-info-form input.ng-invalid.ng-touched {
   background-color: #FA787E;
 }
+
 
 .help-block {
   color: red;
