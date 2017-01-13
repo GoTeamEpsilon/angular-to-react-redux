@@ -113,7 +113,8 @@ angular.module('patientDemographicsExampleApp')
 
           // The demographics directive takes in a patient id. This comes
           // from the route `/patient/:id` itself. The point of the `$watch`
-          // is to make sure the value is loaded in before attempting to
+          // is to make sure the value is
+          // loaded in before attempting to
           // set/fetch the patient context. It should take less than 500ms.
           $scope.$watch(angular.bind(vm, function() {
             return this.patientId;

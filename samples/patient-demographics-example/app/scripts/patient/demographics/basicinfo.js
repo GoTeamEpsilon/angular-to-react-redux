@@ -11,6 +11,7 @@ angular.module('patientDemographicsExampleApp')
                 '    </tr>' +
                 '    <tr>' +
                 '      <td><strong>S.S.:</strong> {{vm.basic.ss}}</td>' +
+                '       <td>{{631261234 | ssnFilter}}</td>' +
                 '      <td><strong>Martial Status:</strong> {{vm.basic.martialStatus}}</td>' +
                 '    </tr>' +
                 '    <tr>' +
@@ -92,7 +93,7 @@ angular.module('patientDemographicsExampleApp')
       },
       controllerAs: 'vm',
       bindToController: true,
-      controller: ['$log', '$scope', function($log, $scope) {
+      controller: ['$log', '$scope', '$filter', function($log, $scope, $filter) {
         var logger = $log.getInstance('BasicInfoDirective');
 
         var vm = this;
