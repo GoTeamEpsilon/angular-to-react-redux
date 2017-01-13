@@ -10,8 +10,7 @@ angular.module('patientDemographicsExampleApp')
                 '      <td><strong>DOB:</strong> {{vm.basic.dob}}</td>' +
                 '    </tr>' +
                 '    <tr>' +
-                '      <td><strong>S.S.:</strong> {{vm.basic.ss}}</td>' +
-                '       <td>{{631261234 | ssnFilter}}</td>' +
+                '      <td><strong>S.S.:</strong> {{vm.basic.ss | ssnFilter}}</td>' +
                 '      <td><strong>Martial Status:</strong> {{vm.basic.martialStatus}}</td>' +
                 '    </tr>' +
                 '    <tr>' +
@@ -66,7 +65,7 @@ angular.module('patientDemographicsExampleApp')
                 '        <td><strong>Country:</strong> <input type="text" ng-model="vm.basic.country" required/></td>' +
                 '      </tr>' +
                 '      <tr>' +
-                '        <td><strong>Phone:</strong> <input type="text" ng-model="vm.basic.phone" required/></td>' +
+                '        <td><strong>Phone:</strong> <input type="text" ng-model="vm.basic.phone" ui-mask="(999)-999-9999" required/></td>' +
                 '        <td><strong>Email:</strong> <input type="email" ng-model="vm.basic.email" ng-pattern=".*@.*" required/></td>' +
                 '      </tr>' +
                 '      <tr>' +
@@ -89,7 +88,8 @@ angular.module('patientDemographicsExampleApp')
       restrict: 'E',
       link: function postLink() {},
       scope: {
-        'basic': '='
+        'basic': '=',
+        'ssnFilter': '='
       },
       controllerAs: 'vm',
       bindToController: true,
