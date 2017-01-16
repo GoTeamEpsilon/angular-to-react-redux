@@ -35,7 +35,7 @@ angular.module('patientDemographicsExampleApp')
                 '      </tr>' +
                 '      <tr>' +
                 '        <td><strong>Address:</strong> <input type="text" ng-model="vm.contact.address" required/></td>' +
-                '        <td><strong>Phone:</strong> <input type="text" name="phone" ng-model="vm.contact.phone" ui-mask="(999)-999-9999" required/>' +
+                '        <td><strong>Phone:</strong> <input type="text" name="phone" ng-model="vm.contact.phone" ui-mask="999-999-9999" required/>' +
                 '         <div><p ng-show="contactInfoForm.phone.$invalid && !contactInfoForm.phone.$pristine" class="help-block">A valid phone number is required</p></div></td>' +
                 '      </tr>' +
                 '       <tr>' +

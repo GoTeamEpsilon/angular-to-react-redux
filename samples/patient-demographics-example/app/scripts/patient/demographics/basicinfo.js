@@ -65,7 +65,7 @@ angular.module('patientDemographicsExampleApp')
                 '        <td><strong>Country:</strong> <input type="text" ng-model="vm.basic.country" required/></td>' +
                 '      </tr>' +
                 '      <tr>' +
-                '        <td><strong>Phone:</strong> <input type="text" ng-model="vm.basic.phone" ui-mask="(999)-999-9999" required/></td>' +
+                '        <td><strong>Phone:</strong> <input type="text" ng-model="vm.basic.phone" ui-mask="999-999-9999" required/></td>' +
                 '        <td><strong>Email:</strong> <input type="email" ng-model="vm.basic.email" ng-pattern=".*@.*" required/></td>' +
                 '      </tr>' +
                 '      <tr>' +
