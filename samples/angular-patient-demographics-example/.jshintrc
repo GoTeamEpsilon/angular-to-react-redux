@@ -10,6 +10,7 @@
   "strict": true,
   "undef": true,
   "unused": true,
+  "latedef": "nofunc",
   "globals": {
     "angular": false,
     "alert": false

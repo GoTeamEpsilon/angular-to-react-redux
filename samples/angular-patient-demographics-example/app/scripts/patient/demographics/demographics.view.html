@@ -1,0 +1,36 @@
+<h3 ng-show="vm.isLoading">Loading...</h3>
+
+<div ng-show="!vm.isLoading" class="demographics">
+  <ul class="nav nav-tabs">
+    <li ng-click="vm.changeTab(vm.TABS.BASIC)"
+        ng-class="{active: vm.inBasicTab()}">
+          <a nohref>Basic</a>
+    </li>
+    <li ng-click="vm.changeTab(vm.TABS.CONTACTS)"
+        ng-class="{active: vm.inContactsTab()}">
+          <a nohref>Contact</a>
+    </li>
+    <li><a nohref ng-click="vm.mockedTab()">Choices</a></li>
+    <li><a nohref ng-click="vm.mockedTab()">Employer</a></li>
+    <li><a nohref ng-click="vm.mockedTab()">Stats</a></li>
+    <li><a nohref ng-click="vm.mockedTab()">Misc</a></li>
+  </ul>
+
+  <div class="body">
+    <basic-info ng-show="vm.inBasicTab()"
+                basic="vm.basicInformation">
+    </basic-info>
+
+    <div ng-show="vm.inContactsTab()">
+      <div ng-repeat="contact in vm.contacts">
+        <contact-info contact="contact">
+        </contact-info>
+        <br /><br />
+      </div>
+
+      <button type="button"
+              class="btn btn-default btn-sm"
+              ng-click="vm.addNewContact()">NEW CONTACT</button>
+    </div>
+  </div>
+</div>

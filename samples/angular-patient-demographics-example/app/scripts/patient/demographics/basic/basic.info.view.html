@@ -1,0 +1,85 @@
+<div>
+  <table class="table" ng-show="vm.inReadMode()">
+    <tr>
+      <td><strong>Name:</strong> {{vm.basic.name}}</td>
+      <td><strong>DOB:</strong> {{vm.basic.dob}}</td>
+    </tr>
+    <tr>
+      <td><strong>S.S.:</strong> {{vm.basic.ss | ssnFilter}}</td>
+      <td><strong>Martial Status:</strong> {{vm.basic.martialStatus}}</td>
+    </tr>
+    <tr>
+      <td><strong>Gender:</strong> {{vm.basic.gender}} </td>
+      <td><strong>Address:</strong> {{vm.basic.address}}</td>
+    </tr>
+    <tr>
+      <td><strong>City:</strong> {{vm.basic.city}}</td>
+      <td><strong>Postal:</strong> {{vm.basic.postal}}</td>
+    </tr>
+    <tr>
+      <td><strong>State:</strong> {{vm.basic.state}}</td>
+      <td><strong>Country:</strong> {{vm.basic.country}}</td>
+    </tr>
+    <tr>
+      <td><strong>Phone:</strong> {{vm.basic.phone | telFilter }}</td>
+      <td><strong>Email:</strong> {{vm.basic.email}}</td>
+    </tr>
+    <tr>
+      <td><strong>Billing Note:</strong>{{vm.basic.billingNote}}</td>
+      <td><strong>Other Note:</strong>{{vm.basic.otherNote}}</td>
+    </tr>
+  </table>
+
+  <form name="basicInfoForm" class="basic-info-form" ng-show="vm.inEditMode()" ng-submit="vm.changeMode(vm.MODES.SAVE)" novalidate>
+    <table class="table">
+      <tr>
+        <td><strong>Name:</strong> <input type="text" name="fullname" ng-model="vm.basic.name" required/>
+         <div><p ng-show="basicInfoForm.fullname.$invalid && !basicInfoForm.fullname.$pristine" class="help-block">A name is required</p></div></td>
+
+        <td><strong>DOB:</strong><datepicker date-set="{{vm.initialDate}}" date-format="yyyy-MM-dd">
+           <input ng-model="vm.basic.dob" type="text" required/></datepicker></td>
+      </tr>
+      <tr>
+        <td><strong>SSN:</strong> <input type="text" name=ssn ng-model="vm.basic.ss" ng-minlength="9" ui-mask="999-99-9999" required/>
+         <div><p ng-show="basicInfoForm.ssn.$invalid && !basicInfoForm.ssn.$pristine" class="help-block">9 digits are required for SSN</p></div></td>
+        <td><strong>Martial Status:</strong> <input type="text" ng-model="vm.basic.martialStatus" required/></td>
+      </tr>
+      <tr>
+        <td><strong>Gender:</strong>
+          <select ng-model="vm.basic.gender" required>
+            <option ng-repeat="gender in vm.genders" value="{{gender}}">{{gender}}</option>
+          </select>
+        </td>
+        <td><strong>Address:</strong> <input type="text" ng-model="vm.basic.address" required/></td>
+      </tr>
+       <tr>
+        <td><strong>City:</strong> <input type="text" ng-model="vm.basic.city" required/></td>
+        <td><strong>Postal:</strong> <input type="text" ng-model="vm.basic.postal" required/></td>
+      </tr>
+      <tr>
+        <td><strong>State:</strong> <input type="text" ng-model="vm.basic.state" ng-minlength="2" required/></td>
+        <td><strong>Country:</strong> <input type="text" ng-model="vm.basic.country" required/></td>
+      </tr>
+      <tr>
+        <td><strong>Phone:</strong> <input type="text" ng-model="vm.basic.phone" ui-mask="999-999-9999" required/></td>
+        <td><strong>Email:</strong> <input type="email" ng-model="vm.basic.email" ng-pattern="vm.emailPattern" required/></td>
+      </tr>
+      <tr>
+        <td><strong>Billing Note:</strong> <input type="text" ng-model="vm.basic.billingNote" /></td>
+        <td><strong>Other Note:</strong> <input type="text" ng-model="vm.basic.otherNote" /></td>
+      </tr>
+    </table>
+
+    <button class="btn btn-default btn-sm"
+            type="submit" ng-disabled="basicInfoForm.$invalid">SAVE</button>
+    <button type="button"
+            class="btn btn-default btn-sm"
+            ng-show="vm.inEditMode()"
+            ng-click="vm.changeMode(vm.MODES.CANCEL)">CANCEL</button>
+  </form>
+
+  <button type="button"
+          class="btn btn-default btn-sm"
+          ng-show="vm.inReadMode()"
+          ng-click="vm.changeMode(vm.MODES.EDIT)">EDIT</button>
+</div>

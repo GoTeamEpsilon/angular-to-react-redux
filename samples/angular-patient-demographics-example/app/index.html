@@ -39,15 +39,33 @@
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
-    <script src="scripts/app.js"></script>
-    <script src="scripts/patient/patient.js"></script>
-    <script src="scripts/patient/patientservice.js"></script>
-    <script src="scripts/common/ssn-filter.js"></script>
-    <script src="scripts/common/tel-filter.js"></script>
-    <script src="scripts/patient/demographics/demographics.js"></script>
-    <script src="scripts/patient/demographics/basicinfo.js"></script>
-    <script src="scripts/patient/demographics/contactinfo.js"></script>
+    <script src="scripts/app.module.js"></script>
 
+    <!-- modules -->
+    <script src="scripts/patient/patient.module.js"></script>
+    <script src="scripts/patient/demographics/demographics.module.js"></script>
+    <script src="scripts/patient/demographics/basic/basic.module.js"></script>
+    <script src="scripts/patient/demographics/contact/contact.module.js"></script>
+
+    <!-- patient -->
+    <script src="scripts/patient/patient.service.js"></script>
+    <script src="scripts/patient/patient.controller.js"></script>
+
+    <!-- patient.demographics -->
+    <script src="scripts/patient/demographics/demographics.controller.js"></script>
+    <script src="scripts/patient/demographics/demographics.directive.js"></script>
+
+    <!-- patient.demographics.basic -->
+    <script src="scripts/patient/demographics/basic/basic.info.controller.js"></script>
+    <script src="scripts/patient/demographics/basic/basic.info.directive.js"></script>
+
+    <!-- patient.demographics.contact -->
+    <script src="scripts/patient/demographics/contact/contact.info.controller.js"></script>
+    <script src="scripts/patient/demographics/contact/contact.info.directive.js"></script>
+
+    <!-- common -->
+    <script src="scripts/common/ssn.filter.js"></script>
+    <script src="scripts/common/tel.filter.js"></script>
     <!-- endbuild -->
   </body>
 </html>

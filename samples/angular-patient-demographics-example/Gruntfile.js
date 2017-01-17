@@ -1,4 +1,4 @@
-// Generated on 2016-12-27 using generator-angular 0.15.1
+// Somewhat modified for John Papa style guide compliance 2017-01-16
 'use strict';
 
 // # Globbing
@@ -343,7 +343,7 @@ module.exports = function (grunt) {
           usemin: 'scripts/scripts.js'
         },
         cwd: '<%= yeoman.app %>',
-        src: 'scripts/{,*/}*.html',
+        src: '/scripts/{,**/}*.html',
         dest: '.tmp/templateCache.js'
       }
     },
@@ -379,6 +379,7 @@ module.exports = function (grunt) {
           src: [
             '*.{png,txt}',
             '*.html',
+            'scripts/{,**/}*.html',
             'images/{,*/}*.{webp}',
             'styles/fonts/{,*/}*.*'
           ]
