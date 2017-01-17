@@ -1,7 +1,13 @@
-'use strict';
+(function() {
+  'use strict';
 
-angular.module('patientDemographicsExampleApp')
-  .factory('PatientService', ['$log', '$q', function ($log, $q) {
+  angular
+    .module('patientDemographicsExampleApp.patient')
+    .factory('PatientService', PatientService);
+
+  PatientService.$inject = ['$log', '$q'];
+
+  function PatientService($log, $q) {
     var logger = $log.getInstance('PatientService');
 
     // The reason this service is only concerned with 1 patient context
@@ -21,10 +27,10 @@ angular.module('patientDemographicsExampleApp')
     // patient is in "context". As you can imagine, It is important to know that
     // the data being entered/edited/review from these various modules is tied to
     // a particular patient.
-    var _patientIdInContext = null;
+    var patientIdInContext = null;
 
     // Dummy data for patient because we don't have a server.
-    var _testData = {
+    var testData = {
       1337: {
         basic: {
           name: 'John Doe',
@@ -67,48 +73,48 @@ angular.module('patientDemographicsExampleApp')
     };
 
     // This needs to be called prior to any other call in this service.
-    function _setPatientInContext(patientId) {
+    function setPatientInContext(patientId) {
       var deferred = $q.defer();
 
       logger.info('attempting to set patient context to patient ' + patientId);
 
-      var res = _testData[patientId];
+      var res = testData[patientId];
       if (!res) {
         logger.warn('patient ' + patientId + ' doesn\'t exist');
         deferred.reject('patient doesn\'t exist');
       } else {
-        _patientIdInContext = patientId;
+        patientIdInContext = patientId;
         deferred.resolve();
       }
 
       return deferred.promise;
     }
 
-    function _getPatientInContext() {
-      return _patientIdInContext;
+    function getPatientInContext() {
+      return patientIdInContext;
     }
 
     // Basic data.
-    function _getPatientData() {
+    function getPatientData() {
       logger.debug('retrieving patient basic data');
 
       return $q(function(resolve) {
-        return resolve(_testData[_patientIdInContext].basic);
+        return resolve(testData[patientIdInContext].basic);
       });
     }
 
     // Contacts data.
-    function _getPatientContacts() {
+    function getPatientContacts() {
       logger.debug('retrieving patient contacts data');
       return $q(function(resolve) {
-        return resolve(_testData[_patientIdInContext].contacts);
+        return resolve(testData[patientIdInContext].contacts);
       });
     }
 
-    function _deleteContact(contact) {
+    function deleteContact(contact) {
       logger.info('deleting contact "' + contact.relation + '"');
       return $q(function(resolve) {
-        var contacts = _testData[_patientIdInContext].contacts;
+        var contacts = testData[patientIdInContext].contacts;
         var matchIndex;
         contacts.some(function(element, index) {
           if (element.name === contact.name) {
@@ -126,21 +132,22 @@ angular.module('patientDemographicsExampleApp')
     }
 
     // Adds a fresh object for a contact to be filled in.
-    function _startAddingNewContact() {
+    function startAddingNewContact() {
       logger.debug('Adding a fresh contact entry to be filled in');
       return $q(function(resolve) {
-        _testData[_patientIdInContext].contacts.push({isBeingAdded: true});
+        testData[patientIdInContext].contacts.push({isBeingAdded: true});
         return resolve();
       });
     }
 
     return {
-      setPatientInContext: _setPatientInContext,
-      getPatientInContext: _getPatientInContext,
-      getPatientData: _getPatientData,
-      getPatientContacts: _getPatientContacts,
-      deleteContact: _deleteContact,
-      startAddingNewContact: _startAddingNewContact,
+      setPatientInContext: setPatientInContext,
+      getPatientInContext: getPatientInContext,
+      getPatientData: getPatientData,
+      getPatientContacts: getPatientContacts,
+      deleteContact: deleteContact,
+      startAddingNewContact: startAddingNewContact,
       clear: function() { /* mocked out as an example :) */ }
     };
-  }]);
+  }
+})();

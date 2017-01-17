@@ -1,0 +1,70 @@
+<div>
+
+  <table class="table" ng-show="vm.inReadMode() && !vm.inCreateMode()">
+    <tr>
+      <td><strong>Name:</strong> {{vm.contact.name}}</td>
+      <td><strong>Relation:</strong> {{vm.contact.relation}}</td>
+    </tr>
+    <tr>
+      <td><strong>Address:</strong> {{vm.contact.address}}</td>
+      <td><strong>Phone:</strong> {{vm.contact.phone | telFilter}}</td>
+    </tr>
+    <tr>
+      <td><strong>City:</strong> {{vm.contact.city}}</td>
+      <td><strong>Postal:</strong> {{vm.contact.postal}}</td>
+    </tr>
+    <tr>
+      <td><strong>State:</strong> {{vm.contact.state}}</td>
+      <td><strong>Country:</strong> {{vm.contact.country}}</td>
+    </tr>
+    <tr>
+      <td><strong>Email:</strong> {{vm.contact.email}}</td>
+      <td></td>
+    </tr>
+  </table>
+
+  <form name="contactInfoForm" class="contact-info-form" ng-show="vm.inEditMode() || vm.inCreateMode()" ng-submit="vm.changeMode(vm.MODES.SAVE)">
+    <table class="table">
+      <tr>
+        <td><strong>Name:</strong> <input type="text" name="fullname" ng-model="vm.contact.name" required/>
+         <div><p ng-show="contactInfoForm.fullname.$invalid && !contactInfoForm.fullname.$pristine" class="help-block">A name is required</p></div></td>
+        <td><strong>Relation:</strong> <input type="text" ng-model="vm.contact.relation" required/></td>
+      </tr>
+      <tr>
+        <td><strong>Address:</strong> <input type="text" ng-model="vm.contact.address" required/></td>
+        <td><strong>Phone:</strong> <input type="text" name="phone" ng-model="vm.contact.phone" ui-mask="999-999-9999" required/>
+         <div><p ng-show="contactInfoForm.phone.$invalid && !contactInfoForm.phone.$pristine" class="help-block">A valid phone number is required</p></div></td>
+      </tr>
+       <tr>
+        <td><strong>City:</strong> <input type="text" ng-model="vm.contact.city" required/></td>
+        <td><strong>Postal:</strong> <input type="text" ng-model="vm.contact.postal" required/></td>
+      </tr>
+      <tr>
+        <td><strong>State:</strong> <input type="text" ng-model="vm.contact.state" ng-minlength="2" required/></td>
+        <td><strong>Country:</strong> <input type="text" ng-model="vm.contact.country"/></td>
+      </tr>
+      <tr>
+        <td><strong>Email:</strong> <input type="email" ng-model="vm.contact.email" ng-pattern="vm.emailPattern" required/></td>
+        <td></td>
+      </tr>
+    </table>
+
+    <button class="btn btn-default btn-sm"
+            type="submit"'
+            ng-click="vm.changeMode(vm.MODES.SAVE)"
+            ng-disabled="contactInfoForm.$invalid" '>SAVE</button>
+    <button type="button"
+            class="btn btn-default btn-sm"
+            ng-show="vm.inEditMode()"
+            ng-click="vm.changeMode(vm.MODES.CANCEL)">CANCEL</button>
+  </form>
+
+  <button type="button"
+          class="btn btn-default btn-sm"
+          ng-show="vm.inReadMode() && !vm.inCreateMode()"
+          ng-click="vm.changeMode(vm.MODES.DELETE)">DELETE</button>
+  <button type="button"
+          class="btn btn-default btn-sm"
+          ng-show="vm.inReadMode() && !vm.inCreateMode()"
+          ng-click="vm.changeMode(vm.MODES.EDIT)">EDIT</button>
+</div>
