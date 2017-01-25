@@ -30,7 +30,7 @@
         PatientService: PatientService
       });
 
-      controller.basic = testData;
+      controller.contact = testData;
       scope.$digest();
     }));
 
