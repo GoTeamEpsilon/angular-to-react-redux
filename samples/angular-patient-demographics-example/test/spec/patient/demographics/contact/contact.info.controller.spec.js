@@ -18,9 +18,7 @@
     };
 
     beforeEach(module('patientDemographicsExampleApp'));
-
-    // what are you injecting this into? into the module? you're manually
-    // loading the dependencies into the module?
+    
     beforeEach(inject(function($controller, $rootScope, $log, PatientService) {
       scope = $rootScope.$new();
 
@@ -43,7 +41,7 @@
     describe('changeMode', function() {
       describe('edit mode', function() {
         beforeEach(function() {
-          // what does callThrough do? - Personal Research Q
+          // what does callThrough really do? - Personal Research Q
           spyOn(angular, 'copy').and.callThrough();
           controller.changeMode(controller.MODES.EDIT);
         });
@@ -65,7 +63,7 @@
           controller.changeMode(controller.MODES.CANCEL);
         });
       
-        // What does jasmine.any() do? - - Personal Research Q
+        // What does jasmine.any() really do? - Personal Research Q
         it('reverts current data to the cache (original data, in this case)', function() {
           expect(angular.copy).toHaveBeenCalledWith(testData, jasmine.any(Object));
         });
@@ -82,7 +80,7 @@
     
       describe('save mode', function() {
         beforeEach(function() {
-          // why do you even need a spy here?
+          // why do you even need a spy here? - DE
           spyOn(angular, 'copy').and.callThrough();
           controller.changeMode('edit');
           controller.contact.name = 'CopyMode Sam Doe';
@@ -100,7 +98,68 @@
       });
     });
   
-   
-
+    describe('inEditMode', function() {
+      describe('positive case', function() {
+        beforeEach(function() {
+          controller.changeMode(controller.MODES.EDIT);
+        });
+      
+        it('evaluates to true', function() {
+          expect(controller.inEditMode()).toBe(true);
+        });
+      });
+    
+      describe('negative case', function() {
+        beforeEach(function() {
+          controller.changeMode(controller.MODES.READ);
+        });
+      
+        it('evaluates to false', function() {
+          expect(controller.inEditMode()).toBe(false);
+        });
+      });
+    });
+  
+    describe('inReadMode', function() {
+      describe('positive case - save', function() {
+        beforeEach(function() {
+          controller.changeMode(controller.MODES.SAVE);
+        });
+      
+        it('evaluates to true', function() {
+          expect(controller.inReadMode()).toBe(true);
+        });
+      });
+    
+      describe('positive case - cancel', function() {
+        beforeEach(function() {
+          controller.changeMode(controller.MODES.CANCEL);
+        });
+      
+        it('evaluates to true', function() {
+          expect(controller.inReadMode()).toBe(true);
+        });
+      });
+    
+      describe('positive case - read', function() {
+        beforeEach(function() {
+          controller.changeMode(controller.MODES.READ);
+        });
+      
+        it('evaluates to true', function() {
+          expect(controller.inReadMode()).toBe(true);
+        });
+      });
+    
+      describe('negative case', function() {
+        beforeEach(function() {
+          controller.changeMode(controller.MODES.EDIT);
+        });
+      
+        it('evaluates to false', function() {
+          expect(controller.inReadMode()).toBe(false);
+        });
+      });
+    });
   });
 })();
