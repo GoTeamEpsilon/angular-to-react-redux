@@ -95,6 +95,7 @@
     }
 
     // vm.contact is not immediately available. Wait for it to be passed.
+    // why is this variable called unregister????? - DE
     var unregister = $scope.$watch(angular.bind(vm, function() {
       return this.contact;
     }), function (newVal) {
