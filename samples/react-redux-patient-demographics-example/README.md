@@ -10,3 +10,6 @@ TODO
 
 TODO
 
+## Note
+
+To see the starter kit's README for further instruction, visit https://github.com/davezuko/react-redux-starter-kit
