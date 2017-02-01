@@ -14,11 +14,17 @@ import javax.ws.rs.core.MediaType;
 
 import com.github.goteamepsilon.patientserv.model.Patient;
 import com.github.goteamepsilon.patientserv.model.PatientEgg;
+import com.google.inject.Inject;
 
 @Path("/patients")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class PatientResource {
+
+  @Inject
+  public PatientResource() {
+
+  }
 
   @GET
   @Path("{pid}")
