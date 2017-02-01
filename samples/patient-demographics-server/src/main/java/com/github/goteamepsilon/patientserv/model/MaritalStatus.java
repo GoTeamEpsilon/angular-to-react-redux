@@ -1,4 +1,4 @@
-package com.github.goteamepsilon.patientserv;
+package com.github.goteamepsilon.patientserv.model;
 
 public enum MaritalStatus {
   SINGLE,

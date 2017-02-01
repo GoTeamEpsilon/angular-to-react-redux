@@ -2,7 +2,7 @@
  * Name, DOB, SSN, MaritalStat, Gender, Address, City, Post, State, Country, Phone, Email, Billing Notes, Other NOtes
  */
 
-package com.github.goteamepsilon.patientserv;
+package com.github.goteamepsilon.patientserv.model;
 
 import com.hubspot.rosetta.jdbi.BindWithRosetta;
 import com.hubspot.rosetta.jdbi.RosettaMapperFactory;

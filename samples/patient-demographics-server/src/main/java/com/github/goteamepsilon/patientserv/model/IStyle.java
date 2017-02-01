@@ -1,4 +1,4 @@
-package com.github.goteamepsilon.patientserv;
+package com.github.goteamepsilon.patientserv.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.immutables.value.Value;
