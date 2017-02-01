@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.github.goteamepsilon.patientserv.model.Patient;
+import com.github.goteamepsilon.patientserv.model.PatientDao;
 import com.github.goteamepsilon.patientserv.model.PatientEgg;
 import com.google.inject.Inject;
 
@@ -21,20 +22,23 @@ import com.google.inject.Inject;
 @Consumes(MediaType.APPLICATION_JSON)
 public class PatientResource {
 
-  @Inject
-  public PatientResource() {
+  private final PatientDao patientDao;
 
+  @Inject
+  public PatientResource(PatientDao patientDao) {
+    this.patientDao = patientDao;
   }
 
   @GET
   @Path("{pid}")
   public Optional<Patient> readPatientById(@PathParam("pid") int pid) {
-    return Optional.empty();
+    return patientDao.getPatientById(pid);
   }
 
   @POST
   public Patient createPatient(PatientEgg patientEgg) {
-    return Patient.builder().from(patientEgg).setId(1).build();
+    int patientId = patientDao.insertPatient(patientEgg);
+    return patientDao.getPatientById(patientId).get();
   }
 
   @PUT
@@ -45,6 +49,6 @@ public class PatientResource {
   @DELETE
   @Path("{pid}")
   public void deletePatient(@PathParam("pid") int pid) {
-
+    patientDao.deletePatientById(pid);
   }
 }
