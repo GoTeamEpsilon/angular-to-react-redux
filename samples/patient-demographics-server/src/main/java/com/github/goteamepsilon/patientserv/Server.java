@@ -3,6 +3,7 @@ package com.github.goteamepsilon.patientserv;
 import com.github.goteamepsilon.patientserv.config.ServerConfiguration;
 import com.github.goteamepsilon.patientserv.config.ServerModule;
 import com.hubspot.dropwizard.guicier.GuiceBundle;
+
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
