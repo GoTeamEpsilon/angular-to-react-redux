@@ -30,9 +30,9 @@ public interface PatientDao {
 
    @GetGeneratedKeys
    @SqlUpdate("INSERT INTO patients (name, dob, ssn, maritalstatus, gender, address, city, postcode, " +
-       "counmvntry, phone, email, billingnotes, patientnotes) " +
-       "VALUES (:name, :dob, :ssn, :maritalstatus, :gender, :address, :city, :postcode, " +
-       ":country, :phone, :email, :billingnotes, :patientnotes)")
+       "country, phone, email, billingnotes, patientnotes) " +
+       "VALUES (:name, :dob, :ssn, :maritalStatus, :gender, :streetAddress, :city, :postCode, " +
+       ":country, :phoneNumber, :email, :billingNotes, :patientNotes)")
    int insertPatient(@BindWithRosetta PatientEgg patientEgg);
 
   @SqlUpdate("DELETE FROM expenses WHERE id = :id")
