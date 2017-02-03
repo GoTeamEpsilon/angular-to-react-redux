@@ -17,14 +17,14 @@ import com.google.inject.name.Named;
 import com.hubspot.dropwizard.guicier.DropwizardAwareModule;
 
 public class ServerModule extends DropwizardAwareModule<ServerConfiguration> {
-	@Override
-	public void configure(Binder binder) {
+  @Override
+  public void configure(Binder binder) {
     // Resources
-		binder.bind(PatientResource.class);
+    binder.bind(PatientResource.class);
 
     // Lifecycle
     binder.bind(ManagedMigrations.class);
-	}
+  }
 
   @Provides
   @Singleton

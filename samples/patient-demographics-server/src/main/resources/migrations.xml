@@ -4,11 +4,49 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
-  <changeSet id="I am an example changeset. Please dont run me" author="kmclarnon">
-    <createTable tableName="table_do_not_want">
-      <column name="do_not_want_primary_key" type="int">
+  <changeSet id="patient" author="ericarao">
+    <createTable tableName="patients">
+      <column name="id" type="int">
         <constraints nullable="false" primaryKey="true"/>
       </column>
+      <column name="name" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="dob" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="ssn" type="int">
+        <constraints nullable="false"/>
+      </column>
+      <column name="maritalStatus" type="tinyint">
+        <constraints nullable="false"/>
+      </column>
+      <column name="gender" type="tinyint">
+        <constraints nullable="false"/>
+      </column>
+      <column name="streetAddress" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="city" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="postCode" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="state" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="country" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="phoneNumber" type="int">
+        <constraints nullable="false"/>
+      </column>
+      <column name="email" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="billingNotes" type="text"/>
+      <column name="patientNotes" type="text"/>
     </createTable>
   </changeSet>
 </databaseChangeLog>

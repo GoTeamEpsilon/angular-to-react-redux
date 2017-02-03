@@ -25,7 +25,7 @@ public interface PatientDao {
   List<Patient> getAllPatients();
 
   @SingleValueResult
-  @SqlQuery("SELECT * FROM expenses WHERE id = :id")
+  @SqlQuery("SELECT * FROM patients WHERE id = :id")
   Optional<Patient> getPatientById(@Bind("id") int id);
 
    @GetGeneratedKeys
