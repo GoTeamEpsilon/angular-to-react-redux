@@ -6,7 +6,7 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
   <changeSet id="patient" author="ericarao">
     <createTable tableName="patients">
-      <column name="id" type="int">
+      <column name="id" type="int" autoIncrement="true">
         <constraints nullable="false" primaryKey="true"/>
       </column>
       <column name="name" type="varchar(255)">
@@ -18,19 +18,19 @@
       <column name="ssn" type="int">
         <constraints nullable="false"/>
       </column>
-      <column name="maritalStatus" type="tinyint">
+      <column name="marital_status" type="tinyint">
         <constraints nullable="false"/>
       </column>
       <column name="gender" type="tinyint">
         <constraints nullable="false"/>
       </column>
-      <column name="streetAddress" type="varchar(255)">
+      <column name="street_address" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
       <column name="city" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
-      <column name="postCode" type="varchar(255)">
+      <column name="post_code" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
       <column name="state" type="varchar(255)">
@@ -39,14 +39,14 @@
       <column name="country" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
-      <column name="phoneNumber" type="int">
+      <column name="phone_number" type="int">
         <constraints nullable="false"/>
       </column>
       <column name="email" type="varchar(255)">
         <constraints nullable="false"/>
       </column>
-      <column name="billingNotes" type="text"/>
-      <column name="patientNotes" type="text"/>
+      <column name="billing_notes" type="text"/>
+      <column name="patient_notes" type="text"/>
     </createTable>
   </changeSet>
 </databaseChangeLog>

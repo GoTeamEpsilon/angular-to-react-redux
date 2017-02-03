@@ -1,5 +1,6 @@
 package com.github.goteamepsilon.patientserv.resources;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.ws.rs.Consumes;
@@ -27,6 +28,11 @@ public class PatientResource {
   @Inject
   public PatientResource(PatientDao patientDao) {
     this.patientDao = patientDao;
+  }
+
+  @GET
+  public List<Patient> readAllPatients() {
+    return patientDao.getAllPatients();
   }
 
   @GET
