@@ -29,8 +29,8 @@ public interface PatientDao {
   Optional<Patient> getPatientById(@Bind("id") int id);
 
    @GetGeneratedKeys
-   @SqlUpdate("INSERT INTO patients (name, dob, ssn, maritalstatus, gender, address, city, postcode, " +
-       "country, phone, email, billingnotes, patientnotes) " +
+   @SqlUpdate("INSERT INTO patients (name, dob, ssn, maritalStatus, gender, streetAddress, city, postCode, " +
+       "country, phoneNumber, email, billingNotes, patientNotes) " +
        "VALUES (:name, :dob, :ssn, :maritalStatus, :gender, :streetAddress, :city, :postCode, " +
        ":country, :phoneNumber, :email, :billingNotes, :patientNotes)")
    int insertPatient(@BindWithRosetta PatientEgg patientEgg);
