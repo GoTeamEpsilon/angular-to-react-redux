@@ -19,6 +19,7 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
     typeImmutable = "*", // No prefix or suffix for generated immutable type
     buildOrThrow = "buildOrThrow", // ability to throw a specific exception on failure to build
     optionalAcceptNullable = true, // allow for an Optional<T> to have a setter that takes a null value of T
+    forceJacksonPropertyNames = false, //To allow for naming strategies
     visibility = Value.Style.ImplementationVisibility.SAME) // Generated class will have the same visibility as the abstract class/interface)
 public @interface IStyle {
 }
