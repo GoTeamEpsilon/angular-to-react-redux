@@ -1,5 +1,5 @@
-import CoreLayout from '../layouts/CoreLayout'
-import PatientRoute from './Patient'
+import CoreLayout from '../layouts/CoreLayout';
+import PatientRoute from './Patient';
 
 export const createRoutes = (store) => ({
   path        : '/',
@@ -13,6 +13,6 @@ export const createRoutes = (store) => ({
   childRoutes : [
     PatientRoute(store)
   ]
-})
+});
 
-export default createRoutes
+export default createRoutes;

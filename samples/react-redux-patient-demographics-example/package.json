@@ -11,7 +11,7 @@
     "clean": "rimraf dist",
     "compile": "better-npm-run compile",
     "lint": "eslint bin build config server src tests",
-    "lint:fix": "npm run lint -- --fix",
+    "lint:fix": "npm run lint -- --fix; exit 0",
     "start": "better-npm-run start",
     "dev": "better-npm-run dev",
     "test": "better-npm-run test",

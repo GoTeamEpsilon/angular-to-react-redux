@@ -41,67 +41,65 @@ const testData = {
       email: 'baz@bop.com'
     }]
   }
-}
+};
 
 /**
  * Constants
  */
-export const SET_PATIENT_IN_CONTEXT = 'SET_PATIENT_IN_CONTEXT'
+export const SET_PATIENT_IN_CONTEXT = 'SET_PATIENT_IN_CONTEXT';
 
 /**
  * Actions
  */
 export const setPatientInContext = (patientId) => {
-  console.info(`attempting to set patient context to patient ${patientId}`)
+  console.info(`attempting to set patient context to patient ${patientId}`);
 
   return (dispatch, getState) => {
     return new Promise((resolve, reject) => {
-      const res = testData[patientId]
+      const res = testData[patientId];
       if (!res) {
-        console.warn(`patient ${patientId} doesn't exist`)
-        reject('patient doesn\'t exist')
+        console.warn(`patient ${patientId} doesn't exist`);
+        reject('patient doesn\'t exist');
       } else {
         dispatch({
           type    : SET_PATIENT_IN_CONTEXT,
           payload : patientId
-        })
+        });
 
-        console.log('NEED TO SET TESTDATA IN THE STORE')
-        resolve()
+        console.log('NEED TO SET TESTDATA IN THE STORE');
+        resolve();
       }
-    })
-  }
-}
+    });
+  };
+};
 
 export const fetchPatientInformation = (patientId) => {
   console.debug('retrieving patient basic data');
 
   return (dispatch, getState) => {
-
     console.log(getState());
     return resolve(testData[patientIdInContext].basic);
-
-  }
-}
+  };
+};
 
 export const actions = {
   setPatientInContext,
   fetchPatientInformation
-}
+};
 
 /**
  * Action handlers
  */
 const ACTION_HANDLERS = {
   [SET_PATIENT_IN_CONTEXT] : (state, action) => state + action.payload
-}
+};
 
 /**
  * Reducer
  */
-const initialState = {}
+const initialState = {};
 export default function patientReducer (state = initialState, action) {
-  const handler = ACTION_HANDLERS[action.type]
+  const handler = ACTION_HANDLERS[action.type];
 
-  return handler ? handler(state, action) : state
+  return handler ? handler(state, action) : state;
 }

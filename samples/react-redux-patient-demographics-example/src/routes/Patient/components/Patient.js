@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 
 class Patient extends React.Component {
-  componentDidMount() {
+  componentDidMount () {
     const isValid = this.props.determineIfRouteIsValid(
       this.props.pid
-    )
+    );
 
     if (isValid) {
       this.props.setPatientInContext(this.props.pid);
@@ -13,13 +13,13 @@ class Patient extends React.Component {
     }
   }
 
-  render() {
+  render () {
     return (
       <div>
         <h4>Patient</h4>
       </div>
-    )
+    );
   }
 }
 
-export default Patient
+export default Patient;
