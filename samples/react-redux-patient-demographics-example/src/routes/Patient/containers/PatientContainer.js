@@ -3,28 +3,13 @@ import { setPatientInContext } from '../modules/patient'
 import { browserHistory } from 'react-router'
 import Patient from '../components/Patient'
 
-const _setPatientInContext = (pid) => {
-  setPatientInContext(pid)
+const mapDispatchToProps = {
+  setPatientInContext
 }
 
-const _determineIfRouteIsValid = (pid) => {
-  return (pid) ? true : false
-}
-
-const _redirectToSamplePatient = () => {
-  browserHistory.push('/patient/1337')
-}
-
-const mapDispatchToProps = (dispatch, props) => {
-  return {
-    setPatientInContext: _setPatientInContext,
-    determineIfRouteIsValid: _determineIfRouteIsValid,
-    redirectToSamplePatient: _redirectToSamplePatient
-  }
-}
-
-const mapStateToProps = (state, props) => ({
-  pid: props.routeParams.pid
+const mapStateToProps = (state) => ({
+  patientInContext: state.patient.patientInContext,
+  isLoading: state.patient.isFetching
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Patient)
