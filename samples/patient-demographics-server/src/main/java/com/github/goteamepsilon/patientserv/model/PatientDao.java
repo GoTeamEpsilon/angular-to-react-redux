@@ -35,6 +35,6 @@ public interface PatientDao {
        ":state, :country, :phone_number, :email, :billing_notes, :patient_notes)")
    int insertPatient(@BindWithRosetta PatientEgg patientEgg);
 
-  @SqlUpdate("DELETE FROM expenses WHERE id = :id")
+  @SqlUpdate("DELETE FROM patients WHERE id = :id")
   void deletePatientById(@Bind("id") int id);
 }
