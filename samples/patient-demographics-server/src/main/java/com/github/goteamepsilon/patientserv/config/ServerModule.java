@@ -38,7 +38,9 @@ public class ServerModule extends DropwizardAwareModule<ServerConfiguration> {
   @Provides
   @Singleton
   public DBI providesDbi(@Named("server.jdbc.url") String jdbcUrl) {
-    return new DBI(jdbcUrl);
+    DBI dbi = new DBI(jdbcUrl);
+    dbi.registerContainerFactory(new OptionalContainerFactory());
+    return dbi;
   }
 
   @Provides
