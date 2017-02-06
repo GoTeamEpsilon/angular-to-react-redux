@@ -30,17 +30,23 @@ Please do not use, still using dummy data.
 * What is adequate amounts of commenting and documentation?
 * Something something security, definitely don't forget about that
 
-###Contact Endpoints
+###Endpoints
+
+ContactResource
 ```
-    GET     /contacts (com.github.goteamepsilon.patientserv.resources.ContactResource)
-    POST    /contacts (com.github.goteamepsilon.patientserv.resources.ContactResource)
-    PUT     /contacts (com.github.goteamepsilon.patientserv.resources.ContactResource)
-    GET     /contacts/for-patient/{pid} (com.github.goteamepsilon.patientserv.resources.ContactResource)
-    DELETE  /contacts/{id} (com.github.goteamepsilon.patientserv.resources.ContactResource)
-    GET     /contacts/{id} (com.github.goteamepsilon.patientserv.resources.ContactResource)
-    GET     /patients (com.github.goteamepsilon.patientserv.resources.PatientResource)
-    POST    /patients (com.github.goteamepsilon.patientserv.resources.PatientResource)
-    PUT     /patients (com.github.goteamepsilon.patientserv.resources.PatientResource)
-    DELETE  /patients/{pid} (com.github.goteamepsilon.patientserv.resources.PatientResource)
-    GET     /patients/{pid} (com.github.goteamepsilon.patientserv.resources.PatientResource)
+    GET     /contacts 
+    POST    /contacts 
+    PUT     /contacts 
+    GET     /contacts/for-patient/{pid}
+    DELETE  /contacts/{id} 
+    GET     /contacts/{id}
+ ```
+ 
+ PatientResource
+ ```
+    GET     /patients
+    POST    /patients 
+    PUT     /patients 
+    DELETE  /patients/{pid} 
+    GET     /patients/{pid} 
  ```
