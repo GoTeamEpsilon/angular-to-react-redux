@@ -21,6 +21,7 @@ Please do not use, still using dummy data.
   * Don't forget to document endpoints and operations (check checklist [here](https://github.com/GoTeamEpsilon/angular-to-react/issues/59) )
 * Document tests and setup, eg. when using Postman, etc.
   * Don't forget about the build setup too, make sure to document what environment variables you are using.
+  * Include Sample JSON
 * Sleep normal hours
   * Maybe consider adjusting 1 hour per day, backwards, not forward like usual. jokeslol
 
