@@ -32,19 +32,19 @@ public class ContactResource {
   }
 
   @GET
-  public List<Contact> readAllPatients() {
+  public List<Contact> readAllContacts() {
     return contactDao.getAllContacts();
   }
 
   @GET
-  @Path("{pid}")
-  public List<Contact> readPatientByPid(@PathParam("pid") int pid) {
+  @Path("for-patient/{pid}")
+  public List<Contact> readContactByPid(@PathParam("pid") int pid) {
     return contactDao.getContactByPid(pid);
   }
 
   @GET
   @Path("{id}")
-  public Optional<Contact> readPatientById(@PathParam("id") int id) {
+  public Optional<Contact> readContactById(@PathParam("id") int id) {
     return contactDao.getContactById(id);
   }
 
