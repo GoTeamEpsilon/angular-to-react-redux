@@ -31,7 +31,8 @@ Please do not use, still using dummy data.
 * Something something security, definitely don't forget about that
 
 ###Contact Endpoints
-````GET     /contacts (com.github.goteamepsilon.patientserv.resources.ContactResource)
+```
+    GET     /contacts (com.github.goteamepsilon.patientserv.resources.ContactResource)
     POST    /contacts (com.github.goteamepsilon.patientserv.resources.ContactResource)
     PUT     /contacts (com.github.goteamepsilon.patientserv.resources.ContactResource)
     GET     /contacts/for-patient/{pid} (com.github.goteamepsilon.patientserv.resources.ContactResource)
@@ -41,4 +42,5 @@ Please do not use, still using dummy data.
     POST    /patients (com.github.goteamepsilon.patientserv.resources.PatientResource)
     PUT     /patients (com.github.goteamepsilon.patientserv.resources.PatientResource)
     DELETE  /patients/{pid} (com.github.goteamepsilon.patientserv.resources.PatientResource)
-    GET     /patients/{pid} (com.github.goteamepsilon.patientserv.resources.PatientResource)```
+    GET     /patients/{pid} (com.github.goteamepsilon.patientserv.resources.PatientResource)
+ ```
