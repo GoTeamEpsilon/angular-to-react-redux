@@ -35,6 +35,12 @@ public interface PatientDao {
        ":state, :country, :phone_number, :email, :billing_notes, :patient_notes)")
    int insertPatient(@BindWithRosetta PatientEgg patientEgg);
 
+  @SqlUpdate("UPDATE patients SET name = :name, dob = :dob, ssn = :ssn, marital_status = :marital_status, " +
+      "gender = :gender, street_address = :street_address, city = :city, post_code = :post_code, state = :state, " +
+      "country = :country, phone_number = :phone_number, email = :email, billing_notes = :billing_notes, " +
+      "patient_notes = :patient_notes WHERE id = :id")
+  void updatePatient(@BindWithRosetta Patient patient);
+
   @SqlUpdate("DELETE FROM patients WHERE id = :id")
   void deletePatientById(@Bind("id") int id);
 }

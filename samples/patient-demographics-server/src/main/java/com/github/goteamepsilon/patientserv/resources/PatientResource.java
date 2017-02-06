@@ -48,13 +48,13 @@ public class PatientResource {
   }
 
   @PUT
-  public Patient updateExistingPatient(Patient patient) {
-    return patient;
+  public void updateExistingPatient(Patient patient) {
+    patientDao.updatePatient(patient);
   }
 
   @DELETE
   @Path("{pid}")
-  public void deletePatient(@PathParam("pid") int pid) {
-    patientDao.deletePatientById(pid);
+  public void deletePatient(@PathParam("pid") int id) {
+    patientDao.deletePatientById(id);
   }
 }
