@@ -49,4 +49,41 @@
       <column name="patient_notes" type="text"/>
     </createTable>
   </changeSet>
+  <changeSet id="contacts" author="ericarao">
+    <createTable tableName="contacts">
+      <column name="id" type="int" autoIncrement="true">
+        <constraints nullable="false" primaryKey="true"/>
+      </column>
+      <column name="pid" type="int" autoIncrement="false">
+        <constraints nullable="false" foreignKeyName="fk_patients_id" references="patients(id)"/>
+      </column>
+      <column name="name" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="relation" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="street_address" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="city" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="post_code" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="state" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="country" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="phone_number" type="int">
+        <constraints nullable="false"/>
+      </column>
+      <column name="email" type="varchar(255)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
 </databaseChangeLog>

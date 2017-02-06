@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 
 import org.skife.jdbi.v2.DBI;
 
+import com.github.goteamepsilon.patientserv.model.ContactDao;
 import com.github.goteamepsilon.patientserv.model.PatientDao;
+import com.github.goteamepsilon.patientserv.resources.ContactResource;
 import com.github.goteamepsilon.patientserv.resources.PatientResource;
 import com.google.inject.Binder;
 import com.google.inject.Provides;
@@ -20,6 +22,7 @@ public class ServerModule extends DropwizardAwareModule<ServerConfiguration> {
   public void configure(Binder binder) {
     // Resources
     binder.bind(PatientResource.class);
+    binder.bind(ContactResource.class);
 
     // Lifecycle
     binder.bind(ManagedMigrations.class);
@@ -57,5 +60,10 @@ public class ServerModule extends DropwizardAwareModule<ServerConfiguration> {
   @Provides
   public PatientDao providePatientDao(DBI dbi) {
     return dbi.onDemand(PatientDao.class);
+  }
+
+  @Provides
+  public ContactDao provideContactDao(DBI dbi) {
+    return dbi.onDemand(ContactDao.class);
   }
 }
