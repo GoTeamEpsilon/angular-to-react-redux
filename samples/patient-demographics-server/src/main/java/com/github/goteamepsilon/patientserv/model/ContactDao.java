@@ -32,8 +32,8 @@ public interface ContactDao {
       "VALUES (:pid, :name, :relation, :street_address, :city, :post_code, :state, :country, :phone_number, :email)")
   int insertContact(@BindWithRosetta ContactEgg contactEgg);
 
-  @SqlUpdate("UPDATE contacts SET name = pid = :pid, name = :name, relation = :relation, street_address = :street_address, " +
-      "city = :city, post_code = :post_code, state = :state, country = :country, phone_number = :phone_number, email = :email" +
+  @SqlUpdate("UPDATE contacts SET pid = :pid, name = :name, relation = :relation, street_address = :street_address, " +
+      "city = :city, post_code = :post_code, state = :state, country = :country, phone_number = :phone_number, email = :email " +
       "WHERE id = :id")
   void updateContact(@BindWithRosetta Contact contact);
 
