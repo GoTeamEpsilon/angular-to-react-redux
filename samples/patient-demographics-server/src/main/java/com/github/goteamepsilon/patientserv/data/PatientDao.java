@@ -2,7 +2,7 @@
  * Name, DOB, SSN, MaritalStat, Gender, Address, City, Post, State, Country, Phone, Email, Billing Notes, Other NOtes
  */
 
-package com.github.goteamepsilon.patientserv.model;
+package com.github.goteamepsilon.patientserv.data;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,6 +14,8 @@ import org.skife.jdbi.v2.sqlobject.SqlUpdate;
 import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapperFactory;
 import org.skife.jdbi.v2.sqlobject.customizers.SingleValueResult;
 
+import com.github.goteamepsilon.patientserv.model.Patient;
+import com.github.goteamepsilon.patientserv.model.PatientEgg;
 import com.hubspot.rosetta.jdbi.BindWithRosetta;
 import com.hubspot.rosetta.jdbi.RosettaMapperFactory;
 

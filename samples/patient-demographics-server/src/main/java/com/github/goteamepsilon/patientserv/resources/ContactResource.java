@@ -15,7 +15,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.github.goteamepsilon.patientserv.model.Contact;
-import com.github.goteamepsilon.patientserv.model.ContactDao;
+import com.github.goteamepsilon.patientserv.data.ContactDao;
 import com.github.goteamepsilon.patientserv.model.ContactEgg;
 import com.google.inject.Inject;
 

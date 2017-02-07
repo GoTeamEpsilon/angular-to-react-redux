@@ -5,8 +5,8 @@ import java.sql.DriverManager;
 
 import org.skife.jdbi.v2.DBI;
 
-import com.github.goteamepsilon.patientserv.model.ContactDao;
-import com.github.goteamepsilon.patientserv.model.PatientDao;
+import com.github.goteamepsilon.patientserv.data.ContactDao;
+import com.github.goteamepsilon.patientserv.data.PatientDao;
 import com.github.goteamepsilon.patientserv.resources.ContactResource;
 import com.github.goteamepsilon.patientserv.resources.PatientResource;
 import com.google.inject.Binder;
