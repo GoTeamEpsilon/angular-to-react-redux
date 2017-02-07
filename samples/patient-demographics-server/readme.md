@@ -21,6 +21,7 @@ Please do not use, still using dummy data.
   * Don't forget to document endpoints and operations (check checklist [here](https://github.com/GoTeamEpsilon/angular-to-react/issues/59) )
 * Document tests and setup, eg. when using Postman, etc.
   * Don't forget about the build setup too, make sure to document what environment variables you are using.
+  * Include Sample JSON
 * Sleep normal hours
   * Maybe consider adjusting 1 hour per day, backwards, not forward like usual. jokeslol
 
@@ -30,3 +31,23 @@ Please do not use, still using dummy data.
 * What is adequate amounts of commenting and documentation?
 * Something something security, definitely don't forget about that
 
+###Endpoints
+
+ContactResource
+```
+    GET     /contacts 
+    POST    /contacts 
+    PUT     /contacts 
+    GET     /contacts/for-patient/{pid}
+    DELETE  /contacts/{id} 
+    GET     /contacts/{id}
+ ```
+ 
+ PatientResource
+ ```
+    GET     /patients
+    POST    /patients 
+    PUT     /patients 
+    DELETE  /patients/{pid} 
+    GET     /patients/{pid} 
+ ```
