@@ -3,6 +3,7 @@ import { setPatientInContext } from '../modules/patient';
 import { browserHistory } from 'react-router';
 import Patient from '../components/Patient';
 
+
 const _setPatientInContext = (pid) => {
   setPatientInContext(pid);
 };

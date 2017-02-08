@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 class Patient extends React.Component {
   componentDidMount () {
     const isValid = this.props.determineIfRouteIsValid(
@@ -17,6 +18,10 @@ class Patient extends React.Component {
     return (
       <div>
         <h4>Patient</h4>
+        <hr/>
+        
+
+          
       </div>
     );
   }
