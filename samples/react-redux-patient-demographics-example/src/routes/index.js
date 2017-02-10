@@ -1,5 +1,9 @@
 import CoreLayout from '../layouts/CoreLayout';
+// Is this file even used???
 import PatientRoute from './Patient';
+import ContactRoute from './Contact';
+import Contact from './Contact/components/Contact';
+
 
 export const createRoutes = (store) => ({
   path        : '/',
@@ -11,7 +15,8 @@ export const createRoutes = (store) => ({
   indexRoute  : PatientRoute(store),
 
   childRoutes : [
-    PatientRoute(store)
+    PatientRoute(store),
+    { path: 'contact', component: Contact}
   ]
 });
 

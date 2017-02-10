@@ -6,8 +6,7 @@ class Contact extends Component {
   render () {
     return (
       <div>
-        <h3> TEST DATA SHOVED INTO PATIENT COMPONENT JUST
-          TO VERIFY THAT THE CONTACT COMPONENT WORKS</h3>
+        <h3> TEMPORARY CONTACT COMPONENT PAGE</h3>
         <table className="table">
           <tr>
             <td><strong>Name:</strong> Jane Doe</td>
