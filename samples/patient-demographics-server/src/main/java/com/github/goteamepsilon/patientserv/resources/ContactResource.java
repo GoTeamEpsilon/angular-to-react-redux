@@ -19,7 +19,7 @@ import com.github.goteamepsilon.patientserv.data.ContactDao;
 import com.github.goteamepsilon.patientserv.model.ContactEgg;
 import com.google.inject.Inject;
 
-@Path("/contacts")
+@Path("/patients/{pid}/")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ContactResource {
@@ -37,13 +37,13 @@ public class ContactResource {
   }
 
   @GET
-  @Path("for-patient/{pid}")
+  @Path("contacts")
   public List<Contact> readContactByPid(@PathParam("pid") int pid) {
     return contactDao.getContactByPid(pid);
   }
 
   @GET
-  @Path("{id}")
+  @Path("contacts/{id}")
   public Optional<Contact> readContactById(@PathParam("id") int id) {
     return contactDao.getContactById(id);
   }
