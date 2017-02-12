@@ -4,12 +4,11 @@ import { browserHistory } from 'react-router'
 import Patient from '../components/Patient'
 
 const mapDispatchToProps = {
-  setPatientInContext,
+  setPatientInContext
 }
 
 const mapStateToProps = (state) => ({
-  patientInContext: state.patient.patientInContext,
-  isLoading: state.patient.isFetching,
+  patientInContext: state.patient.patientInContext
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Patient)

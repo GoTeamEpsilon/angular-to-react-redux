@@ -1,12 +1,14 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
 
 class Contact extends Component {
-  
-  
+  constructor() {
+    super()
+  }
+
   render () {
     return (
       <div>
-        <h3> TEMPORARY CONTACT COMPONENT PAGE</h3>
+        <h3>TESTING CONTACT</h3>
         <table className="table">
           <tr>
             <td><strong>Name:</strong> Jane Doe</td>
@@ -34,6 +36,4 @@ class Contact extends Component {
   }
 }
 
-export default Contact;
-
-
+export default Contact

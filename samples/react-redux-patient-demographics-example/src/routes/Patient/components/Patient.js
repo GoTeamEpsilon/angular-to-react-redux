@@ -1,5 +1,6 @@
 import React from 'react'
-import { browserHistory } from 'react-router';
+import { browserHistory } from 'react-router'
+import Basic from '../../Basic/components/Basic'
 
 class Patient extends React.Component {
   constructor() {
@@ -7,11 +8,11 @@ class Patient extends React.Component {
 
     this.TABS = {
       BASIC: 'basic',
-      CONTACTS: 'contacts',
+      CONTACTS: 'contacts'
     }
 
     this.state = {
-      tab: this.TABS.BASIC,
+      tab: this.TABS.BASIC
     }
   }
 
@@ -25,10 +26,10 @@ class Patient extends React.Component {
 
   componentDidMount() {
     if (!this.determineIfRouteIsValid()) {
-      browserHistory.push('/patient/1337');
-    } else {
-      this.setPatientInContext()
+      browserHistory.push('/patient/1337')
     }
+
+    this.setPatientInContext()
   }
 
   mockedTab() {
@@ -37,7 +38,7 @@ class Patient extends React.Component {
 
   changeTab(newTab) {
     console.debug(`Setting tab to ${newTab}`)
-    this.setState({ tab: newTab, })
+    this.setState({ tab: newTab })
   }
 
   render() {

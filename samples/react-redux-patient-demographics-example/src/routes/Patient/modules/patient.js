@@ -1,5 +1,5 @@
 /**
- * Stub data
+ * Stub data that will be used as the initial state in the store.
  */
 const testData = {
   1337: {
@@ -41,46 +41,48 @@ const testData = {
       email: 'baz@bop.com'
     }]
   }
-};
-
-/**
- * Constants
- */
-export const SET_PATIENT_IN_CONTEXT = 'SET_PATIENT_IN_CONTEXT';
+}
 
 /**
  * Actions
  */
 export const setPatientInContext = (patientId) => {
-  console.info(`attempting to set patient context to patient ${patientId}`);
+  console.info(`attempting to set patient context to patient ${patientId}`)
 
   return (dispatch, getState) => {
     return new Promise((resolve, reject) => {
-      const res = testData[patientId];
+      const res = testData[patientId]
       if (!res) {
-        console.warn(`patient ${patientId} doesn't exist`);
-        reject('patient doesn\'t exist');
-      } else {
+        var message = `Patient ${patientId} doesn't exist`
+        console.warn(message)
         dispatch({
-          type    : SET_PATIENT_IN_CONTEXT,
+          type    : 'SET_PATIENT_IN_CONTEXT',
           payload : patientId
-        });
+        })
+        reject(message);
+      } else {
+        console.warn(`Setting patient ${patientId} as patient in context`);
+        dispatch({
+          type    : 'SET_PATIENT_IN_CONTEXT',
+          payload : patientId
+        })
 
-        console.log('NEED TO SET TESTDATA IN THE STORE');
-        resolve();
+        resolve()
       }
-    });
-  };
-};
+    })
+  }
+}
 
 export const fetchPatientInformation = (patientId) => {
-  console.debug('retrieving patient basic data');
+  console.info(`attempting to retrieve patient data for patient ${patientId}`)
 
   return (dispatch, getState) => {
-    console.log(getState());
-    return resolve(testData[patientIdInContext].basic);
-  };
-};
+    return new Promise((resolve, reject) => {
+      // Obviously add checks here...
+      resolve(getState().patient[patientId].basic)
+    })
+  }
+}
 
 export const actions = {
   setPatientInContext,
@@ -88,18 +90,15 @@ export const actions = {
 };
 
 /**
- * Action handlers
- */
-const ACTION_HANDLERS = {
-  [SET_PATIENT_IN_CONTEXT] : (state, action) => state + action.payload
-};
-
-/**
  * Reducer
  */
-const initialState = {};
+const initialState = testData
 export default function patientReducer (state = initialState, action) {
-  const handler = ACTION_HANDLERS[action.type];
-
-  return handler ? handler(state, action) : state;
+  switch (action.type) {
+    case 'SET_PATIENT_IN_CONTEXT':
+      return { ...state, patientInContext: action.payload }
+      break
+    default:
+      return state
+  }
 }

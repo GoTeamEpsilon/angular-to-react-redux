@@ -1,15 +1,12 @@
-import { injectReducer } from '../../store/reducers';
+import { injectReducer } from '../../store/reducers'
 
-export default () => ({
-  path : 'contact',
-  
-  // getComponent (nextState, cb) {
-  //   require.ensure([], (require) => {
-  //     const ContactComponent = require('./components/Contact').default;
-  //     const Contact = require('./containers/ContactContainer').default;
-  //     const reducer = require('./modules/contact').default;
-  //     injectReducer(store, { key: 'contact', reducer });
-  //     cb(null, ContactComponent);
-  //   });
-  
+export default (store) => ({
+  getComponent (nextState, cb) {
+    require.ensure([], (require) => {
+      const Contact = require('./containers/ContactContainer').default
+      const reducer = require('../Patient/modules/patient').default
+      injectReducer(store, { key: 'patient', reducer })
+      cb(null, Contact)
+    }, 'contact')
+  }
 });
