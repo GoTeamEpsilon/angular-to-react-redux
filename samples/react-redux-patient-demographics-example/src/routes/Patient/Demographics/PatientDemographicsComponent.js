@@ -1,8 +1,9 @@
 import React from 'react'
 import { browserHistory } from 'react-router'
-import Basic from '../../Basic/components/Basic'
+import Basic from './Basic/BasicComponent'
+import Contact from './Contact/ContactComponent'
 
-class Patient extends React.Component {
+class PatientDemographics extends React.Component {
   constructor() {
     super()
 
@@ -12,12 +13,17 @@ class Patient extends React.Component {
     }
 
     this.state = {
-      tab: this.TABS.BASIC
+      tab: this.TABS.BASIC,
+      isLoading: false
     }
   }
 
   setPatientInContext() {
+    this.setState({ isLoading: true })
     this.props.setPatientInContext(this.props.routeParams.pid)
+      .then(() => {
+        this.setState({ isLoading: false })
+      });
   }
 
   determineIfRouteIsValid() {
@@ -42,11 +48,26 @@ class Patient extends React.Component {
   }
 
   render() {
+    let children = null;
+
+    switch(this.state.tab) {
+      case this.TABS.BASIC:
+        children = <Basic info={this.props.info}/>
+        break;
+      case this.TABS.CONTACTS:
+        if (this.props.contacts) {
+          children = this.props.contacts.map(contact =>
+            <Contact key={contact.id} contact={contact}/>
+          )
+        }
+        break;
+    }
+
     return (
       <div>
-        <h3 className={this.props.isLoading ? '' : 'hidden'}>Loading...</h3>
+        <h3 className={this.state.isLoading ? '' : 'hidden'}>Loading...</h3>
 
-        <div className={this.props.isLoading ? 'hidden' : ''}>
+        <div className={this.state.isLoading ? 'hidden' : ''}>
           <div>
             <ul className="nav nav-tabs">
               <li className={this.state.tab == this.TABS.BASIC ? 'active' : ''}>
@@ -61,10 +82,12 @@ class Patient extends React.Component {
               <li><a onClick={this.mockedTab}>Misc</a></li>
             </ul>
           </div>
+
+          {children}
         </div>
       </div>
     )
   }
 }
 
-export default Patient
+export default PatientDemographics

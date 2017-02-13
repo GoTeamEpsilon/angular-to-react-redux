@@ -1,8 +1,5 @@
 import CoreLayout from '../layouts/CoreLayout'
 import PatientRoute from './Patient'
-import ContactRoute from './Contact'
-import Contact from './Contact/components/Contact'
-
 
 export const createRoutes = (store) => ({
   path        : '/',

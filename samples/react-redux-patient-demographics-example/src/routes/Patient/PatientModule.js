@@ -20,6 +20,7 @@ const testData = {
       email: 'foo@bar.com'
     },
     contacts: [{
+      id: 1,
       name: 'Jane Doe',
       relation: 'Mother',
       address: '123 Foobar Ln',
@@ -30,6 +31,7 @@ const testData = {
       phone: 1234567899,
       email: 'bar@foo.com'
     }, {
+      id: 2,
       name: 'Sam Doe',
       relation: 'Father',
       address: '123 Foobar Ln',
@@ -51,42 +53,39 @@ export const setPatientInContext = (patientId) => {
 
   return (dispatch, getState) => {
     return new Promise((resolve, reject) => {
-      const res = testData[patientId]
-      if (!res) {
-        var message = `Patient ${patientId} doesn't exist`
-        console.warn(message)
-        dispatch({
-          type    : 'SET_PATIENT_IN_CONTEXT',
-          payload : patientId
-        })
-        reject(message);
-      } else {
-        console.warn(`Setting patient ${patientId} as patient in context`);
-        dispatch({
-          type    : 'SET_PATIENT_IN_CONTEXT',
-          payload : patientId
-        })
+      setTimeout(() => {
+        const res = testData[patientId]
+        if (!res) {
+          var message = `Patient ${patientId} doesn't exist`
+          console.warn(message)
+          dispatch({
+            type    : 'SET_PATIENT_IN_CONTEXT',
+            payload : patientId
+          })
+          reject(message);
+        } else {
+          console.warn(`Setting patient ${patientId} as patient in context`);
+          dispatch({
+            type    : 'SET_PATIENT_IN_CONTEXT',
+            payload : patientId
+          })
 
-        resolve()
-      }
-    })
-  }
-}
+          resolve()
+          // setTimeout(() => {
+          //   dispatch({
+          //     type    : 'UPDATE_PATIENT_CONTACT',
+          //     payload : 1
+          //   })
 
-export const fetchPatientInformation = (patientId) => {
-  console.info(`attempting to retrieve patient data for patient ${patientId}`)
-
-  return (dispatch, getState) => {
-    return new Promise((resolve, reject) => {
-      // Obviously add checks here...
-      resolve(getState().patient[patientId].basic)
+          // }, 2000)
+        }
+      }, 800)
     })
   }
 }
 
 export const actions = {
-  setPatientInContext,
-  fetchPatientInformation
+  setPatientInContext
 };
 
 /**
@@ -97,6 +96,11 @@ export default function patientReducer (state = initialState, action) {
   switch (action.type) {
     case 'SET_PATIENT_IN_CONTEXT':
       return { ...state, patientInContext: action.payload }
+      break
+    case 'UPDATE_PATIENT_CONTACT':
+      let clone = Object.assign({}, state)
+      clone[1337].contacts[0].name = 'it works'
+      return clone
       break
     default:
       return state

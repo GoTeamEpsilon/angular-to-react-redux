@@ -4,10 +4,11 @@ export default (store) => ({
   path : 'patient/:pid',
   getComponent (nextState, cb) {
     require.ensure([], (require) => {
-      const Patient = require('./containers/PatientContainer').default
-      const reducer = require('./modules/patient').default
+      const patientDemographicsContainer = require(
+        './Demographics/PatientDemographicsContainer').default
+      const reducer = require('./PatientModule').default
       injectReducer(store, { key: 'patient', reducer })
-      cb(null, Patient)
+      cb(null, patientDemographicsContainer)
     }, 'patient')
   }
 });
