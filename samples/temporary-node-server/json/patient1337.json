@@ -1,0 +1,44 @@
+{
+	"Basic": {
+	  "Name": "John Doe",
+	  "Dob": "1990-11-04",
+	  "Ss": 999999999,
+	  "Martialstatus": "Single",
+	  "Gender": "Male",
+	  "Billingnote": " N/A",
+	  "Othernote": " N/A",
+	  "Address": "321 Bazbop Ln",
+	  "City": "Coolcity",
+	  "Postal": 54321,
+	  "State": "Texas",
+	  "Country": "Us",
+	  "Phone": 1234567899,
+	  "Email": "Foo@Bar.Com"
+	},
+	"Contacts": [
+	  {
+		"Id": 1,
+		"Name": "Jane Doe",
+		"Relation": "Mother",
+		"Address": "123 Foobar Ln",
+		"City": "Coolcity",
+		"Postal": 12345,
+		"State": "Texas",
+		"Country": "Us",
+		"Phone": 1234567899,
+		"Email": "Bar@Foo.Com"
+	  },
+	  {
+		"Id": 2,
+		"Name": "Sam Doe",
+		"Relation": "Father",
+		"Address": "123 Foobar Ln",
+		"City": "Coolcity",
+		"Postal": 12345,
+		"State": "Texas",
+		"Country": "Us",
+		"Phone": 9876543211,
+		"Email": "Baz@Bop.Com"
+	  }
+	]
+  }
