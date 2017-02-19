@@ -24,11 +24,11 @@ class Contact extends Component {
   
 
   render () {
-    if (this.props.contact555) {
+    if (this.props.contact) {
       return (
-        <div style={{margin: "0 auto", width: "100%"}}>
+        <div>
           <br/>
-          <table  className="table">
+          <table className="table">
             <tr>
               <td><strong>Name:</strong> {this.props.contact.name}</td>
               <td><strong>Relation:</strong> {this.props.contact.relation}</td>
@@ -63,7 +63,7 @@ class Contact extends Component {
     } else {
       return (
         <div>
-          <form name="contactInfo">
+          <form name="edit-contact-info">
             <table className="table">
               <tr>
                 <td><strong>Name:</strong> <input type="text" name="fullname" required/></td>
