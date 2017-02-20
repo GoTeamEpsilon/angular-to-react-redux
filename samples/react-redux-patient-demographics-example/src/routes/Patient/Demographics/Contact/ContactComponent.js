@@ -3,28 +3,33 @@ import React, {Component} from 'react'
 class Contact extends Component {
   constructor() {
     super()
+    this.state = {showForm: false}
+    this.handleEdit = this.handleEdit.bind(this)
+    this.handleCancel = this.handleCancel.bind(this)
   }
   
   handleCancel () {
     console.log("handleCancel")
+    this.setState({ showForm: false})
   }
   
   handleDelete () {
     console.log("handleDelete")
-    
   }
   
   handleEdit () {
-    
+    console.log("handleEdit")
+    console.log(this.state);
+    this.setState({ showForm: true})
   }
   
   handleSubmit () {
-    
+    console.log("handleSubmit")
   }
   
 
   render () {
-    if (this.props.contact) {
+    if (this.props.contact && this.state.showForm === false) {
       return (
         <div>
           <br/>
@@ -52,7 +57,7 @@ class Contact extends Component {
           </table>
   
           <button type="button" className="btn btn-default btn-sm" onClick={this.handleDelete}>DELETE</button>
-          <button type="button" className="btn btn-default btn-sm">EDIT</button>
+          <button type="button" className="btn btn-default btn-sm" onClick={this.handleEdit}>EDIT</button>
           
 
           <hr/>
@@ -60,7 +65,7 @@ class Contact extends Component {
           
         </div>
       )
-    } else {
+    } else if (this.props.contact && this.state.showForm === true){
       return (
         <div>
           <form name="edit-contact-info">
