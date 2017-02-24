@@ -71,13 +71,6 @@ export const setPatientInContext = (patientId) => {
           })
 
           resolve()
-          // setTimeout(() => {
-          //   dispatch({
-          //     type    : 'UPDATE_PATIENT_CONTACT',
-          //     payload : 1
-          //   })
-
-          // }, 2000)
         }
       }, 800)
     })
@@ -96,11 +89,6 @@ export default function patientReducer (state = initialState, action) {
   switch (action.type) {
     case 'SET_PATIENT_IN_CONTEXT':
       return { ...state, patientInContext: action.payload }
-      break
-    case 'UPDATE_PATIENT_CONTACT':
-      let clone = Object.assign({}, state)
-      clone[1337].contacts[0].name = 'it works'
-      return clone
       break
     default:
       return state
