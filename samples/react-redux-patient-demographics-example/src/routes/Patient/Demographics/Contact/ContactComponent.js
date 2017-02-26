@@ -1,11 +1,16 @@
 import React, {Component} from 'react'
+import MaskedInput from 'react-text-mask'
+import moment from 'moment'
+import { telephoneFormat, socialSecurityFormat } from '../../../../common/Formatters'
 
 class Contact extends Component {
   constructor() {
     super()
     this.state = { showForm: false }
-    this.handleEdit = this.handleEdit.bind(this)
+    
     this.handleCancel = this.handleCancel.bind(this)
+    this.handleEdit = this.handleEdit.bind(this)
+    this.handleInputChange = this.handleInputChange.bind(this)
   }
 
   handleCancel() {
@@ -23,8 +28,16 @@ class Contact extends Component {
     this.setState({ showForm: true})
   }
 
+  handleInputChange(e) {
+    console.log("handleInputChange")
+  }
+  
   handleSubmit() {
     console.log("handleSubmit")
+  }
+  
+  setLocalStateToStoreValues() {
+    const keys = ['name', 'relation', 'address', 'phone', 'city', 'postal', 'state', 'country', 'email']
   }
 
   render () {
@@ -75,7 +88,11 @@ class Contact extends Component {
               </tr>
               <tr>
                 <td><strong>Address:</strong> <input type="text" required/></td>
-                <td><strong>Phone:</strong> <input type="text" name="phone" required/></td>
+                <td><strong>Phone:</strong> <MaskedInput mask={['(',/[1-9]/,/\d/,/\d/,')',' ',/\d/,/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/]}
+                                                         type="text"
+                                                         value={this.state.phone}
+                                                         onChange={this.handleInputChange}
+                                                         name="phone" /></td>
               </tr>
               <tr>
                 <td><strong>City:</strong> <input type="text" required/></td>
