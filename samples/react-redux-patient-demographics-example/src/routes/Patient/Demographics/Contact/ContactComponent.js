@@ -1,8 +1,15 @@
 import React, {Component} from 'react'
 import MaskedInput from 'react-text-mask'
 import moment from 'moment'
-import { telephoneFormat, socialSecurityFormat } from '../../../../common/Formatters'
+import { telephoneFormat } from '../../../../common/Formatters'
 
+/***
+ * @TODO handleInputChange
+ * @TODO setLocalStateToStoreValues
+ * @TODO bring local state into form values
+ * @TODO remove moment.js and console.log statements
+ * @TODO test email masking with HTML5 and test :)
+ */
 class Contact extends Component {
   constructor() {
     super()
@@ -30,6 +37,7 @@ class Contact extends Component {
 
   handleInputChange(e) {
     console.log("handleInputChange")
+    e.preventDefault()
   }
   
   handleSubmit() {
@@ -52,7 +60,7 @@ class Contact extends Component {
             </tr>
             <tr>
               <td><strong>Address:</strong> {this.props.contact.address}</td>
-              <td><strong>Phone:</strong> {this.props.contact.phone}</td>
+              <td><strong>Phone:</strong> {telephoneFormat(this.props.contact.phone)}</td>
             </tr>
             <tr>
               <td><strong>City:</strong> {this.props.contact.city}</td>
@@ -80,7 +88,7 @@ class Contact extends Component {
     } else if (this.props.contact && this.state.showForm === true){
       return (
         <div>
-          <form name="edit-contact-info">
+          <form name="edit-contact-info" className="contact-info-form" onSubmit={this.handleSubmit}>
             <table className="table">
               <tr>
                 <td><strong>Name:</strong> <input type="text" name="fullname" required/></td>
@@ -90,7 +98,7 @@ class Contact extends Component {
                 <td><strong>Address:</strong> <input type="text" required/></td>
                 <td><strong>Phone:</strong> <MaskedInput mask={['(',/[1-9]/,/\d/,/\d/,')',' ',/\d/,/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/]}
                                                          type="text"
-                                                         value={this.state.phone}
+                                                         value='2816368899'
                                                          onChange={this.handleInputChange}
                                                          name="phone" /></td>
               </tr>
