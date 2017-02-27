@@ -118,6 +118,13 @@ class ngStyleExample2and3 extends React.Component {
 
 ## ng-class
 ## ng-click
+
+```jsx
+<button onClick={clickHandler}>
+  Click Me
+</button>
+```
+
 ## filters
 ## directives / directive controllers
 ## services
