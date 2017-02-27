@@ -1,173 +1,36 @@
-![img](http://www.textfiles.com/underconstruction/BaBajaMesa3235construct.gif)
+![img](http://www.textfiles.com/underconstruction/HeHeartlandBluffs8237Photo_2000construction5_anim.gif)
 
-# Angular to React
-A playground repository that will be filled with educational resources and live code as our dev group (Angular experts) learns React/Redux by contrasting it to Angular concepts. This repository is best consumed by those that have been working with Angular 1.x for a good amount of time.
+# Angular to React/Redux
 
-## Project Generator
+This repository is an educational resource for Angular v1 experts that are looking to learn React/Redux. A contrived sample application for managing basic patient information is provided using both technologies' best practices. This application will be referred to below as we explore the key philosophical differences between Angular v1 and React/Redux so that you can get coding!
 
-Similar to Yeoman's [Yo Angular](https://github.com/yeoman/generator-angular), the React/Redux community offers a [starter kit](https://github.com/davezuko/react-redux-starter-kit) that has everything you need. The code is rather intimdating at first, but don't worry as it will make sense as you continue to study.
+## Project Scaffolding
 
-Be sure to provide your editor with plugins for [eslint](http://eslint.org/), [JavaScript ES6 syntax](https://www.google.com/search?q=es6+plugin) and [React JSX syntax](https://www.google.com/search?q=jsx+plugin).
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-## ng-repeat
+## Service Layer
 
-```jsx
-<div className="cards">
-  <div className="info">
-    {['x', 'y', 'z'].map((info) => <p>{info}</p>)}
-  </div>
-</div>
-```
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
 
-Note that you can get the index by specifying an index parameter: `['x', 'y', 'z'].map((key, index) =>`.
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-## ng-show, ng-hide
-## ng-if
-## ng-style
+## Components, Containers, and Modules
 
-In React, a variable that holds CSS values can be created and later assigned as the inline style of an element. Keep in mind that camelCase is used, so "background-color" becomes "backgroundColor", "font-size" becomes "fontSize", and so on. 
+At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat
 
-If you want to alter the style of elements through a click event, similar to what is shown in the Angular documentation [here](https://docs.angularjs.org/api/ng/directive/ngStyle), you can attach a function to the "onClick" React Synthetic Event. This function can then for instance result in the changing of a class name, or the direct manipulation of a variable that is serving as the value for a CSS property like "marginBottom", "padding", etc. In Example 2 and 3 this will be demonstrated with a variable that exists in local React State (not to be confused with Redux State).
+## State Mutation
 
-### First Example That Uses a Variable in the Style Attribute of HTML Element
-```jsx
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
-class ngStyleExample1 extends React.Component {
+## Additional Resources
 
-  constructor(props) {
-    super(props);
-  }  
-
-  render() {
-    var firstExampleStyle = {backgroundColor: "green"};
-    
-    return (
-		<div>
-        <p 
-	      	id="firstExampleWithNoEventHandler" 
-	      	style={firstExampleStyle}
-      	>
-	      	Example 1 Blah Blah Blah
-	      </p>
-		</div>
-
-    );
-  }
-
-}
-```
-
-### Second and Third Example That Manipulate the Style of An Element
-```jsx
-class ngStyleExample2and3 extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.handleStyleClick = this.handleStyleClick.bind(this); // n.b. ES6 React does not take care of 'this' binding
-    this.state = {
-    	cssClass : "redBackground"
-    	styleValue : "20"
-    };
-  }
-
-  /*
-    Second example
-    Clicking on the <p> tag changes its class, which alters its style
-  */
-  handleClassClick() {
-    if(this.state.cssClass === "redBackground") {
-    	this.setState(cssClass : "blueBackground");
-    } else {
-    	this.setState(cssClass : "redBackground");
-    }
-  }
-
-  /*
-    Third example
-    Clicking on the <p> tag directly alters the value on which the style is calculated (fontSize)
-	*/
-  handleStyleClick() {
-  	this.setState(styleValue : this.state.styleValue + 5);
-
-  }
-
-  render() {
-    return (
-	     <div>
-  	     <p 
-  	      	id="changeClassExample" 
-  	      	className={this.state.cssClass} 
-  	      	onClick = {() => this.handleClassClick}
-        	 >
-  	       Example 2 Blah Blah Blah
-  	     </p>
-
-  	     <p 
-  	      	id="directlyChangeStyleExample" 
-  	      	style={{fontSize : this.state.styleValue}} 
-  	      	onClick = { this.handleStyleClick } 
-    		 >
-    		  Example 3 Blah Blah Blah	
-  	     </p>
-	     </div>
-
-    );
-  }
-}
-```
-
-## ng-class
-## ng-click
-## filters
-## directives / directive controllers
-## services
-**Temporary Notes:** services are similar to "containers" in React. People use containers when they start to duplicate 
-functionality in components, much like someone would realize they have duplicate logic in their
-directives. In React, containers would also be where you would want to make asynchronous calls.
-
-In Redux, containers are more nuanced. They serve as wrappings for "dumb components". They are responsible for fetching
-state for the Redux store. These will be the files where you actually leverage the React-Redux library / bindings.
-## SCSS integration
-## JavaScript vendoring
-## CSS/SCSS vendoring
-## Development flags
-## JavaScript sourcemapping
-## JavaScript obfuscation/minification
-**Temporary Notes:** when you run Webpack, just append the "-p" flag to your command. 
-So instead of `webpack --config webpack.prod.config.js` do `webpack -p --config webpack.prod.config.js` in your package.json.
-This is the only easy part of Webpack.
-
-## Module namespacing / John Papa guide equivalency
-## Global error handling
-## Promise integration
-**Temporary Notes:** There is no official promise library or standard for React or Redux. The two most popular libraries
-currently are Bluebird and Axios. For straightforward API requests over HTTP, Axios is preferred.
-## Provider decoration
-## Logging best practices
-## Deconstructors (i.e.: $destroy)
-## Folder structure best practices
-## $apply / $applyAsync practices (or the absense of them)
-## ES5 vs ES6 usages
-## Recommended $http practices
-## Data binding
-## Transclusion
-## $broadcast
-## Routing
-**Temporary Notes:** pretty much everyone uses React-Router for routing with React
-[https://github.com/ReactTraining/react-router](https://github.com/ReactTraining/react-router)
-## Subviews
-## Dependency injection
-## Unit testing
-## Code style enforcement
-## Recommended documentation practices
-## Code linting practices
-
-
-# Rationale
-
-_Q:_ Wait... surely someone has researched and documented this (e.g.: [SitePoint: React for Angular Developers](https://www.sitepoint.com/react-for-angular-developers/)), why reinvent the wheel?
-
-_A:_ Because first-person studies and writing code are the best approaches to learning.
+- (link to resource on react component lifecycle)
+- (link to resource on react one way data binding)
+- (link to resource on top level error handler)
+- (link to resource on logging best practices)
+- (link to resource on es5 vs es6)
+- (link to resource on redux routing links)
+- (link to resource on dependency Injection)
 
 ### License
 
