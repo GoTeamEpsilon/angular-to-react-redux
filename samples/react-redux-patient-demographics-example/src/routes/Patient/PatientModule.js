@@ -2,21 +2,25 @@
  * Stub data that will be used as the initial state in the store.
  */
 const testData = {
+  // Bug with Formsy: https://github.com/christianalfoni/formsy-react/issues/340
+  // For some reason, Formsy doesn't perform validations correctly against numbers.
+  // E.g.: this.state.postal was throwing 'You must not enter more than 50 characters'
+  // when the value was 54321. When I changed it to '54321', it didn't complain. :(.
   1337: {
     basic: {
       name: 'John Doe',
       dob: '1990-11-04',
-      ss: 999999999,
+      ss: '999999999',
       martialStatus: 'Single',
       gender: 'Male',
       billingNote: ' N/A',
       otherNote: ' N/A',
       address: '321 Bazbop Ln',
       city: 'CoolCity',
-      postal: 54321,
+      postal: '54321',
       state: 'Texas',
       country: 'US',
-      phone: 1234567899,
+      phone: '1234567899',
       email: 'foo@bar.com'
     },
     contacts: [{
@@ -25,10 +29,10 @@ const testData = {
       relation: 'Mother',
       address: '123 Foobar Ln',
       city: 'CoolCity',
-      postal: 12345,
+      postal: '12345',
       state: 'Texas',
       country: 'US',
-      phone: 1234567899,
+      phone: '1234567899',
       email: 'bar@foo.com'
     }, {
       id: 2,
@@ -36,10 +40,10 @@ const testData = {
       relation: 'Father',
       address: '123 Foobar Ln',
       city: 'CoolCity',
-      postal: 12345,
+      postal: '12345',
       state: 'Texas',
       country: 'US',
-      phone: 9876543211,
+      phone: '9876543211',
       email: 'baz@bop.com'
     }]
   }

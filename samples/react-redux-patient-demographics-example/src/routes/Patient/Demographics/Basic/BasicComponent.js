@@ -1,7 +1,11 @@
 import React from 'react'
-import DatePicker from 'react-datepicker'
 import moment from 'moment'
 import { telephoneFormat, socialSecurityFormat } from '../../../../common/Formatters'
+import Formsy from 'formsy-react'
+import { wireUpCustomFormsyValidators } from '../../../../common/CustomValidators'
+import { FormsyInput } from '../../../../common/FormsyInput'
+import { FormsyDatePicker } from '../../../../common/FormsyDatePicker'
+import { FormsyMaskedInput } from '../../../../common/FormsyMaskedInput'
 import MaskedInput from 'react-text-mask'
 
 require('react-datepicker/dist/react-datepicker.css')
@@ -15,6 +19,7 @@ class Basic extends React.Component {
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
+    wireUpCustomFormsyValidators()
   }
 
   handleEdit () {
@@ -25,24 +30,25 @@ class Basic extends React.Component {
   componentDidMount() {
   }
 
-  handleSubmit(e) {
-    e.preventDefault()
+  handleSubmit() {
+    console.log('here')
   }
 
-  sanitizeSsn(ssn) {
-    if (!ssn) {
-      return ssn
+  sanitizeToJustNumbers(value) {
+    if (!value) {
+      return value
     }
 
-    return ssn.replace('-')
+    return value.replace(/[^0-9.]/g, '')
   }
 
   handleInputChange(event) {
     if (event && event.target && event.target.name) {
       let value
       switch (event.target.name) {
+        case 'phone':
         case 'ss':
-          value = event.target.value.replace('-')
+          value = this.sanitizeToJustNumbers(event.target.value.toString())
           break;
         default:
           value = event.target.value
@@ -51,7 +57,7 @@ class Basic extends React.Component {
         [event.target.name]: value
       })
     } else {
-      // Assuming it is the date timer picker
+      // Assuming it is the date time picker
       this.setState({
         dob: event
       })
@@ -70,6 +76,9 @@ class Basic extends React.Component {
         case 'dob':
           value = moment(this.props.info[keyName])
           break;
+        case 'phone':
+        case 'ss':
+          value = this.sanitizeToJustNumbers(this.props.info[keyName].toString());
         default:
           value = this.props.info[keyName]
       }
@@ -119,38 +128,70 @@ class Basic extends React.Component {
       )
     } else if (this.props.info && this.state.showForm === true) {
       return (
-        <form name="basicInfoForm" className="basic-info-form" onSubmit={this.handleSubmit}>
+         <Formsy.Form onValidSubmit={this.handleSubmit}
+                      name="basicInfoForm"
+                      className="basic-info-form"
+                      noValidate>
           <table className="table">
             <tr>
               <td>
                 <strong>Name:</strong>
-                <input type="text"
-                       value={this.state.name}
-                       onChange={this.handleInputChange}
-                       name="name" />
+                <FormsyInput value={this.state.name}
+                             onChange={this.handleInputChange}
+                             name="name"
+                             validations={{
+                               maxLength: 50
+                             }}
+                             validationErrors={{
+                               isDefaultRequiredValue: 'Valid name is required',
+                               maxLength: 'You must not enter more than 50 characters'
+                             }}
+                             required />
               </td>
               <td>
                 <strong>DOB:</strong>
-                <DatePicker selected={this.state.dob}
-                            onChange={this.handleInputChange}
-                            name="dob" />
+                <FormsyDatePicker value={this.state.dob}
+                                  onChange={this.handleInputChange}
+                                  name="dob"
+                                  validations={{
+                                    isDob: true
+                                  }}
+                                  validationErrors={{
+                                    isDefaultRequiredValue: 'Valid dob is required',
+                                    isDob: 'Valid dob is required'
+                                  }}
+                                  required />
               </td>
             </tr>
             <tr>
               <td>
                 <strong>SSN:</strong>
-                <MaskedInput mask={[/\d/,/\d/,/\d/,'-',/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/]}
-                             type="text"
-                             value={this.state.ss}
-                             onChange={this.handleInputChange}
-                             name="ss" />
+                <FormsyMaskedInput mask={[/\d/,/\d/,/\d/,'-',/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/]}
+                                   value={this.state.ss}
+                                   onChange={this.handleInputChange}
+                                   validations={{
+                                     isLength: 9
+                                   }}
+                                   validationErrors={{
+                                     isDefaultRequiredValue: 'Valid SSN is required',
+                                     isLength: 'Valid SSN is required'
+                                   }}
+                                   name="ss"
+                                   required />
               </td>
               <td>
                 <strong>Martial Status:</strong>
-                <input type="text"
-                       value={this.state.martialStatus}
-                       onChange={this.handleInputChange}
-                       name="martialStatus" />
+                <FormsyInput value={this.state.martialStatus}
+                             onChange={this.handleInputChange}
+                             name="martialStatus"
+                             validations={{
+                               maxLength: 50
+                             }}
+                             validationErrors={{
+                               isDefaultRequiredValue: 'Valid martial status is required',
+                               maxLength: 'You must not enter more than 50 characters'
+                             }}
+                             required />
               </td>
             </tr>
             <tr>
@@ -161,86 +202,152 @@ class Basic extends React.Component {
                         value={this.state.gender}>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
+                  <option value="other">Other</option>
                 </select>
               </td>
               <td>
                 <strong>Address:</strong>
-                <input type="text"
-                       onChange={this.handleInputChange}
-                       name="address"
-                       value={this.state.address} />
+                <FormsyInput value={this.state.address}
+                             onChange={this.handleInputChange}
+                             name="address"
+                             validations={{
+                               maxLength: 50
+                             }}
+                             validationErrors={{
+                               isDefaultRequiredValue: 'Valid address is required',
+                               maxLength: 'You must not enter more than 50 characters'
+                             }}
+                             required />
               </td>
             </tr>
             <tr>
               <td>
                 <strong>City:</strong>
-                <input type="text"
-                       onChange={this.handleInputChange}
-                       name="city"
-                       value={this.state.city}/>
+                <FormsyInput value={this.state.city}
+                             onChange={this.handleInputChange}
+                             name="city"
+                             validations={{
+                               maxLength: 50
+                             }}
+                             validationErrors={{
+                               isDefaultRequiredValue: 'Valid city is required',
+                               maxLength: 'You must not enter more than 50 characters'
+                             }}
+                             required />
               </td>
               <td>
                 <strong>Postal:</strong>
-                <input type="text"
-                       onChange={this.handleInputChange}
-                       name="postal"
-                       value={this.state.postal} />
+                <FormsyInput value={this.state.postal}
+                             onChange={this.handleInputChange}
+                             name="postal"
+                             validations={{
+                               maxLength: 10
+                             }}
+                             validationErrors={{
+                               isDefaultRequiredValue: 'Valid postal is required',
+                               maxLength: 'You must not enter more than 10 characters'
+                             }}
+                             required />
               </td>
             </tr>
             <tr>
               <td>
                 <strong>State:</strong>
-                <input type="text"
-                       onChange={this.handleInputChange}
-                       name="state"
-                       value={this.state.state} />
+                <FormsyInput value={this.state.state}
+                             onChange={this.handleInputChange}
+                             name="state"
+                             validations={{
+                               maxLength: 50
+                             }}
+                             validationErrors={{
+                               isDefaultRequiredValue: 'Valid state is required',
+                               maxLength: 'You must not enter more than 50 characters'
+                             }}
+                             required />
               </td>
               <td>
                 <strong>Country:</strong>
-                <input type="text"
-                       onChange={this.handleInputChange}
-                       name="country"
-                       value={this.state.country} />
+                <FormsyInput value={this.state.country}
+                             onChange={this.handleInputChange}
+                             name="country"
+                             validations={{
+                               maxLength: 50
+                             }}
+                             validationErrors={{
+                               isDefaultRequiredValue: 'Valid country is required',
+                               maxLength: 'You must not enter more than 50 characters'
+                             }}
+                             required />
               </td>
             </tr>
             <tr>
               <td>
                 <strong>Phone:</strong>
-                <MaskedInput mask={['(',/[1-9]/,/\d/,/\d/,')',' ',/\d/,/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/]}
-                             type="text"
-                             value={this.state.phone}
-                             onChange={this.handleInputChange}
-                             name="phone" />
+                <FormsyMaskedInput mask={['(',/[1-9]/,/\d/,/\d/,')',' ',/\d/,/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/]}
+                                   value={this.state.phone}
+                                   onChange={this.handleInputChange}
+                                   validations={{
+                                    maxLength: 10
+                                   }}
+                                   validationErrors={{
+                                     isDefaultRequiredValue: 'Valid phone is required',
+                                     maxLength: 'Valid phone is required'
+                                   }}
+                                   name="phone"
+                                   required />
               </td>
               <td>
                 <strong>Email:</strong>
                 {/* Unfortunately text-mask doesn't handle emails very well */}
-                <input type="text"
-                       onChange={this.handleInputChange}
-                       value={this.state.email}
-                       name="email" />
+                <FormsyInput value={this.state.email}
+                             onChange={this.handleInputChange}
+                             name="email"
+                             validations={{
+                               maxLength: 50,
+                               isEmail: true
+                             }}
+                             validationErrors={{
+                               isDefaultRequiredValue: 'Valid email is required',
+                               isEmail: 'Valid email is required',
+                               maxLength: 'You must not enter more than 50 characters'
+                             }}
+                             required />
               </td>
             </tr>
             <tr>
               <td>
                 <strong>Billing Note:</strong>
-                <input type="text"
-                       value={this.state.billingNote}
-                       onChange={this.handleInputChange}
-                       name="billingNote" />
+                <FormsyInput value={this.state.billingNote}
+                             onChange={this.handleInputChange}
+                             name="billingNote"
+                             validations={{
+                               maxLength: 50
+                             }}
+                             validationErrors={{
+                               isDefaultRequiredValue: 'Valid billing note is required',
+                               maxLength: 'You must not enter more than 50 characters'
+                             }}
+                             required />
               </td>
               <td>
                 <strong>Other Note</strong>
-                <input type="text"
-                       value={this.state.otherNote}
-                       onChange={this.handleInputChange}
-                       name="otherNote" />
+                <FormsyInput value={this.state.otherNote}
+                             onChange={this.handleInputChange}
+                             name="otherNote"
+                             validations={{
+                               maxLength: 50
+                             }}
+                             validationErrors={{
+                               isDefaultRequiredValue: 'Valid other note is required',
+                               maxLength: 'You must not enter more than 50 characters'
+                             }}
+                             required />
               </td>
             </tr>
           </table>
 
           <button className="btn btn-default btn-sm" type="submit">SAVE</button>
-        </form>
+        </Formsy.Form>
       )
     } else {
       return null
