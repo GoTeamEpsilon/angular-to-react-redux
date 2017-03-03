@@ -48,6 +48,8 @@ class Basic extends React.Component {
       switch (event.target.name) {
         case 'phone':
         case 'ss':
+          let james = event.target.value.toString()
+          console.log(james.length)
           value = this.sanitizeToJustNumbers(event.target.value.toString())
           break;
         default:
@@ -170,11 +172,15 @@ class Basic extends React.Component {
                                    value={this.state.ss}
                                    onChange={this.handleInputChange}
                                    validations={{
-                                     isLength: 9
+                                    
+                                     minLength: 9,
+                                     maxLength: 11
                                    }}
                                    validationErrors={{
                                      isDefaultRequiredValue: 'Valid SSN is required',
-                                     isLength: 'Valid SSN is required'
+                                     minLength: 'Valid SSN is required',
+                                     
+                                     maxLength: 'Valid SSN is required'
                                    }}
                                    name="ss"
                                    required />
