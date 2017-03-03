@@ -1,13 +1,12 @@
 import React, {Component} from 'react'
 import MaskedInput from 'react-text-mask'
-import moment from 'moment'
+
 import {telephoneFormat} from '../../../../common/Formatters'
 
 /***
- * @TODO handleInputChange
- * @TODO setLocalStateToStoreValues
- * @TODO bring local state into form values
- * @TODO remove moment.js and console.log statements
+ * @TODO console.log statements
+ * @TODO change the name of Matt's function to setPropsToLocalState
+ * @TODO change Matt's function to use 'event' instead of 'e'
  * @TODO test email masking with HTML5 and test :)
  */
 class Contact extends Component {
