@@ -38,6 +38,7 @@ export const FormsyMaskedInput = React.createClass({
 
     return (
       <div>
+        <strong>{this.props.label}: </strong>
         <MaskedInput mask={this.props.mask}
                      type='text'
                      onChange={this.changeValue}

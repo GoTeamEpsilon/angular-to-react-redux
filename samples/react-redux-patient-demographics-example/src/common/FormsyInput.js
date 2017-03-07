@@ -37,6 +37,7 @@ export const FormsyInput = React.createClass({
 
     return (
       <div>
+        <strong>{this.props.label}: </strong>
         <input type='text'
                onChange={this.changeValue}
                value={this.getValue()}

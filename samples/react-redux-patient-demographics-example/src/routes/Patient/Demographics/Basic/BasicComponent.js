@@ -89,7 +89,7 @@ class Basic extends React.Component {
   render() {
     if (this.props.info && this.state.showForm === false) {
       return (
-        <div>
+        <div className='container'>
           <table className='table'>
             <tr>
               <td><strong>Name:</strong> {this.props.info.name}</td>
@@ -128,15 +128,15 @@ class Basic extends React.Component {
       return (
          <Formsy.Form onValidSubmit={this.handleSubmit}
                       name='basicInfoForm'
-                      className='basic-info-form'
+                      className='container basic-info-form'
                       noValidate>
           <table className='table'>
             <tr>
               <td>
-                <strong>Name:</strong>
                 <FormsyInput value={this.state.name}
                              onChange={this.handleInputChange}
                              name='name'
+                             label='Name'
                              validations={{
                                maxLength: 20,
                                minLength: 2
@@ -153,6 +153,7 @@ class Basic extends React.Component {
                 <FormsyDatePicker value={this.state.dob}
                                   onChange={this.handleInputChange}
                                   name='dob'
+                                  label='Dob'
                                   validations={{
                                     isDob: true
                                   }}
@@ -165,7 +166,6 @@ class Basic extends React.Component {
             </tr>
             <tr>
               <td>
-                <strong>SSN:</strong>
                 <FormsyMaskedInput mask={[/\d/,/\d/,/\d/,'-',/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/]}
                                    value={this.state.ss}
                                    onChange={this.handleInputChange}
@@ -178,13 +178,14 @@ class Basic extends React.Component {
                                      isLength: 'Valid SSN is required'
                                    }}
                                    name='ss'
+                                   label='SSN'
                                    required />
               </td>
               <td>
-                <strong>Martial Status:</strong>
                 <FormsyInput value={this.state.martialStatus}
                              onChange={this.handleInputChange}
                              name='martialStatus'
+                             label='Martial Status'
                              validations={{
                                maxLength: 20,
                                minLength: 2
@@ -199,7 +200,7 @@ class Basic extends React.Component {
             </tr>
             <tr>
               <td>
-                <strong>Gender:</strong>
+                <strong>Gender: </strong>
                 <select onChange={this.handleInputChange}
                         name='gender'
                         value={this.state.gender}>
@@ -209,10 +210,10 @@ class Basic extends React.Component {
                 </select>
               </td>
               <td>
-                <strong>Address:</strong>
                 <FormsyInput value={this.state.address}
                              onChange={this.handleInputChange}
                              name='address'
+                             label='Address'
                              validations={{
                                maxLength: 20,
                                minLength: 2
@@ -227,10 +228,10 @@ class Basic extends React.Component {
             </tr>
             <tr>
               <td>
-                <strong>City:</strong>
                 <FormsyInput value={this.state.city}
                              onChange={this.handleInputChange}
                              name='city'
+                             label='City'
                              validations={{
                                maxLength: 30,
                                minLength: 2
@@ -243,10 +244,10 @@ class Basic extends React.Component {
                              required />
               </td>
               <td>
-                <strong>Postal:</strong>
                 <FormsyInput value={this.state.postal}
                              onChange={this.handleInputChange}
                              name='postal'
+                             label='Postal'
                              validations={{
                                maxLength: 10,
                                minLength: 2
@@ -261,10 +262,10 @@ class Basic extends React.Component {
             </tr>
             <tr>
               <td>
-                <strong>State:</strong>
                 <FormsyInput value={this.state.state}
                              onChange={this.handleInputChange}
                              name='state'
+                             label='State'
                              validations={{
                                maxLength: 20,
                                minLength: 2
@@ -277,10 +278,10 @@ class Basic extends React.Component {
                              required />
               </td>
               <td>
-                <strong>Country:</strong>
                 <FormsyInput value={this.state.country}
                              onChange={this.handleInputChange}
                              name='country'
+                             label='Country'
                              validations={{
                                maxLength: 20,
                                minLength: 2
@@ -295,7 +296,6 @@ class Basic extends React.Component {
             </tr>
             <tr>
               <td>
-                <strong>Phone:</strong>
                 <FormsyMaskedInput mask={['(',/[1-9]/,/\d/,/\d/,')',' ',/\d/,/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/]}
                                    value={this.state.phone}
                                    onChange={this.handleInputChange}
@@ -308,14 +308,14 @@ class Basic extends React.Component {
                                      isLength: 'Valid phone is required'
                                    }}
                                    name='phone'
+                                   label='Phone'
                                    required />
               </td>
               <td>
-                <strong>Email:</strong>
-                {/* Unfortunately text-mask doesn't handle emails very well */}
                 <FormsyInput value={this.state.email}
                              onChange={this.handleInputChange}
                              name='email'
+                             label='Email'
                              validations={{
                                maxLength: 20,
                                isEmail: true
@@ -330,10 +330,10 @@ class Basic extends React.Component {
             </tr>
             <tr>
               <td>
-                <strong>Billing Note:</strong>
                 <FormsyInput value={this.state.billingNote}
                              onChange={this.handleInputChange}
                              name='billingNote'
+                             label='Billing Note'
                              validations={{
                                maxLength: 20,
                                minLength: 2
@@ -346,10 +346,10 @@ class Basic extends React.Component {
                              required />
               </td>
               <td>
-                <strong>Other Note</strong>
                 <FormsyInput value={this.state.otherNote}
                              onChange={this.handleInputChange}
                              name='otherNote'
+                             label='Other Note'
                              validations={{
                                maxLength: 20,
                                minLength: 2
