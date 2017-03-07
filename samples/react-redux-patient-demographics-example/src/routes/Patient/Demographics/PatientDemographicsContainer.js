@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
 import { setPatientInContext, updateBasicLocalState } from '../PatientModule'
-import { browserHistory } from 'react-router'
 import PatientDemographics from './PatientDemographicsComponent'
 
 const mapDispatchToProps = {

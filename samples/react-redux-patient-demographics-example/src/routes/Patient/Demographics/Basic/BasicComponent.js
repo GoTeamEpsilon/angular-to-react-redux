@@ -6,7 +6,6 @@ import { wireUpCustomFormsyValidators } from '../../../../common/CustomValidator
 import { FormsyInput } from '../../../../common/FormsyInput'
 import { FormsyDatePicker } from '../../../../common/FormsyDatePicker'
 import { FormsyMaskedInput } from '../../../../common/FormsyMaskedInput'
-import MaskedInput from 'react-text-mask'
 
 require('react-datepicker/dist/react-datepicker.css')
 
@@ -24,7 +23,7 @@ class Basic extends React.Component {
 
   handleEdit () {
     this.setLocalStateToStoreValues()
-    this.setState({ showForm: true})
+    this.setState({ showForm: true })
   }
 
   componentDidMount() {
@@ -51,7 +50,7 @@ class Basic extends React.Component {
           let james = event.target.value.toString()
           console.log(james.length)
           value = this.sanitizeToJustNumbers(event.target.value.toString())
-          break;
+          break
         default:
           value = event.target.value
       }
@@ -67,9 +66,8 @@ class Basic extends React.Component {
   }
 
   setLocalStateToStoreValues() {
-    const keys = ['name', 'dob', 'ss', 'martialStatus', 'gender',
-                  'address', 'postal', 'city', 'state', 'country', 'phone',
-                  'email', 'billingNote', 'otherNote']
+    const keys = ['name', 'dob', 'ss', 'martialStatus', 'gender', 'address', 'postal', 'city', 'state',
+                  'country', 'phone', 'email', 'billingNote', 'otherNote']
 
     keys.forEach((keyName) => {
       let value
@@ -77,10 +75,11 @@ class Basic extends React.Component {
       switch (keyName) {
         case 'dob':
           value = moment(this.props.info[keyName])
-          break;
+          break
         case 'phone':
         case 'ss':
-          value = this.sanitizeToJustNumbers(this.props.info[keyName].toString());
+          value = this.sanitizeToJustNumbers(this.props.info[keyName].toString())
+          break
         default:
           value = this.props.info[keyName]
       }
@@ -94,7 +93,7 @@ class Basic extends React.Component {
     if (this.props.info && this.state.showForm === false) {
       return (
         <div>
-          <table className="table">
+          <table className='table'>
             <tr>
               <td><strong>Name:</strong> {this.props.info.name}</td>
               <td><strong>DOB:</strong> {this.props.info.dob}</td>
@@ -125,22 +124,22 @@ class Basic extends React.Component {
             </tr>
           </table>
 
-          <button type="button" className="btn btn-default btn-sm" onClick={this.handleEdit}>EDIT</button>
+          <button type='button' className='btn btn-default btn-sm' onClick={this.handleEdit}>EDIT</button>
         </div>
       )
     } else if (this.props.info && this.state.showForm === true) {
       return (
          <Formsy.Form onValidSubmit={this.handleSubmit}
-                      name="basicInfoForm"
-                      className="basic-info-form"
+                      name='basicInfoForm'
+                      className='basic-info-form'
                       noValidate>
-          <table className="table">
+          <table className='table'>
             <tr>
               <td>
                 <strong>Name:</strong>
                 <FormsyInput value={this.state.name}
                              onChange={this.handleInputChange}
-                             name="name"
+                             name='name'
                              validations={{
                                maxLength: 50
                              }}
@@ -154,7 +153,7 @@ class Basic extends React.Component {
                 <strong>DOB:</strong>
                 <FormsyDatePicker value={this.state.dob}
                                   onChange={this.handleInputChange}
-                                  name="dob"
+                                  name='dob'
                                   validations={{
                                     isDob: true
                                   }}
@@ -172,24 +171,24 @@ class Basic extends React.Component {
                                    value={this.state.ss}
                                    onChange={this.handleInputChange}
                                    validations={{
-                                    
+
                                      minLength: 9,
                                      maxLength: 11
                                    }}
                                    validationErrors={{
                                      isDefaultRequiredValue: 'Valid SSN is required',
                                      minLength: 'Valid SSN is required',
-                                     
+
                                      maxLength: 'Valid SSN is required'
                                    }}
-                                   name="ss"
+                                   name='ss'
                                    required />
               </td>
               <td>
                 <strong>Martial Status:</strong>
                 <FormsyInput value={this.state.martialStatus}
                              onChange={this.handleInputChange}
-                             name="martialStatus"
+                             name='martialStatus'
                              validations={{
                                maxLength: 50
                              }}
@@ -204,18 +203,18 @@ class Basic extends React.Component {
               <td>
                 <strong>Gender:</strong>
                 <select onChange={this.handleInputChange}
-                        name="gender"
+                        name='gender'
                         value={this.state.gender}>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
+                  <option value='male'>Male</option>
+                  <option value='female'>Female</option>
+                  <option value='other'>Other</option>
                 </select>
               </td>
               <td>
                 <strong>Address:</strong>
                 <FormsyInput value={this.state.address}
                              onChange={this.handleInputChange}
-                             name="address"
+                             name='address'
                              validations={{
                                maxLength: 50
                              }}
@@ -231,7 +230,7 @@ class Basic extends React.Component {
                 <strong>City:</strong>
                 <FormsyInput value={this.state.city}
                              onChange={this.handleInputChange}
-                             name="city"
+                             name='city'
                              validations={{
                                maxLength: 50
                              }}
@@ -245,7 +244,7 @@ class Basic extends React.Component {
                 <strong>Postal:</strong>
                 <FormsyInput value={this.state.postal}
                              onChange={this.handleInputChange}
-                             name="postal"
+                             name='postal'
                              validations={{
                                maxLength: 10
                              }}
@@ -261,7 +260,7 @@ class Basic extends React.Component {
                 <strong>State:</strong>
                 <FormsyInput value={this.state.state}
                              onChange={this.handleInputChange}
-                             name="state"
+                             name='state'
                              validations={{
                                maxLength: 50
                              }}
@@ -275,7 +274,7 @@ class Basic extends React.Component {
                 <strong>Country:</strong>
                 <FormsyInput value={this.state.country}
                              onChange={this.handleInputChange}
-                             name="country"
+                             name='country'
                              validations={{
                                maxLength: 50
                              }}
@@ -299,7 +298,7 @@ class Basic extends React.Component {
                                      isDefaultRequiredValue: 'Valid phone is required',
                                      maxLength: 'Valid phone is required'
                                    }}
-                                   name="phone"
+                                   name='phone'
                                    required />
               </td>
               <td>
@@ -307,7 +306,7 @@ class Basic extends React.Component {
                 {/* Unfortunately text-mask doesn't handle emails very well */}
                 <FormsyInput value={this.state.email}
                              onChange={this.handleInputChange}
-                             name="email"
+                             name='email'
                              validations={{
                                maxLength: 50,
                                isEmail: true
@@ -325,7 +324,7 @@ class Basic extends React.Component {
                 <strong>Billing Note:</strong>
                 <FormsyInput value={this.state.billingNote}
                              onChange={this.handleInputChange}
-                             name="billingNote"
+                             name='billingNote'
                              validations={{
                                maxLength: 50
                              }}
@@ -339,7 +338,7 @@ class Basic extends React.Component {
                 <strong>Other Note</strong>
                 <FormsyInput value={this.state.otherNote}
                              onChange={this.handleInputChange}
-                             name="otherNote"
+                             name='otherNote'
                              validations={{
                                maxLength: 50
                              }}
@@ -352,7 +351,7 @@ class Basic extends React.Component {
             </tr>
           </table>
 
-          <button className="btn btn-default btn-sm" type="submit">SAVE</button>
+          <button className='btn btn-default btn-sm' type='submit'>SAVE</button>
         </Formsy.Form>
       )
     } else {

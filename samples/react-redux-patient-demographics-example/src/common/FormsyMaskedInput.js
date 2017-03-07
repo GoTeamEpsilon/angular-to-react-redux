@@ -7,18 +7,18 @@ export const FormsyMaskedInput = React.createClass({
 
   changeValue(event) {
     this.props.onChange(event)
-    this.setValue(event.currentTarget.value);
+    this.setValue(event.currentTarget.value)
   },
 
   render() {
-    const className = this.showRequired() ? 'required' : this.showError() ? 'error' : null;
+    const className = this.showRequired() ? 'required' : this.showError() ? 'error' : null
 
-    const errorMessage = this.getErrorMessage();
+    const errorMessage = this.getErrorMessage()
 
     return (
       <div className={className}>
         <MaskedInput mask={this.props.mask}
-                     type="text"
+                     type='text'
                      onChange={this.changeValue}
                      value={this.getValue()}
                      name={this.props.name} />

@@ -1,6 +1,5 @@
 import React from 'react'
-import Formsy from 'formsy-react';
-import MaskedInput from 'react-text-mask'
+import Formsy from 'formsy-react'
 
 export const FormsyInput = React.createClass({
   mixins: [Formsy.Mixin],
@@ -17,7 +16,7 @@ export const FormsyInput = React.createClass({
 
     return (
       <div className={className}>
-        <input type="text"
+        <input type='text'
                onChange={this.changeValue}
                value={this.getValue()}
                name={this.props.name} />

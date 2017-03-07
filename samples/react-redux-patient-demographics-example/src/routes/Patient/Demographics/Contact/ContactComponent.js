@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import MaskedInput from 'react-text-mask'
-
 import {telephoneFormat} from '../../../../common/Formatters'
 
 /***
@@ -13,44 +12,43 @@ class Contact extends Component {
   constructor() {
     super()
     this.state = {showForm: false}
-    
+
     this.handleCancel = this.handleCancel.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
   }
-  
+
   handleCancel() {
-    console.log("handleCancel")
+    console.log('handleCancel')
     this.setState({showForm: false})
   }
-  
+
   handleDelete() {
-    console.log("handleDelete")
+    console.log('handleDelete')
   }
-  
+
   handleEdit() {
-    console.log("handleEdit")
+    console.log('handleEdit')
     console.log(this.state)
     this.setPropsToLocalState()
     this.setState({showForm: true})
   }
-  
+
   handleInputChange(event) {
-    console.log("handleInputChange")
+    console.log('handleInputChange')
     this.setState({
       [event.target.name]: event.target.value
     })
-    
   }
-  
+
   handleSubmit(event) {
-    console.log("handleSubmit")
+    console.log('handleSubmit')
     event.preventDefault()
   }
-  
+
   setPropsToLocalState() {
     const keys = ['name', 'relation', 'address', 'phone', 'city', 'postal', 'state', 'country', 'email']
-    
+
     keys.forEach((keyName) => {
       let value = this.props.contact[keyName]
       this.setState({
@@ -58,13 +56,13 @@ class Contact extends Component {
       })
     })
   }
-  
+
   render() {
     if (this.props.contact && this.state.showForm === false) {
       return (
         <div>
           <br/>
-          <table className="table">
+          <table className='table'>
             <tr>
               <td><strong>Name:</strong> {this.props.contact.name}</td>
               <td><strong>Relation:</strong> {this.props.contact.relation}</td>
@@ -83,95 +81,91 @@ class Contact extends Component {
             </tr>
             <tr>
               <td><strong>Email:</strong> {this.props.contact.email}</td>
-              <td></td>
             </tr>
           </table>
-          
-          <button type="button" className="btn btn-default btn-sm" onClick={this.handleDelete}>DELETE</button>
-          <button type="button" className="btn btn-default btn-sm" onClick={this.handleEdit}>EDIT</button>
-          
-          
+
+          <button type='button' className='btn btn-default btn-sm' onClick={this.handleDelete}>DELETE</button>
+          <button type='button' className='btn btn-default btn-sm' onClick={this.handleEdit}>EDIT</button>
+
           <hr/>
-        
-        
+
         </div>
       )
     } else if (this.props.contact && this.state.showForm === true) {
       return (
         <div>
-          <form name="edit-contact-info" className="contact-info-form" onSubmit={this.handleSubmit}>
-            <table className="table">
+          <form name='edit-contact-info' className='contact-info-form' onSubmit={this.handleSubmit}>
+            <table className='table'>
               <tr>
                 <td><strong>Name:</strong> <input
-                  type="text"
-                  name="name"
+                  type='text'
+                  name='name'
                   value={this.state.name}
                   onChange={this.handleInputChange}
                   required/>
                 </td>
                 <td><strong>Relation:</strong> <input
-                  type="text"
-                  name="relation"
+                  type='text'
+                  name='relation'
                   value={this.state.relation}
                   onChange={this.handleInputChange}
                   required/></td>
               </tr>
               <tr>
                 <td><strong>Address:</strong> <input
-                  type="text"
-                  name="address"
+                  type='text'
+                  name='address'
                   value={this.state.address}
                   onChange={this.handleInputChange}
                   required/></td>
                 <td><strong>Phone:</strong> <MaskedInput
                   mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
-                  type="text"
-                  value= {this.state.phone}
+                  type='text'
+                  value={this.state.phone}
                   onChange={this.handleInputChange}
-                  name="phone"/></td>
+                  name='phone'/></td>
               </tr>
               <tr>
                 <td><strong>City:</strong> <input
-                  type="text"
-                  name="city"
+                  type='text'
+                  name='city'
                   value={this.state.city}
                   onChange={this.handleInputChange}
                   required/></td>
                 <td><strong>Postal:</strong> <input
-                  type="text"
-                  name="postal"
+                  type='text'
+                  name='postal'
                   value={this.state.postal}
                   onChange={this.handleInputChange}
                   required/></td>
               </tr>
               <tr>
                 <td><strong>State:</strong> <input
-                  type="text"
-                  name="state"
+                  type='text'
+                  name='state'
                   value={this.state.state}
                   onChange={this.handleInputChange}
                   required/></td>
                 <td><strong>Country:</strong> <input
-                  type="text"
-                  name="country"
+                  type='text'
+                  name='country'
                   value={this.state.country}
                   onChange={this.handleInputChange}
                   required/></td>
               </tr>
               <tr>
                 <td><strong>Email:</strong> <input
-                  type="email"
-                  name="email"
+                  type='email'
+                  name='email'
                   value={this.state.email}
                   onChange={this.handleInputChange}
                   required/></td>
-                <td></td>
               </tr>
             </table>
-            
-            <button className="btn btn-default btn-sm" type="submit">SAVE</button>
-            <button type="button" className="btn btn-default btn-sm" onClick={this.handleCancel}>CANCEL</button>
-          
+
+            <button className='btn btn-default btn-sm' type='submit'>SAVE</button>
+            <button type='button' className='btn btn-default btn-sm' onClick={this.handleCancel}>CANCEL</button>
+
           </form>
         </div>
       )

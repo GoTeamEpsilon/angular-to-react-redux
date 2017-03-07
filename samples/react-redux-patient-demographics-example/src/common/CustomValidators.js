@@ -10,10 +10,10 @@ export const isDob = (value) => {
 }
 
 export const isSsn = (value) => {
-  let cleaned = null;
+  let cleaned = null
 
   if (value !== null) {
-    cleaned = value.toString().replace(/[^0-9.]/g, '');
+    cleaned = value.toString().replace(/[^0-9.]/g, '')
   }
 
   if (cleaned !== null && cleaned.length === 9) {
@@ -25,10 +25,10 @@ export const isSsn = (value) => {
 
 export const wireUpCustomFormsyValidators = () => {
   Formsy.addValidationRule('isDob', function(values, value) {
-    return isDob(value);
-  });
+    return isDob(value)
+  })
 
   Formsy.addValidationRule('isSsn', function(values, value) {
-    return isSsn(value);
-  });
+    return isSsn(value)
+  })
 }
