@@ -33,9 +33,10 @@ class PatientDemographics extends React.Component {
   componentDidMount() {
     if (!this.determineIfRouteIsValid()) {
       browserHistory.push('/patient/1337')
+      location.reload()
+    } else {
+      this.setPatientInContext()
     }
-
-    this.setPatientInContext()
   }
 
   mockedTab() {
