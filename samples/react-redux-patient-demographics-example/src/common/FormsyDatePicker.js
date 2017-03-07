@@ -11,17 +11,16 @@ export const FormsyDatePicker = React.createClass({
   },
 
   render() {
-    const className = this.showRequired() ? 'required' : this.showError() ? 'error' : null
-
-    const errorMessage = this.getErrorMessage()
+    const className = this.showRequired() || this.showError() ? 'help-block' : null;
 
     return (
-      <div className={className}>
+      <div>
         <DatePicker selected={this.getValue()}
                     onChange={this.changeValue}
                     name={this.props.name} />
 
-        <span>{errorMessage}</span>
+        <br />
+        <span className={className}>{this.getErrorMessage()}</span>
       </div>
     );
   }
