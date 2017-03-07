@@ -30,7 +30,6 @@ class Basic extends React.Component {
   }
 
   handleSubmit() {
-    console.log('here')
   }
 
   sanitizeToJustNumbers(value) {
@@ -47,8 +46,6 @@ class Basic extends React.Component {
       switch (event.target.name) {
         case 'phone':
         case 'ss':
-          let james = event.target.value.toString()
-          console.log(james.length)
           value = this.sanitizeToJustNumbers(event.target.value.toString())
           break
         default:
@@ -141,11 +138,13 @@ class Basic extends React.Component {
                              onChange={this.handleInputChange}
                              name='name'
                              validations={{
-                               maxLength: 50
+                               maxLength: 20,
+                               minLength: 2
                              }}
                              validationErrors={{
                                isDefaultRequiredValue: 'Valid name is required',
-                               maxLength: 'You must not enter more than 50 characters'
+                               maxLength: 'You must not enter more than 20 characters',
+                               minLength: 'You must enter at least 2 characters'
                              }}
                              required />
               </td>
@@ -171,15 +170,12 @@ class Basic extends React.Component {
                                    value={this.state.ss}
                                    onChange={this.handleInputChange}
                                    validations={{
-
-                                     minLength: 9,
-                                     maxLength: 11
+                                     isLength: 9
                                    }}
+                                   sanitizationFunction={this.sanitizeToJustNumbers}
                                    validationErrors={{
                                      isDefaultRequiredValue: 'Valid SSN is required',
-                                     minLength: 'Valid SSN is required',
-
-                                     maxLength: 'Valid SSN is required'
+                                     isLength: 'Valid SSN is required'
                                    }}
                                    name='ss'
                                    required />
@@ -190,11 +186,13 @@ class Basic extends React.Component {
                              onChange={this.handleInputChange}
                              name='martialStatus'
                              validations={{
-                               maxLength: 50
+                               maxLength: 20,
+                               minLength: 2
                              }}
                              validationErrors={{
                                isDefaultRequiredValue: 'Valid martial status is required',
-                               maxLength: 'You must not enter more than 50 characters'
+                               maxLength: 'You must not enter more than 20 characters',
+                               minLength: 'You must enter at least 2 characters'
                              }}
                              required />
               </td>
@@ -216,11 +214,13 @@ class Basic extends React.Component {
                              onChange={this.handleInputChange}
                              name='address'
                              validations={{
-                               maxLength: 50
+                               maxLength: 20,
+                               minLength: 2
                              }}
                              validationErrors={{
                                isDefaultRequiredValue: 'Valid address is required',
-                               maxLength: 'You must not enter more than 50 characters'
+                               maxLength: 'You must not enter more than 20 characters',
+                               minLength: 'You must enter at least 2 characters'
                              }}
                              required />
               </td>
@@ -232,11 +232,13 @@ class Basic extends React.Component {
                              onChange={this.handleInputChange}
                              name='city'
                              validations={{
-                               maxLength: 50
+                               maxLength: 30,
+                               minLength: 2
                              }}
                              validationErrors={{
                                isDefaultRequiredValue: 'Valid city is required',
-                               maxLength: 'You must not enter more than 50 characters'
+                               maxLength: 'You must not enter more than 30 characters',
+                               minLength: 'You must enter at least 2 characters'
                              }}
                              required />
               </td>
@@ -246,11 +248,13 @@ class Basic extends React.Component {
                              onChange={this.handleInputChange}
                              name='postal'
                              validations={{
-                               maxLength: 10
+                               maxLength: 10,
+                               minLength: 2
                              }}
                              validationErrors={{
                                isDefaultRequiredValue: 'Valid postal is required',
-                               maxLength: 'You must not enter more than 10 characters'
+                               maxLength: 'You must not enter more than 10 characters',
+                               minLength: 'You must enter at least 2 characters'
                              }}
                              required />
               </td>
@@ -262,11 +266,13 @@ class Basic extends React.Component {
                              onChange={this.handleInputChange}
                              name='state'
                              validations={{
-                               maxLength: 50
+                               maxLength: 20,
+                               minLength: 2
                              }}
                              validationErrors={{
                                isDefaultRequiredValue: 'Valid state is required',
-                               maxLength: 'You must not enter more than 50 characters'
+                               maxLength: 'You must not enter more than 20 characters',
+                               minLength: 'You must enter at least 2 characters'
                              }}
                              required />
               </td>
@@ -276,11 +282,13 @@ class Basic extends React.Component {
                              onChange={this.handleInputChange}
                              name='country'
                              validations={{
-                               maxLength: 50
+                               maxLength: 20,
+                               minLength: 2
                              }}
                              validationErrors={{
                                isDefaultRequiredValue: 'Valid country is required',
-                               maxLength: 'You must not enter more than 50 characters'
+                               maxLength: 'You must not enter more than 20 characters',
+                               minLength: 'You must enter at least 2 characters'
                              }}
                              required />
               </td>
@@ -292,11 +300,12 @@ class Basic extends React.Component {
                                    value={this.state.phone}
                                    onChange={this.handleInputChange}
                                    validations={{
-                                    maxLength: 10
+                                    isLength: 10
                                    }}
+                                   sanitizationFunction={this.sanitizeToJustNumbers}
                                    validationErrors={{
                                      isDefaultRequiredValue: 'Valid phone is required',
-                                     maxLength: 'Valid phone is required'
+                                     isLength: 'Valid phone is required'
                                    }}
                                    name='phone'
                                    required />
@@ -308,13 +317,13 @@ class Basic extends React.Component {
                              onChange={this.handleInputChange}
                              name='email'
                              validations={{
-                               maxLength: 50,
+                               maxLength: 20,
                                isEmail: true
                              }}
                              validationErrors={{
                                isDefaultRequiredValue: 'Valid email is required',
                                isEmail: 'Valid email is required',
-                               maxLength: 'You must not enter more than 50 characters'
+                               maxLength: 'You must not enter more than 20 characters'
                              }}
                              required />
               </td>
@@ -326,11 +335,13 @@ class Basic extends React.Component {
                              onChange={this.handleInputChange}
                              name='billingNote'
                              validations={{
-                               maxLength: 50
+                               maxLength: 20,
+                               minLength: 2
                              }}
                              validationErrors={{
                                isDefaultRequiredValue: 'Valid billing note is required',
-                               maxLength: 'You must not enter more than 50 characters'
+                               maxLength: 'You must not enter more than 20 characters',
+                               minLength: 'You must enter at least 2 characters'
                              }}
                              required />
               </td>
@@ -340,11 +351,13 @@ class Basic extends React.Component {
                              onChange={this.handleInputChange}
                              name='otherNote'
                              validations={{
-                               maxLength: 50
+                               maxLength: 20,
+                               minLength: 2
                              }}
                              validationErrors={{
                                isDefaultRequiredValue: 'Valid other note is required',
-                               maxLength: 'You must not enter more than 50 characters'
+                               maxLength: 'You must not enter more than 20 characters',
+                               minLength: 'You must enter at least 2 characters'
                              }}
                              required />
               </td>
