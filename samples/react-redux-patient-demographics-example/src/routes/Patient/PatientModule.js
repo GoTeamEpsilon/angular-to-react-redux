@@ -90,11 +90,14 @@ export const actions = {
  */
 const initialState = testData
 export default function patientReducer (state = initialState, action) {
+  let result
   switch (action.type) {
     case 'SET_PATIENT_IN_CONTEXT':
-      return { ...state, patientInContext: action.payload }
+      result = { ...state, patientInContext: action.payload }
       break
     default:
-      return state
+      result = state
   }
+
+  return result
 }

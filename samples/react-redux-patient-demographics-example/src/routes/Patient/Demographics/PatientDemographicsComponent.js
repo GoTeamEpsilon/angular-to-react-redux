@@ -50,7 +50,7 @@ class PatientDemographics extends React.Component {
   render() {
     let children = null;
 
-    switch(this.state.tab) {
+    switch (this.state.tab) {
       case this.TABS.BASIC:
         children = <Basic info={this.props.info} />
         break;
@@ -69,11 +69,11 @@ class PatientDemographics extends React.Component {
 
         <div className={this.state.isLoading ? 'hidden' : ''}>
           <div>
-            <ul className="nav nav-tabs">
-              <li className={this.state.tab == this.TABS.BASIC ? 'active' : ''}>
+            <ul className='nav nav-tabs'>
+              <li className={this.state.tab === this.TABS.BASIC ? 'active' : ''}>
                 <a onClick={() => this.changeTab(this.TABS.BASIC)}>Basic</a>
               </li>
-              <li className={this.state.tab == this.TABS.CONTACTS ? 'active' : ''}>
+              <li className={this.state.tab === this.TABS.CONTACTS ? 'active' : ''}>
                 <a onClick={() => this.changeTab(this.TABS.CONTACTS)}>Contacts</a>
               </li>
               <li><a onClick={this.mockedTab}>Choices</a></li>

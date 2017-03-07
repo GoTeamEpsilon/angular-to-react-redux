@@ -1,6 +1,5 @@
 import React from 'react'
 import Formsy from 'formsy-react';
-import MaskedInput from 'react-text-mask'
 import DatePicker from 'react-datepicker'
 
 export const FormsyDatePicker = React.createClass({
@@ -12,9 +11,9 @@ export const FormsyDatePicker = React.createClass({
   },
 
   render() {
-    const className = this.showRequired() ? 'required' : this.showError() ? 'error' : null;
+    const className = this.showRequired() ? 'required' : this.showError() ? 'error' : null
 
-    const errorMessage = this.getErrorMessage();
+    const errorMessage = this.getErrorMessage()
 
     return (
       <div className={className}>
