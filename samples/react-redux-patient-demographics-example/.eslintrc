@@ -30,6 +30,7 @@
     "indent"                         : [0, "always"],
     "jsx-quotes"                     : [2, "prefer-single"],
     "max-len"                        : [2, 120, 2],
-    "comma-spacing"                  : [0, "always"]
+    "comma-spacing"                  : [0, "always"],
+    "react/jsx-no-bind"              : [0, "always"]
   }
 }

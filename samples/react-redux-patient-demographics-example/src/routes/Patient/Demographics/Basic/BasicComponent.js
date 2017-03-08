@@ -14,22 +14,34 @@ class Basic extends React.Component {
     super()
     this.state = {
       showForm: false,
-      dob: moment()
+      dob: moment(),
+      cachedForm: {}
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
     wireUpCustomFormsyValidators()
   }
 
-  handleEdit () {
+  handleEdit() {
     this.setLocalStateToStoreValues()
     this.setState({ showForm: true })
+    this.setState({ cachedForm: this.props.info })
   }
 
   componentDidMount() {
   }
 
-  handleSubmit() {
+  handleSubmit(formValues) {
+    // Convert dob back to date string
+    formValues.dob = formValues.dob.format('YYYY-MM-DD')
+    this.props.updatePatientData(formValues)
+    this.setState({ showForm: false })
+  }
+
+  handleCancel() {
+    this.setState(this.state.cachedForm)
+    this.setState({ cachedForm: {} })
+    this.setState({ showForm: false })
   }
 
   sanitizeToJustNumbers(value) {
@@ -80,6 +92,7 @@ class Basic extends React.Component {
         default:
           value = this.props.info[keyName]
       }
+
       this.setState({
         [keyName]: value
       })
@@ -126,7 +139,7 @@ class Basic extends React.Component {
       )
     } else if (this.props.info && this.state.showForm === true) {
       return (
-         <Formsy.Form onValidSubmit={this.handleSubmit}
+         <Formsy.Form onValidSubmit={this.handleSubmit.bind(this)}
                       name='basicInfoForm'
                       className='container basic-info-form'
                       noValidate>
@@ -365,6 +378,7 @@ class Basic extends React.Component {
           </table>
 
           <button className='btn btn-default btn-sm' type='submit'>SAVE</button>
+          <button className='btn btn-default btn-sm' type='input' onClick={this.handleCancel.bind(this)}>CANCEL</button>
         </Formsy.Form>
       )
     } else {

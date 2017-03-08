@@ -1,3 +1,5 @@
+import clone from 'clone'
+
 /**
  * Stub data that will be used as the initial state in the store.
  */
@@ -13,8 +15,8 @@ const testData = {
       ss: '999999999',
       martialStatus: 'Single',
       gender: 'Male',
-      billingNote: ' N/A',
-      otherNote: ' N/A',
+      billingNote: 'N/A',
+      otherNote: 'N/A',
       address: '321 Bazbop Ln',
       city: 'CoolCity',
       postal: '54321',
@@ -81,6 +83,18 @@ export const setPatientInContext = (patientId) => {
   }
 }
 
+export const updatePatientData = (data) => {
+  return (dispatch, getState) => {
+    return new Promise((resolve, reject) => {
+      dispatch({
+        type    : 'UPDATE_PATIENT_DATA',
+        payload : [getState().patient.patientInContext, data]
+      })
+      resolve()
+    })
+  }
+}
+
 export const actions = {
   setPatientInContext
 };
@@ -94,6 +108,11 @@ export default function patientReducer (state = initialState, action) {
   switch (action.type) {
     case 'SET_PATIENT_IN_CONTEXT':
       result = { ...state, patientInContext: action.payload }
+      break
+    case 'UPDATE_PATIENT_DATA':
+      let copy = clone(state)
+      copy[action.payload[0]].basic = action.payload[1]
+      result = copy
       break
     default:
       result = state

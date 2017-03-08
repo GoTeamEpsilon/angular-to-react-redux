@@ -53,7 +53,8 @@ class PatientDemographics extends React.Component {
 
     switch (this.state.tab) {
       case this.TABS.BASIC:
-        children = <Basic info={this.props.info} />
+        children = <Basic info={this.props.info}
+                          updatePatientData={this.props.updatePatientData} />
         break;
       case this.TABS.CONTACTS:
         if (this.props.contacts) {
