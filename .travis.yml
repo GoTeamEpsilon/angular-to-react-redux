@@ -3,3 +3,5 @@ node_js:
   - "6"
 before_script:
   - npm install -g grunt-cli bower
+notifications:
+  slack: goteamepsilon:wId4MyJvwocMrg7gOzxov00k
