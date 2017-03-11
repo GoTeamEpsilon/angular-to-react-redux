@@ -1,0 +1,24 @@
+{
+  "name": "angular-to-react-redux",
+  "version": "1.0.0",
+  "description": "This repository is an educational resource for Angular v1 experts that are looking to learn React/Redux. Edit",
+  "main": "index.js",
+  "scripts": {
+    "angular": "cd samples/angular-patient-demographics-example && npm install && bower install && grunt",
+    "reactredux": "cd samples/react-redux-patient-demographics-example && npm install && npm run lint && npm run test",
+    "test": "concurrent \"npm run angular\" \"npm run reactredux\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GoTeamEpsilon/angular-to-react-redux.git"
+  },
+  "author": "Team Epsilon",
+  "license": "MIT",
+  "devDependencies": {
+  "concurrently": "^1.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/GoTeamEpsilon/angular-to-react-redux/issues"
+  },
+  "homepage": "https://github.com/GoTeamEpsilon/angular-to-react-redux#readme"
+}
