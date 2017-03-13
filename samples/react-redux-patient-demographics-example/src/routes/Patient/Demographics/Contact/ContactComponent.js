@@ -55,8 +55,9 @@ class Contact extends Component {
 
   handleSubmit(formValues) {
     console.log('handleSubmit')
-    this.props.updatePatientData(formValues)
     this.setState({ showForm: false })
+    this.props.updateContactData(formValues)
+    
   }
   
   sanitizeToJustNumbers(value) {

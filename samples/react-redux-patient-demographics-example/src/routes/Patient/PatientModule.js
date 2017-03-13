@@ -95,6 +95,19 @@ export const updatePatientData = (data) => {
   }
 }
 
+export const updateContactData = (data) => {
+  console.log("hey I'm contact data and I'm running")
+  return (dispatch, getState) => {
+    return new Promise((resolve, reject) => {
+      dispatch({
+        type    : 'UPDATE_CONTACT_DATA',
+        payload : [getState().patient.patientInContext, data]
+      })
+      resolve()
+    })
+  }
+}
+
 export const actions = {
   setPatientInContext
 };
@@ -105,14 +118,23 @@ export const actions = {
 const initialState = testData
 export default function patientReducer (state = initialState, action) {
   let result
+  // maybe define "copy" here
   switch (action.type) {
     case 'SET_PATIENT_IN_CONTEXT':
       result = { ...state, patientInContext: action.payload }
       break
     case 'UPDATE_PATIENT_DATA':
-      let copy = clone(state)
+      let copy1 = clone(state)
       copy[action.payload[0]].basic = action.payload[1]
-      result = copy
+      result = copy1
+      break
+    case 'UPDATE_CONTACT_DATA':
+      //console.log("I ran too in the store!!")
+      console.log(action.payload[0].contacts)
+      console.log(action.payload[1])
+      //let copy2 = clone(state)
+      //copy2[action.payload[0]].contacts[0] = action.payload[1]
+      //result = copy2
       break
     default:
       result = state
