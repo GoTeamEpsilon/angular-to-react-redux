@@ -125,16 +125,19 @@ export default function patientReducer (state = initialState, action) {
       break
     case 'UPDATE_PATIENT_DATA':
       let copy1 = clone(state)
-      copy[action.payload[0]].basic = action.payload[1]
+      copy1[action.payload[0]].basic = action.payload[1]
       result = copy1
       break
     case 'UPDATE_CONTACT_DATA':
       //console.log("I ran too in the store!!")
-      console.log(action.payload[0].contacts)
-      console.log(action.payload[1])
-      //let copy2 = clone(state)
-      //copy2[action.payload[0]].contacts[0] = action.payload[1]
-      //result = copy2
+      // console.log([action.payload[0]].basic)
+      // console.log(action.payload[1])
+      let copy2 = clone(state)
+      let id = action.payload[1].id - 1
+      // console.log(copy2);
+      // console.log(result);
+      copy2[action.payload[0]].contacts[id] = action.payload[1]
+      result = copy2
       break
     default:
       result = state

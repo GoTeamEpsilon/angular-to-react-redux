@@ -25,7 +25,7 @@ class Contact extends Component {
   handleCancel() {
     console.log('handleCancel')
     this.setState(this.state.cachedForm)
-    this.setState({ cachedForm: {} })
+    //this.setState({ cachedForm: {} })
     this.setState({showForm: false})
   }
 
@@ -37,7 +37,7 @@ class Contact extends Component {
     console.log('handleEdit')
     this.setPropsToLocalState()
     this.setState({showForm: true})
-    this.setState({ cachedForm: this.props.contact })
+    //this.setState({ cachedForm: this.props.contact })
   }
 
   handleInputChange(event) {
@@ -55,9 +55,10 @@ class Contact extends Component {
 
   handleSubmit(formValues) {
     console.log('handleSubmit')
-    this.setState({ showForm: false })
+
+    console.log(formValues);
     this.props.updateContactData(formValues)
-    
+    this.setState({ showForm: false })
   }
   
   sanitizeToJustNumbers(value) {
@@ -69,13 +70,15 @@ class Contact extends Component {
   }
   
   setPropsToLocalState() {
-    const keys = ['name', 'relation', 'address', 'phone', 'city', 'postal', 'state', 'country', 'email']
+    const keys = ['id','name', 'relation', 'address', 'phone', 'city', 'postal', 'state', 'country', 'email']
 
     keys.forEach((keyName) => {
       let value
-      
-      if (keyName === 'phone'){
+      // Make switch statement
+      if (keyName === 'phone') {
         value = this.sanitizeToJustNumbers(this.props.contact[keyName].toString())
+      } else if (keyName === 'id'){
+        value = this.props.contact[keyName]
       } else {
         value = this.props.contact[keyName]
       }
@@ -129,7 +132,7 @@ class Contact extends Component {
                        noValidate>
             <table className='table'>
               <tr>
-                <td><strong>Name:</strong>
+                <td>
                   <FormsyInput value={this.state.name}
                                onChange={this.handleInputChange}
                                name='name'
@@ -145,7 +148,7 @@ class Contact extends Component {
                                }}
                                required />
                 </td>
-                <td><strong>Relation:</strong>
+                <td>
                   <FormsyInput value={this.state.relation}
                                onChange={this.handleInputChange}
                                name='relationship'
@@ -163,7 +166,7 @@ class Contact extends Component {
                 </td>
               </tr>
               <tr>
-                <td><strong>Address:</strong>
+                <td>
                   <FormsyInput value={this.state.address}
                                onChange={this.handleInputChange}
                                name='address'
@@ -178,7 +181,7 @@ class Contact extends Component {
                                  minLength: 'You must enter at least 2 characters'
                                }}
                                required /></td>
-                <td><strong>Phone:</strong>
+                <td>
                   <FormsyMaskedInput mask={['(',/[1-9]/,/\d/,/\d/,')',' ',/\d/,/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/]}
                                      value={this.state.phone}
                                      onChange={this.handleInputChange}
@@ -195,7 +198,7 @@ class Contact extends Component {
                                      required /></td>
               </tr>
               <tr>
-                <td><strong>City:</strong>
+                <td>
                   <FormsyInput value={this.state.city}
                                onChange={this.handleInputChange}
                                name='city'
@@ -213,7 +216,7 @@ class Contact extends Component {
                 </td>
               </tr>
               <tr>
-                <td><strong>State:</strong>
+                <td>
                   <FormsyInput value={this.state.state}
                                onChange={this.handleInputChange}
                                name='state'
@@ -229,9 +232,45 @@ class Contact extends Component {
                                }}
                                required />
                 </td>
+
+                <td>
+                  <FormsyInput
+                              value={this.state.postal}
+                               onChange={this.handleInputChange}
+                               name='postal'
+                               label='Postal'
+                               validations={{
+                                 maxLength: 10,
+                                 minLength: 4
+                               }}
+                               validationErrors={{
+                                 isDefaultRequiredValue: 'Valid postal is required',
+                                 maxLength: 'You must not enter more than 10 characters',
+                                 minLength: 'You must enter at least 4 characters'
+                               }}
+                               required />
+                </td>
               </tr>
               <tr>
-                <td><strong>Email:</strong>
+                <td>
+                  <FormsyInput value={this.state.country}
+                               onChange={this.handleInputChange}
+                               name='country'
+                               label='Country'
+                               validations={{
+                                 maxLength: 30,
+                                 minLength: 2
+                               }}
+                               validationErrors={{
+                                 isDefaultRequiredValue: 'Valid country is required',
+                                 maxLength: 'You must not enter more than 30 characters',
+                                 minLength: 'You must enter at least 2 characters'
+                               }}
+                               required />
+                </td>
+              </tr>
+              <tr>
+                <td>
                   <FormsyInput value={this.state.email}
                                onChange={this.handleInputChange}
                                name='email'
@@ -248,6 +287,17 @@ class Contact extends Component {
                                required />
                 </td>
               </tr>
+            <tr>
+              <td>
+                <FormsyInput type='hidden'
+                             value={this.state.id}
+                             onChange={this.handleInputChange}
+                             name='id'
+                             label='ID'
+
+                             required />
+              </td>
+            </tr>
             </table>
 
             <button className='btn btn-default btn-sm' type='submit'>SAVE</button>
