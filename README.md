@@ -4,7 +4,9 @@
 
 ![img](http://i.imgur.com/Gq1eJpa.png)
 
-This repository is an educational resource for Angular v1 experts that are looking to learn React/Redux. A contrived sample application for managing basic patient information is provided using both technologies' best practices (look under `samples/` to see both versions). This application will be referred to below as we explore the key philosophical differences between Angular v1 and React/Redux so that you can get coding!
+This repository is an educational resource for Angular v1 experts that are looking to learn React/Redux. A contrived sample application for managing basic patient information is provided using both technologies' best practices (look under `samples/` to see both versions). This application (demonstrated below) will be referred to below as we explore the key philosophical differences between Angular v1 and React/Redux so that you can get coding!
+
+![gif](https://i.imgur.com/TGUAuCF.gif)
 
 Getting Started
 ===============
