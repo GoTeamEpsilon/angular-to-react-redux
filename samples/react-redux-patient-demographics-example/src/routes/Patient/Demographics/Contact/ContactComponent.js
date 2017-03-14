@@ -212,7 +212,22 @@ class Contact extends Component {
                                  }}
                                  required />
                   </td>
-                  <td></td>
+                  <td>
+                    <FormsyInput value={this.state.postal}
+                                 onChange={this.handleInputChange}
+                                 name='postal'
+                                 label='Postal'
+                                 validations={{
+                                   maxLength: 5,
+                                   minLength: 5
+                                 }}
+                                 validationErrors={{
+                                   isDefaultRequiredValue: 'Valid postal code is required',
+                                   maxLength: 'You must enter a valid postal code',
+                                   minLength: 'You must enter a valid postal code'
+                                 }}
+                                 required />
+                  </td>
                 </tr>
                 <tr>
                   <td>
@@ -231,7 +246,22 @@ class Contact extends Component {
                                  }}
                                  required />
                   </td>
-                  <td></td>
+                  <td>
+                    <FormsyInput value={this.state.country}
+                                 onChange={this.handleInputChange}
+                                 name='country'
+                                 label='Country'
+                                 validations={{
+                                   maxLength: 20,
+                                   minLength: 2
+                                 }}
+                                 validationErrors={{
+                                   isDefaultRequiredValue: 'Valid country is required',
+                                   maxLength: 'You must not enter more than 20 characters',
+                                   minLength: 'You must enter at least 2 characters'
+                                 }}
+                                 required />
+                  </td>
                 </tr>
                 <tr>
                   <td>
