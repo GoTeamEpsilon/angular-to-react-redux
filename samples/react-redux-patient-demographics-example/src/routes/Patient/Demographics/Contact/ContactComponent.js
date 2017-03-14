@@ -58,7 +58,7 @@ class Contact extends Component {
     this.props.updatePatientData(formValues)
     this.setState({ showForm: false })
   }
-  
+
   sanitizeToJustNumbers(value) {
     if (!value) {
       return value
@@ -66,19 +66,19 @@ class Contact extends Component {
 
     return value.replace(/[^0-9.]/g, '')
   }
-  
+
   setPropsToLocalState() {
     const keys = ['name', 'relation', 'address', 'phone', 'city', 'postal', 'state', 'country', 'email']
 
     keys.forEach((keyName) => {
       let value
-      
+
       if (keyName === 'phone'){
         value = this.sanitizeToJustNumbers(this.props.contact[keyName].toString())
       } else {
         value = this.props.contact[keyName]
       }
-      
+
       this.setState({
         [keyName]: value
       })
@@ -89,171 +89,178 @@ class Contact extends Component {
     if (this.props.contact && this.state.showForm === false) {
       return (
         <div>
-          <br/>
           <table className='table'>
-            <tr>
-              <td><strong>Name:</strong> {this.props.contact.name}</td>
-              <td><strong>Relation:</strong> {this.props.contact.relation}</td>
-            </tr>
-            <tr>
-              <td><strong>Address:</strong> {this.props.contact.address}</td>
-              <td><strong>Phone:</strong> {telephoneFormat(this.props.contact.phone)}</td>
-            </tr>
-            <tr>
-              <td><strong>City:</strong> {this.props.contact.city}</td>
-              <td><strong>Postal:</strong> {this.props.contact.postal}</td>
-            </tr>
-            <tr>
-              <td><strong>State:</strong> {this.props.contact.state}</td>
-              <td><strong>Country:</strong> {this.props.contact.country}</td>
-            </tr>
-            <tr>
-              <td><strong>Email:</strong> {this.props.contact.email}</td>
-            </tr>
+            <tbody>
+              <tr>
+                <td><strong>Name:</strong> {this.props.contact.name}</td>
+                <td><strong>Relation:</strong> {this.props.contact.relation}</td>
+              </tr>
+              <tr>
+                <td><strong>Address:</strong> {this.props.contact.address}</td>
+                <td><strong>Phone:</strong> {telephoneFormat(this.props.contact.phone)}</td>
+              </tr>
+              <tr>
+                <td><strong>City:</strong> {this.props.contact.city}</td>
+                <td><strong>Postal:</strong> {this.props.contact.postal}</td>
+              </tr>
+              <tr>
+                <td><strong>State:</strong> {this.props.contact.state}</td>
+                <td><strong>Country:</strong> {this.props.contact.country}</td>
+              </tr>
+              <tr>
+                <td><strong>Email:</strong> {this.props.contact.email}</td>
+                <td></td>
+              </tr>
+            </tbody>
           </table>
 
           <button type='button' className='btn btn-default btn-sm' onClick={this.handleDelete}>DELETE</button>
           <button type='button' className='btn btn-default btn-sm' onClick={this.handleEdit}>EDIT</button>
-
-          <hr/>
-
+          <br/>
+          <br/>
         </div>
       )
     } else if (this.props.contact && this.state.showForm === true) {
       return (
-        
+
           <Formsy.Form onValidSubmit={this.handleSubmit.bind(this)}
                        name='contactInfoForm'
-                       className='container contact-info-form'
+                       className='contact-info-form'
                        noValidate>
             <table className='table'>
-              <tr>
-                <td><strong>Name:</strong>
-                  <FormsyInput value={this.state.name}
-                               onChange={this.handleInputChange}
-                               name='name'
-                               label='Name'
-                               validations={{
-                                 maxLength: 30,
-                                 minLength: 2
-                               }}
-                               validationErrors={{
-                                 isDefaultRequiredValue: 'Valid name is required',
-                                 maxLength: 'You must not enter more than 30 characters',
-                                 minLength: 'You must enter at least 2 characters'
-                               }}
-                               required />
-                </td>
-                <td><strong>Relation:</strong>
-                  <FormsyInput value={this.state.relation}
-                               onChange={this.handleInputChange}
-                               name='relationship'
-                               label='Relationship'
-                               validations={{
-                                 maxLength: 25,
-                                 minLength: 1
-                               }}
-                               validationErrors={{
-                                 isDefaultRequiredValue: 'Valid relationship is required',
-                                 maxLength: 'You must not enter more than 25 characters',
-                                 minLength: 'You must enter at least 1 character'
-                               }}
-                               required />
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Address:</strong>
-                  <FormsyInput value={this.state.address}
-                               onChange={this.handleInputChange}
-                               name='address'
-                               label='Address'
-                               validations={{
-                                 maxLength: 20,
-                                 minLength: 2
-                               }}
-                               validationErrors={{
-                                 isDefaultRequiredValue: 'Valid address is required',
-                                 maxLength: 'You must not enter more than 20 characters',
-                                 minLength: 'You must enter at least 2 characters'
-                               }}
-                               required /></td>
-                <td><strong>Phone:</strong>
-                  <FormsyMaskedInput mask={['(',/[1-9]/,/\d/,/\d/,')',' ',/\d/,/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/]}
-                                     value={this.state.phone}
-                                     onChange={this.handleInputChange}
-                                     validations={{
-                                       isLength: 10
-                                     }}
-                                     sanitizationFunction={this.sanitizeToJustNumbers}
-                                     validationErrors={{
-                                       isDefaultRequiredValue: 'Valid phone is required',
-                                       isLength: 'Valid phone is required'
-                                     }}
-                                     name='phone'
-                                     label='Phone'
-                                     required /></td>
-              </tr>
-              <tr>
-                <td><strong>City:</strong>
-                  <FormsyInput value={this.state.city}
-                               onChange={this.handleInputChange}
-                               name='city'
-                               label='City'
-                               validations={{
-                                 maxLength: 30,
-                                 minLength: 2
-                               }}
-                               validationErrors={{
-                                 isDefaultRequiredValue: 'Valid city is required',
-                                 maxLength: 'You must not enter more than 30 characters',
-                                 minLength: 'You must enter at least 2 characters'
-                               }}
-                               required />
-                </td>
-              </tr>
-              <tr>
-                <td><strong>State:</strong>
-                  <FormsyInput value={this.state.state}
-                               onChange={this.handleInputChange}
-                               name='state'
-                               label='State'
-                               validations={{
-                                 maxLength: 20,
-                                 minLength: 2
-                               }}
-                               validationErrors={{
-                                 isDefaultRequiredValue: 'Valid state is required',
-                                 maxLength: 'You must not enter more than 20 characters',
-                                 minLength: 'You must enter at least 2 characters'
-                               }}
-                               required />
-                </td>
-              </tr>
-              <tr>
-                <td><strong>Email:</strong>
-                  <FormsyInput value={this.state.email}
-                               onChange={this.handleInputChange}
-                               name='email'
-                               label='Email'
-                               validations={{
-                                 maxLength: 20,
-                                 isEmail: true
-                               }}
-                               validationErrors={{
-                                 isDefaultRequiredValue: 'Valid email is required',
-                                 isEmail: 'Valid email is required',
-                                 maxLength: 'You must not enter more than 20 characters'
-                               }}
-                               required />
-                </td>
-              </tr>
+              <tbody>
+                <tr>
+                  <td>
+                    <FormsyInput value={this.state.name}
+                                 onChange={this.handleInputChange}
+                                 name='name'
+                                 label='Name'
+                                 validations={{
+                                   maxLength: 30,
+                                   minLength: 2
+                                 }}
+                                 validationErrors={{
+                                   isDefaultRequiredValue: 'Valid name is required',
+                                   maxLength: 'You must not enter more than 30 characters',
+                                   minLength: 'You must enter at least 2 characters'
+                                 }}
+                                 required />
+                  </td>
+                  <td>
+                    <FormsyInput value={this.state.relation}
+                                 onChange={this.handleInputChange}
+                                 name='relationship'
+                                 label='Relationship'
+                                 validations={{
+                                   maxLength: 25,
+                                   minLength: 1
+                                 }}
+                                 validationErrors={{
+                                   isDefaultRequiredValue: 'Valid relationship is required',
+                                   maxLength: 'You must not enter more than 25 characters',
+                                   minLength: 'You must enter at least 1 character'
+                                 }}
+                                 required />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <FormsyInput value={this.state.address}
+                                 onChange={this.handleInputChange}
+                                 name='address'
+                                 label='Address'
+                                 validations={{
+                                   maxLength: 20,
+                                   minLength: 2
+                                 }}
+                                 validationErrors={{
+                                   isDefaultRequiredValue: 'Valid address is required',
+                                   maxLength: 'You must not enter more than 20 characters',
+                                   minLength: 'You must enter at least 2 characters'
+                                 }}
+                                 required /></td>
+                  <td>
+                    <FormsyMaskedInput mask={['(',/[1-9]/,/\d/,/\d/,')',' ',/\d/,/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/]}
+                                       value={this.state.phone}
+                                       onChange={this.handleInputChange}
+                                       validations={{
+                                         isLength: 10
+                                       }}
+                                       sanitizationFunction={this.sanitizeToJustNumbers}
+                                       validationErrors={{
+                                         isDefaultRequiredValue: 'Valid phone is required',
+                                         isLength: 'Valid phone is required'
+                                       }}
+                                       name='phone'
+                                       label='Phone'
+                                       required /></td>
+                </tr>
+                <tr>
+                  <td>
+                    <FormsyInput value={this.state.city}
+                                 onChange={this.handleInputChange}
+                                 name='city'
+                                 label='City'
+                                 validations={{
+                                   maxLength: 30,
+                                   minLength: 2
+                                 }}
+                                 validationErrors={{
+                                   isDefaultRequiredValue: 'Valid city is required',
+                                   maxLength: 'You must not enter more than 30 characters',
+                                   minLength: 'You must enter at least 2 characters'
+                                 }}
+                                 required />
+                  </td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>
+                    <FormsyInput value={this.state.state}
+                                 onChange={this.handleInputChange}
+                                 name='state'
+                                 label='State'
+                                 validations={{
+                                   maxLength: 20,
+                                   minLength: 2
+                                 }}
+                                 validationErrors={{
+                                   isDefaultRequiredValue: 'Valid state is required',
+                                   maxLength: 'You must not enter more than 20 characters',
+                                   minLength: 'You must enter at least 2 characters'
+                                 }}
+                                 required />
+                  </td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>
+                    <FormsyInput value={this.state.email}
+                                 onChange={this.handleInputChange}
+                                 name='email'
+                                 label='Email'
+                                 validations={{
+                                   maxLength: 20,
+                                   isEmail: true
+                                 }}
+                                 validationErrors={{
+                                   isDefaultRequiredValue: 'Valid email is required',
+                                   isEmail: 'Valid email is required',
+                                   maxLength: 'You must not enter more than 20 characters'
+                                 }}
+                                 required />
+                  </td>
+                  <td></td>
+                </tr>
+              </tbody>
             </table>
 
             <button className='btn btn-default btn-sm' type='submit'>SAVE</button>
             <button type='button' className='btn btn-default btn-sm' onClick={this.handleCancel}>CANCEL</button>
+            <br/>
+            <br/>
 
           </Formsy.Form>
-        
       )
     }
   }
