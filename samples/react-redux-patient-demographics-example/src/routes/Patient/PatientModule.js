@@ -100,7 +100,7 @@ export const updatePatientData = (data) => {
 export const updateContactData = (data) => {
   return (dispatch, getState) => {
     return new Promise((resolve, reject) => {
-      console.debug(`updating contact patient data for ${getState().patient.patientInContext}`)
+      console.debug(`updating contact data for ${getState().patient.patientInContext}`)
       dispatch({
         type    : 'UPDATE_CONTACT_DATA',
         payload : [getState().patient.patientInContext, data]
@@ -113,7 +113,7 @@ export const updateContactData = (data) => {
 export const deleteContact = (data) => {
   return (dispatch, getState) => {
     return new Promise((resolve, reject) => {
-      console.debug(`deleting contact patient data for ${getState().patient.patientInContext}`)
+      console.debug(`deleting contact data for ${getState().patient.patientInContext}`)
       dispatch({
         type    : 'DELETING_CONTACT',
         payload : [getState().patient.patientInContext, data]
@@ -123,9 +123,18 @@ export const deleteContact = (data) => {
   }
 }
 
-export const actions = {
-  setPatientInContext
-};
+export const startAddingNewContact = (data) => {
+  return (dispatch, getState) => {
+    return new Promise((resolve, reject) => {
+      console.debug(`starting to add contact data for ${getState().patient.patientInContext}`)
+      dispatch({
+        type    : 'START_ADDING_CONTACT',
+        payload : [getState().patient.patientInContext, data]
+      })
+      resolve()
+    })
+  }
+}
 
 /**
  * Reducer
@@ -145,19 +154,23 @@ export default function patientReducer (state = initialState, action) {
       break
     case 'UPDATE_CONTACT_DATA':
       const contactIndexForUpdation = _.findIndex(copy[action.payload[0]].contacts, (c) => {
-        return c.id == action.payload[1].id
+        return c.id === action.payload[1].id
       })
       copy[action.payload[0]].contacts[contactIndexForUpdation] = action.payload[1]
+      result = copy
+      break
+    case 'START_ADDING_CONTACT':
+      const newContactId = _.last(copy[action.payload[0]].contacts).id + 1;
+      copy[action.payload[0]].contacts.push({ isNewContact: true, id: newContactId })
       result = copy
       break
     case 'DELETING_CONTACT':
       const contactIndexForDeletion = _.findIndex(copy[action.payload[0]].contacts, (c) => {
         if (c && c.hasOwnProperty('id')) {
-          return c.id == action.payload[1]
+          return c.id === action.payload[1]
         }
       })
       delete copy[action.payload[0]].contacts[contactIndexForDeletion]
-      console.log(copy)
       result = copy
       break
     default:

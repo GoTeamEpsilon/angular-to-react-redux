@@ -26,6 +26,10 @@ class PatientDemographics extends React.Component {
       });
   }
 
+  addNewContact() {
+    this.props.startAddingNewContact(this.props.routeParams.pid)
+  }
+
   determineIfRouteIsValid() {
     return this.props.routeParams.pid
   }
@@ -49,7 +53,8 @@ class PatientDemographics extends React.Component {
   }
 
   render() {
-    let children = null;
+    let children = null
+    let addContactVisibility = 'hidden'
 
     switch (this.state.tab) {
       case this.TABS.BASIC:
@@ -58,13 +63,15 @@ class PatientDemographics extends React.Component {
         break;
       case this.TABS.CONTACTS:
         if (this.props.contacts) {
-          children = this.props.contacts.map(contact =>
-            <Contact updateContactData={this.props.updateContactData}
-                     deleteContact={this.props.deleteContact}
-                     key={contact.id}
-                     contact={contact}/>
+          children = this.props.contacts.map((contact) => {
+            return <Contact updateContactData={this.props.updateContactData}
+                            deleteContact={this.props.deleteContact}
+                            key={contact.id}
+                            contact={contact}/>
+            }
           )
         }
+        addContactVisibility = 'visible'
         break;
     }
 
@@ -89,6 +96,12 @@ class PatientDemographics extends React.Component {
           </div>
 
           {children}
+
+          <br />
+
+          <button type='button'
+                  className={['btn', 'btn-default', 'btn-sm', addContactVisibility].join(' ')}
+                  onClick={this.addNewContact.bind(this)}>ADD NEW CONTACT</button>
         </div>
       </div>
     )

@@ -39,6 +39,12 @@ class Contact extends Component {
     this.setState({ cachedForm: this.props.contact })
   }
 
+  componentDidMount() {
+    if (this.props.contact.isNewContact) {
+      this.handleEdit()
+    }
+  }
+
   handleInputChange(event) {
     let value
     if (event.target.name === 'phone') {
@@ -72,7 +78,7 @@ class Contact extends Component {
       let value
       // Make switch statement
       if (keyName === 'phone') {
-        value = this.sanitizeToJustNumbers(this.props.contact[keyName].toString())
+        value = this.sanitizeToJustNumbers((this.props.contact[keyName] || '').toString())
       } else if (keyName === 'id') {
         value = this.props.contact[keyName]
       } else {
