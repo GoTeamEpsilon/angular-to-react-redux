@@ -382,7 +382,9 @@ class Basic extends React.Component {
           </table>
 
           <button className='btn btn-default btn-sm' type='submit'>SAVE</button>
-          <button className='btn btn-default btn-sm' type='button' onClick={this.handleCancel.bind(this)}>CANCEL</button>
+          <button className='btn btn-default btn-sm'
+                  type='button'
+                  onClick={this.handleCancel.bind(this)}>CANCEL</button>
         </Formsy.Form>
       )
     } else {

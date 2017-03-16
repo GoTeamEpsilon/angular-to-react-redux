@@ -2,11 +2,9 @@ import React, {Component} from 'react'
 import Formsy from 'formsy-react'
 import { FormsyInput } from '../../../../common/FormsyInput'
 import { FormsyHiddenInput } from '../../../../common/FormsyHiddenInput'
-import { FormsyDatePicker } from '../../../../common/FormsyDatePicker'
 import { FormsyMaskedInput } from '../../../../common/FormsyMaskedInput'
 import { wireUpCustomFormsyValidators } from '../../../../common/CustomValidators'
 import {telephoneFormat} from '../../../../common/Formatters'
-
 
 class Contact extends Component {
   constructor() {
@@ -41,7 +39,7 @@ class Contact extends Component {
 
   handleInputChange(event) {
     let value
-    if(event.target.name === 'phone') {
+    if (event.target.name === 'phone') {
       value = this.sanitizeToJustNumbers(event.target.value.toString())
     } else {
       value = event.target.value
@@ -73,7 +71,7 @@ class Contact extends Component {
       // Make switch statement
       if (keyName === 'phone') {
         value = this.sanitizeToJustNumbers(this.props.contact[keyName].toString())
-      } else if (keyName === 'id'){
+      } else if (keyName === 'id') {
         value = this.props.contact[keyName]
       } else {
         value = this.props.contact[keyName]
@@ -294,7 +292,9 @@ class Contact extends Component {
             </table>
 
             <button className='btn btn-default btn-sm' type='submit'>SAVE</button>
-            <button type='button' className='btn btn-default btn-sm' onClick={this.handleCancel.bind(this)}>CANCEL</button>
+            <button type='button'
+                    className='btn btn-default btn-sm'
+                    onClick={this.handleCancel.bind(this)}>CANCEL</button>
 
           </Formsy.Form>
 
