@@ -70,7 +70,7 @@ export const setPatientInContext = (patientId) => {
           })
           reject(message);
         } else {
-          console.warn(`Setting patient ${patientId} as patient in context`);
+          console.debug(`Setting patient ${patientId} as patient in context`);
           dispatch({
             type    : 'SET_PATIENT_IN_CONTEXT',
             payload : patientId
@@ -86,6 +86,7 @@ export const setPatientInContext = (patientId) => {
 export const updatePatientData = (data) => {
   return (dispatch, getState) => {
     return new Promise((resolve, reject) => {
+      console.debug(`updating basic patient data for ${getState().patient.patientInContext}`)
       dispatch({
         type    : 'UPDATE_PATIENT_DATA',
         payload : [getState().patient.patientInContext, data]
@@ -96,9 +97,9 @@ export const updatePatientData = (data) => {
 }
 
 export const updateContactData = (data) => {
-  console.log("hey I'm contact data and I'm running")
   return (dispatch, getState) => {
     return new Promise((resolve, reject) => {
+      console.debug(`updating contact patient data for ${getState().patient.patientInContext}`)
       dispatch({
         type    : 'UPDATE_CONTACT_DATA',
         payload : [getState().patient.patientInContext, data]
@@ -118,26 +119,20 @@ export const actions = {
 const initialState = testData
 export default function patientReducer (state = initialState, action) {
   let result
-  // maybe define "copy" here
+  let copy = clone(state)
   switch (action.type) {
     case 'SET_PATIENT_IN_CONTEXT':
-      result = { ...state, patientInContext: action.payload }
+      copy.patientInContext = action.payload
+      result = copy
       break
     case 'UPDATE_PATIENT_DATA':
-      let copy1 = clone(state)
-      copy1[action.payload[0]].basic = action.payload[1]
-      result = copy1
+      copy[action.payload[0]].basic = action.payload[1]
+      result = copy
       break
     case 'UPDATE_CONTACT_DATA':
-      //console.log("I ran too in the store!!")
-      // console.log([action.payload[0]].basic)
-      // console.log(action.payload[1])
-      let copy2 = clone(state)
       let id = action.payload[1].id - 1
-      // console.log(copy2);
-      // console.log(result);
-      copy2[action.payload[0]].contacts[id] = action.payload[1]
-      result = copy2
+      copy[action.payload[0]].contacts[id] = action.payload[1]
+      result = copy
       break
     default:
       result = state

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
-import MaskedInput from 'react-text-mask' // Delete?
 import Formsy from 'formsy-react'
 import { FormsyInput } from '../../../../common/FormsyInput'
+import { FormsyHiddenInput } from '../../../../common/FormsyHiddenInput'
 import { FormsyDatePicker } from '../../../../common/FormsyDatePicker'
 import { FormsyMaskedInput } from '../../../../common/FormsyMaskedInput'
 import { wireUpCustomFormsyValidators } from '../../../../common/CustomValidators'
@@ -23,10 +23,9 @@ class Contact extends Component {
   }
 
   handleCancel() {
-    console.log('handleCancel')
-    this.setState(this.state.cachedForm)
-    //this.setState({ cachedForm: {} })
-    this.setState({showForm: false})
+    console.debug('Basic component in read mode')
+    this.setState({ cachedForm: {} })
+    this.setState({ showForm: false })
   }
 
   handleDelete() {
@@ -34,14 +33,13 @@ class Contact extends Component {
   }
 
   handleEdit() {
-    console.log('handleEdit')
+    console.debug('Contact component in edit mode')
     this.setPropsToLocalState()
     this.setState({showForm: true})
-    //this.setState({ cachedForm: this.props.contact })
+    this.setState({ cachedForm: this.props.contact })
   }
 
   handleInputChange(event) {
-    console.log('handleInputChange')
     let value
     if(event.target.name === 'phone') {
       value = this.sanitizeToJustNumbers(event.target.value.toString())
@@ -54,9 +52,7 @@ class Contact extends Component {
   }
 
   handleSubmit(formValues) {
-    console.log('handleSubmit')
-
-    console.log(formValues);
+    console.debug('Submitting contact info updates')
     this.props.updateContactData(formValues)
     this.setState({ showForm: false })
   }
@@ -70,7 +66,7 @@ class Contact extends Component {
   }
 
   setPropsToLocalState() {
-    const keys = ['id','name', 'relation', 'address', 'phone', 'city', 'postal', 'state', 'country', 'email']
+    const keys = ['id', 'name', 'relation', 'address', 'phone', 'city', 'postal', 'state', 'country', 'email']
 
     keys.forEach((keyName) => {
       let value
@@ -289,19 +285,16 @@ class Contact extends Component {
               </tr>
             <tr>
               <td>
-                <FormsyInput type='hidden'
-                             value={this.state.id}
-                             onChange={this.handleInputChange}
-                             name='id'
-                             label='ID'
-
-                             required />
+                <FormsyHiddenInput value={this.state.id}
+                                   onChange={this.handleInputChange}
+                                   name='id'
+                                   required />
               </td>
             </tr>
             </table>
 
             <button className='btn btn-default btn-sm' type='submit'>SAVE</button>
-            <button type='button' className='btn btn-default btn-sm' onClick={this.handleCancel}>CANCEL</button>
+            <button type='button' className='btn btn-default btn-sm' onClick={this.handleCancel.bind(this)}>CANCEL</button>
 
           </Formsy.Form>
 

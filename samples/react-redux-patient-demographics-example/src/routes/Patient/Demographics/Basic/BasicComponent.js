@@ -17,12 +17,15 @@ class Basic extends React.Component {
       dob: moment(),
       cachedForm: {}
     }
+
+    this.handleCancel = this.handleCancel.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
     wireUpCustomFormsyValidators()
   }
 
   handleEdit() {
+    console.debug('Basic component in edit mode')
     this.setLocalStateToStoreValues()
     this.setState({ showForm: true })
     this.setState({ cachedForm: this.props.info })
@@ -32,6 +35,7 @@ class Basic extends React.Component {
   }
 
   handleSubmit(formValues) {
+    console.debug('Submitting basic info updates')
     // Convert dob back to date string
     formValues.dob = formValues.dob.format('YYYY-MM-DD')
     this.props.updatePatientData(formValues)
@@ -39,7 +43,7 @@ class Basic extends React.Component {
   }
 
   handleCancel() {
-    this.setState(this.state.cachedForm)
+    console.debug('Basic component in read mode')
     this.setState({ cachedForm: {} })
     this.setState({ showForm: false })
   }
@@ -378,7 +382,7 @@ class Basic extends React.Component {
           </table>
 
           <button className='btn btn-default btn-sm' type='submit'>SAVE</button>
-          <button className='btn btn-default btn-sm' type='input' onClick={this.handleCancel.bind(this)}>CANCEL</button>
+          <button className='btn btn-default btn-sm' type='button' onClick={this.handleCancel.bind(this)}>CANCEL</button>
         </Formsy.Form>
       )
     } else {
