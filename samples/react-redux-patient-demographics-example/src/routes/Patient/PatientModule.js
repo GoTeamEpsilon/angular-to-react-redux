@@ -1,4 +1,5 @@
 import clone from 'clone'
+import _ from 'underscore'
 
 /**
  * Stub data that will be used as the initial state in the store.
@@ -109,6 +110,19 @@ export const updateContactData = (data) => {
   }
 }
 
+export const deleteContact = (data) => {
+  return (dispatch, getState) => {
+    return new Promise((resolve, reject) => {
+      console.debug(`deleting contact patient data for ${getState().patient.patientInContext}`)
+      dispatch({
+        type    : 'DELETING_CONTACT',
+        payload : [getState().patient.patientInContext, data]
+      })
+      resolve()
+    })
+  }
+}
+
 export const actions = {
   setPatientInContext
 };
@@ -130,8 +144,20 @@ export default function patientReducer (state = initialState, action) {
       result = copy
       break
     case 'UPDATE_CONTACT_DATA':
-      let id = action.payload[1].id - 1
-      copy[action.payload[0]].contacts[id] = action.payload[1]
+      const contactIndexForUpdation = _.findIndex(copy[action.payload[0]].contacts, (c) => {
+        return c.id == action.payload[1].id
+      })
+      copy[action.payload[0]].contacts[contactIndexForUpdation] = action.payload[1]
+      result = copy
+      break
+    case 'DELETING_CONTACT':
+      const contactIndexForDeletion = _.findIndex(copy[action.payload[0]].contacts, (c) => {
+        if (c && c.hasOwnProperty('id')) {
+          return c.id == action.payload[1]
+        }
+      })
+      delete copy[action.payload[0]].contacts[contactIndexForDeletion]
+      console.log(copy)
       result = copy
       break
     default:

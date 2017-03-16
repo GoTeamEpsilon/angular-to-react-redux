@@ -1,11 +1,12 @@
 import { connect } from 'react-redux'
-import { setPatientInContext, updatePatientData, updateContactData } from '../PatientModule'
+import { setPatientInContext, updatePatientData, updateContactData, deleteContact } from '../PatientModule'
 import PatientDemographics from './PatientDemographicsComponent'
 
 const mapDispatchToProps = {
   setPatientInContext,
   updatePatientData,
-  updateContactData
+  updateContactData,
+  deleteContact
 }
 
 const extractBasicInfo = (state) => {

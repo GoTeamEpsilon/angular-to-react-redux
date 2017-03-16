@@ -59,7 +59,10 @@ class PatientDemographics extends React.Component {
       case this.TABS.CONTACTS:
         if (this.props.contacts) {
           children = this.props.contacts.map(contact =>
-            <Contact updateContactData={this.props.updateContactData} key={contact.id} contact={contact}/>
+            <Contact updateContactData={this.props.updateContactData}
+                     deleteContact={this.props.deleteContact}
+                     key={contact.id}
+                     contact={contact}/>
           )
         }
         break;

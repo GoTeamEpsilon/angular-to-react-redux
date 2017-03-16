@@ -16,22 +16,24 @@ class Contact extends Component {
 
     this.handleCancel = this.handleCancel.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
     wireUpCustomFormsyValidators()
   }
 
   handleCancel() {
-    console.debug('Basic component in read mode')
+    console.debug(`Contact ${this.props.contact.id} component in cancel mode`)
     this.setState({ cachedForm: {} })
     this.setState({ showForm: false })
   }
 
   handleDelete() {
-    console.log('handleDelete')
+    console.debug(`Contact ${this.props.contact.id} component is being deleted`)
+    this.props.deleteContact(this.props.contact.id)
   }
 
   handleEdit() {
-    console.debug('Contact component in edit mode')
+    console.debug(`Contact ${this.props.contact.id} component in edit mode`)
     this.setPropsToLocalState()
     this.setState({showForm: true})
     this.setState({ cachedForm: this.props.contact })
