@@ -1,4 +1,5 @@
 import clone from 'clone'
+import _ from 'underscore'
 
 /**
  * Stub data that will be used as the initial state in the store.
@@ -70,7 +71,7 @@ export const setPatientInContext = (patientId) => {
           })
           reject(message);
         } else {
-          console.warn(`Setting patient ${patientId} as patient in context`);
+          console.debug(`Setting patient ${patientId} as patient in context`);
           dispatch({
             type    : 'SET_PATIENT_IN_CONTEXT',
             payload : patientId
@@ -86,6 +87,7 @@ export const setPatientInContext = (patientId) => {
 export const updatePatientData = (data) => {
   return (dispatch, getState) => {
     return new Promise((resolve, reject) => {
+      console.debug(`updating basic patient data for ${getState().patient.patientInContext}`)
       dispatch({
         type    : 'UPDATE_PATIENT_DATA',
         payload : [getState().patient.patientInContext, data]
@@ -95,9 +97,44 @@ export const updatePatientData = (data) => {
   }
 }
 
-export const actions = {
-  setPatientInContext
-};
+export const updateContactData = (data) => {
+  return (dispatch, getState) => {
+    return new Promise((resolve, reject) => {
+      console.debug(`updating contact data for ${getState().patient.patientInContext}`)
+      dispatch({
+        type    : 'UPDATE_CONTACT_DATA',
+        payload : [getState().patient.patientInContext, data]
+      })
+      resolve()
+    })
+  }
+}
+
+export const deleteContact = (data) => {
+  return (dispatch, getState) => {
+    return new Promise((resolve, reject) => {
+      console.debug(`deleting contact data for ${getState().patient.patientInContext}`)
+      dispatch({
+        type    : 'DELETING_CONTACT',
+        payload : [getState().patient.patientInContext, data]
+      })
+      resolve()
+    })
+  }
+}
+
+export const startAddingNewContact = (data) => {
+  return (dispatch, getState) => {
+    return new Promise((resolve, reject) => {
+      console.debug(`starting to add contact data for ${getState().patient.patientInContext}`)
+      dispatch({
+        type    : 'START_ADDING_CONTACT',
+        payload : [getState().patient.patientInContext, data]
+      })
+      resolve()
+    })
+  }
+}
 
 /**
  * Reducer
@@ -105,13 +142,39 @@ export const actions = {
 const initialState = testData
 export default function patientReducer (state = initialState, action) {
   let result
+  let copy = clone(state)
   switch (action.type) {
     case 'SET_PATIENT_IN_CONTEXT':
-      result = { ...state, patientInContext: action.payload }
+      copy.patientInContext = action.payload
+      result = copy
       break
     case 'UPDATE_PATIENT_DATA':
-      let copy = clone(state)
       copy[action.payload[0]].basic = action.payload[1]
+      result = copy
+      break
+    case 'UPDATE_CONTACT_DATA':
+      const contactIndexForUpdation = _.findIndex(copy[action.payload[0]].contacts, (c) => {
+        return c.id === action.payload[1].id
+      })
+      copy[action.payload[0]].contacts[contactIndexForUpdation] = action.payload[1]
+      result = copy
+      break
+    case 'START_ADDING_CONTACT':
+      const lastContact = _.last(copy[action.payload[0]].contacts)
+      let newContactId = 0
+      if (lastContact != null && lastContact.hasOwnProperty('id')) {
+        newContactId = lastContact.id + 1
+      }
+      copy[action.payload[0]].contacts.push({ isNewContact: true, id: newContactId })
+      result = copy
+      break
+    case 'DELETING_CONTACT':
+      const contactIndexForDeletion = _.findIndex(copy[action.payload[0]].contacts, (c) => {
+        if (c && c.hasOwnProperty('id')) {
+          return c.id === action.payload[1]
+        }
+      })
+      delete copy[action.payload[0]].contacts[contactIndexForDeletion]
       result = copy
       break
     default:

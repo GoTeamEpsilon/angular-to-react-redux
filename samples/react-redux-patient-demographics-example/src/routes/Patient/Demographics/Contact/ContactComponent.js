@@ -1,12 +1,10 @@
 import React, {Component} from 'react'
-import MaskedInput from 'react-text-mask' // Delete?
 import Formsy from 'formsy-react'
 import { FormsyInput } from '../../../../common/FormsyInput'
-import { FormsyDatePicker } from '../../../../common/FormsyDatePicker'
+import { FormsyHiddenInput } from '../../../../common/FormsyHiddenInput'
 import { FormsyMaskedInput } from '../../../../common/FormsyMaskedInput'
 import { wireUpCustomFormsyValidators } from '../../../../common/CustomValidators'
 import {telephoneFormat} from '../../../../common/Formatters'
-
 
 class Contact extends Component {
   constructor() {
@@ -18,32 +16,38 @@ class Contact extends Component {
 
     this.handleCancel = this.handleCancel.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
     wireUpCustomFormsyValidators()
   }
 
   handleCancel() {
-    console.log('handleCancel')
-    this.setState(this.state.cachedForm)
+    console.debug(`Contact ${this.props.contact.id} component in cancel mode`)
     this.setState({ cachedForm: {} })
-    this.setState({showForm: false})
+    this.setState({ showForm: false })
   }
 
   handleDelete() {
-    console.log('handleDelete')
+    console.debug(`Contact ${this.props.contact.id} component is being deleted`)
+    this.props.deleteContact(this.props.contact.id)
   }
 
   handleEdit() {
-    console.log('handleEdit')
+    console.debug(`Contact ${this.props.contact.id} component in edit mode`)
     this.setPropsToLocalState()
     this.setState({showForm: true})
     this.setState({ cachedForm: this.props.contact })
   }
 
+  componentDidMount() {
+    if (this.props.contact.isNewContact) {
+      this.handleEdit()
+    }
+  }
+
   handleInputChange(event) {
-    console.log('handleInputChange')
     let value
-    if(event.target.name === 'phone') {
+    if (event.target.name === 'phone') {
       value = this.sanitizeToJustNumbers(event.target.value.toString())
     } else {
       value = event.target.value
@@ -54,8 +58,8 @@ class Contact extends Component {
   }
 
   handleSubmit(formValues) {
-    console.log('handleSubmit')
-    this.props.updatePatientData(formValues)
+    console.debug('Submitting contact info updates')
+    this.props.updateContactData(formValues)
     this.setState({ showForm: false })
   }
 
@@ -68,13 +72,15 @@ class Contact extends Component {
   }
 
   setPropsToLocalState() {
-    const keys = ['name', 'relation', 'address', 'phone', 'city', 'postal', 'state', 'country', 'email']
+    const keys = ['id', 'name', 'relation', 'address', 'phone', 'city', 'postal', 'state', 'country', 'email']
 
     keys.forEach((keyName) => {
       let value
-
-      if (keyName === 'phone'){
-        value = this.sanitizeToJustNumbers(this.props.contact[keyName].toString())
+      // Make switch statement
+      if (keyName === 'phone') {
+        value = this.sanitizeToJustNumbers((this.props.contact[keyName] || '').toString())
+      } else if (keyName === 'id') {
+        value = this.props.contact[keyName]
       } else {
         value = this.props.contact[keyName]
       }
@@ -109,15 +115,15 @@ class Contact extends Component {
               </tr>
               <tr>
                 <td><strong>Email:</strong> {this.props.contact.email}</td>
-                <td></td>
               </tr>
             </tbody>
           </table>
 
           <button type='button' className='btn btn-default btn-sm' onClick={this.handleDelete}>DELETE</button>
           <button type='button' className='btn btn-default btn-sm' onClick={this.handleEdit}>EDIT</button>
-          <br/>
-          <br/>
+
+          <hr/>
+
         </div>
       )
     } else if (this.props.contact && this.state.showForm === true) {
@@ -125,7 +131,7 @@ class Contact extends Component {
 
           <Formsy.Form onValidSubmit={this.handleSubmit.bind(this)}
                        name='contactInfoForm'
-                       className='contact-info-form'
+                       className='container contact-info-form'
                        noValidate>
             <table className='table'>
               <tbody>
@@ -149,8 +155,8 @@ class Contact extends Component {
                   <td>
                     <FormsyInput value={this.state.relation}
                                  onChange={this.handleInputChange}
-                                 name='relationship'
-                                 label='Relationship'
+                                 name='relation'
+                                 label='Relation'
                                  validations={{
                                    maxLength: 25,
                                    minLength: 1
@@ -212,22 +218,6 @@ class Contact extends Component {
                                  }}
                                  required />
                   </td>
-                  <td>
-                    <FormsyInput value={this.state.postal}
-                                 onChange={this.handleInputChange}
-                                 name='postal'
-                                 label='Postal'
-                                 validations={{
-                                   maxLength: 5,
-                                   minLength: 5
-                                 }}
-                                 validationErrors={{
-                                   isDefaultRequiredValue: 'Valid postal code is required',
-                                   maxLength: 'You must enter a valid postal code',
-                                   minLength: 'You must enter a valid postal code'
-                                 }}
-                                 required />
-                  </td>
                 </tr>
                 <tr>
                   <td>
@@ -246,18 +236,38 @@ class Contact extends Component {
                                  }}
                                  required />
                   </td>
+
+                  <td>
+                    <FormsyInput
+                                value={this.state.postal}
+                                 onChange={this.handleInputChange}
+                                 name='postal'
+                                 label='Postal'
+                                 validations={{
+                                   maxLength: 10,
+                                   minLength: 4
+                                 }}
+                                 validationErrors={{
+                                   isDefaultRequiredValue: 'Valid postal is required',
+                                   maxLength: 'You must not enter more than 10 characters',
+                                   minLength: 'You must enter at least 4 characters'
+                                 }}
+                                 required />
+                  </td>
+                </tr>
+                <tr>
                   <td>
                     <FormsyInput value={this.state.country}
                                  onChange={this.handleInputChange}
                                  name='country'
                                  label='Country'
                                  validations={{
-                                   maxLength: 20,
+                                   maxLength: 30,
                                    minLength: 2
                                  }}
                                  validationErrors={{
                                    isDefaultRequiredValue: 'Valid country is required',
-                                   maxLength: 'You must not enter more than 20 characters',
+                                   maxLength: 'You must not enter more than 30 characters',
                                    minLength: 'You must enter at least 2 characters'
                                  }}
                                  required />
@@ -280,17 +290,25 @@ class Contact extends Component {
                                  }}
                                  required />
                   </td>
-                  <td></td>
                 </tr>
-              </tbody>
+              <tr>
+                <td>
+                  <FormsyHiddenInput value={this.state.id}
+                                     onChange={this.handleInputChange}
+                                     name='id'
+                                     required />
+                </td>
+              </tr>
+            </tbody>
             </table>
 
             <button className='btn btn-default btn-sm' type='submit'>SAVE</button>
-            <button type='button' className='btn btn-default btn-sm' onClick={this.handleCancel}>CANCEL</button>
-            <br/>
-            <br/>
+            <button type='button'
+                    className='btn btn-default btn-sm'
+                    onClick={this.handleCancel.bind(this)}>CANCEL</button>
 
           </Formsy.Form>
+
       )
     }
   }
