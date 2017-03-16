@@ -60,7 +60,7 @@ class Contact extends Component {
     this.props.updateContactData(formValues)
     this.setState({ showForm: false })
   }
-  
+
   sanitizeToJustNumbers(value) {
     if (!value) {
       return value
@@ -68,7 +68,7 @@ class Contact extends Component {
 
     return value.replace(/[^0-9.]/g, '')
   }
-  
+
   setPropsToLocalState() {
     const keys = ['id','name', 'relation', 'address', 'phone', 'city', 'postal', 'state', 'country', 'email']
 
@@ -82,7 +82,7 @@ class Contact extends Component {
       } else {
         value = this.props.contact[keyName]
       }
-      
+
       this.setState({
         [keyName]: value
       })
@@ -125,7 +125,7 @@ class Contact extends Component {
       )
     } else if (this.props.contact && this.state.showForm === true) {
       return (
-        
+
           <Formsy.Form onValidSubmit={this.handleSubmit.bind(this)}
                        name='contactInfoForm'
                        className='container contact-info-form'
@@ -151,8 +151,8 @@ class Contact extends Component {
                 <td>
                   <FormsyInput value={this.state.relation}
                                onChange={this.handleInputChange}
-                               name='relationship'
-                               label='Relationship'
+                               name='relation'
+                               label='Relation'
                                validations={{
                                  maxLength: 25,
                                  minLength: 1
@@ -304,7 +304,7 @@ class Contact extends Component {
             <button type='button' className='btn btn-default btn-sm' onClick={this.handleCancel}>CANCEL</button>
 
           </Formsy.Form>
-        
+
       )
     }
   }
