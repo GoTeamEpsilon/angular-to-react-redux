@@ -160,7 +160,11 @@ export default function patientReducer (state = initialState, action) {
       result = copy
       break
     case 'START_ADDING_CONTACT':
-      const newContactId = _.last(copy[action.payload[0]].contacts).id + 1;
+      const lastContact = _.last(copy[action.payload[0]].contacts)
+      let newContactId = 0
+      if (lastContact != null && lastContact.hasOwnProperty('id')) {
+        newContactId = lastContact.id + 1
+      }
       copy[action.payload[0]].contacts.push({ isNewContact: true, id: newContactId })
       result = copy
       break

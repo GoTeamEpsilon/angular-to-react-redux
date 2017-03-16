@@ -115,7 +115,6 @@ class Contact extends Component {
               </tr>
               <tr>
                 <td><strong>Email:</strong> {this.props.contact.email}</td>
-                <td></td>
               </tr>
             </tbody>
           </table>
