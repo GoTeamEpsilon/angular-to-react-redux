@@ -13,7 +13,7 @@ Getting Started
 
 ### 🔨 Scaffolding & Tooling
 
-Once the technologies for a project are choosen, the next step is to figure out how to scaffold and build the application using production-ready practices. Angular v1 applications are typically wired together using a mixture of [NPM](https://www.npmjs.com/) and [Bower](https://bower.io/) (dependency management) and [Grunt](https://gruntjs.com/) or [Gulp](http://gulpjs.com/) (build tooling). In the React/Redux world, NPM and [Webpack](https://webpack.github.io/) are the way to go... in fact, this repo uses and recommends the [react-redux-starter-kit](https://github.com/davezuko/react-redux-starter-kit).
+Once the technologies for a project are chosen, the next step is to figure out how to scaffold and build the application using production-ready practices. Angular v1 applications are typically wired together using a mixture of [NPM](https://www.npmjs.com/) and [Bower](https://bower.io/) (dependency management) and [Grunt](https://gruntjs.com/) or [Gulp](http://gulpjs.com/) (build tooling). In the React/Redux world, NPM and [Webpack](https://webpack.github.io/) are the way to go (this repo uses and recommends the [react-redux-starter-kit](https://github.com/davezuko/react-redux-starter-kit) which incorporates these technologies).
 
 Scaffolding a project in React/Redux isn't very different from what is typically done in Angular v1 (with some exceptions to the [John Papa styleguide](https://github.com/johnpapa/angular-styleguide)). Here's the `tree` output of both samples in this repository:
 
@@ -57,22 +57,22 @@ Scaffolding a project in React/Redux isn't very different from what is typically
                                                            └── core.scss
 ```
 
-Notice how everything is organized in modules rather than a flat approach with directories such as `services/`, `controllers/`, `views/`, etc. This is a best practice that helps one organize a complex user interface while still considering generic, shared pieces.
+Notice how everything is organized in modules rather than a flat approach with directories such as `services/`, `controllers/`, `views/`, etc. This is a best practice that helps one organize a complex user interface while still sharing generic pieces.
 
-Now that the file structure (hopefully) make sense, one can go back a directory and run the build tool (you won't find major differences between gulp/grunt and webpack). In our case, it's `grunt serve` and `npm start` for Angular v1 and React/Redux samples, respectively.
+Now that the file structure (hopefully) makes sense, one can go back a directory and run the build tool (you won't find major differences between gulp/grunt and webpack). In our case, it's `grunt serve` and `npm start` for Angular v1 and React/Redux samples, respectively.
 
 ### 🎛 Directives vs Components
 
 The heart of Angular v1 is with directives. These discrete interfaces take in 1 and 2-way data parameters and inject services that really power up your view. Fortunately, directives are not that different from Redux-aware React components. Moreover, the stuff inside of React components can be easily translated from Angular v1 concepts (this repo won't go into those details, as they are easily "Googleable"... for instance Google _"React equivalent for ng-repeat"_ to see for yourself).
 
-In Angular v1, directives are typically introduced in views that are controlled by route-level controllers. In React/Redux, components are introduced in the same way, however, a container must be placed in the middle so that the component can get application-wide state. The container will also bring in functions to upper level services that child components will use. These topics (application-wide state and upper level services) will be explained later in the guide.
+In Angular v1, directives are typically introduced in views that are controlled by route-level controllers. In React/Redux, components are introduced in the same way, however, a container must be placed in the middle so that the component can get application-wide state. The container will also bring in functions from upper level services that child components will use. These topics (application-wide state and upper level services) will be explained later in the guide.
 
 As mentioned before, Redux has to bind its store to child React components in a container. In our application, the `routes/Patient/Demographics/PatientDemographicsContainer.js` puts references to the Redux state like so (code simplified for sake of demonstration):
 
 ```jsx
 const mapStateToProps = (state) => ({
   patientInContext: state.patient.patientInContext,
-  info: state.patient[state.patient.patientInContext].basic
+  basic: state.patient[state.patient.patientInContext].basic
   contacts: state.patient[state.patient.patientInContext].contact
 })
 ```
@@ -82,7 +82,10 @@ One other important thing that is done in this container is the binding of Redux
 ```jsx
 const mapDispatchToProps = {
   setPatientInContext,
-  updatePatientData
+  updatePatientData,
+  updateContactData,
+  deleteContact,
+  startAddingNewContact
 }
 ```
 
@@ -91,16 +94,16 @@ With these two mappings out of the way, child components can access the state an
 Displaying data from the store in a table:
 ```jsx
 <tr>
-  <td><strong>S.S.:</strong> {socialSecurityFormat(this.props.info.ss)}</td>
+  <td><strong>SSN:</strong> {socialSecurityFormat(this.props.info.ssn)}</td>
   <td><strong>Martial Status:</strong> {this.props.info.martialStatus}</td>
 </tr>
 ```
 
-Form edit reference to the SSN input (uses local component state instead of Redux store state):
+Form edit reference to the SSN input (uses local component state instead of Redux store state - note that [Formsy](https://github.com/christianalfoni/formsy-react) is a popular form validation library):
 ```jsx
 <td>
   <FormsyMaskedInput mask={[/\d/,/\d/,/\d/,'-',/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/]}
-                     value={this.state.ss}
+                     value={this.state.ssn}
                      onChange={this.handleInputChange}
                      validations={{
                        isLength: 9
@@ -110,7 +113,7 @@ Form edit reference to the SSN input (uses local component state instead of Redu
                        isDefaultRequiredValue: 'Valid SSN is required',
                        isLength: 'Valid SSN is required'
                      }}
-                     name='ss'
+                     name='ssn'
                      label='SSN'
                      required />
 </td>
@@ -126,14 +129,14 @@ handleSubmit(formValues) {
 }
 ```
 
-At this point, you may be thinking _"wait, why are you copying the data from Redux in the form rather than using it directly? Isn't the point of Redux to encapsulate _all_ application state?"_. Good question. As with most things in software engineering, it is not always the best to be a purist. Should state such as `{ showForm: true/false }` (determines whether to render the form or not) and `{ cachedForm: this.props.info }` (holds a cache of the form state if the user hits cancel) be put into the Redux store or just be local to the component? It depends. In our case, this state doesn't need to application wide so Redux is only storing things that are domain-centric rather than domain-centric and UI-centric. These things will often come down to requirements and what the opinions are of your resident seasoned Redux enthusiast(s).
+At this point, you may be thinking _"wait, why are you copying the data from Redux into the local state/form rather than using it directly? Isn't the point of Redux to encapsulate _all_ application state?"_. Good question. As with most things in software engineering, it is always to be able to break the rules when it's justified. Should state such as `{ showForm: true/false }` (determines whether to render the form or not) and `{ cachedForm: this.props.info }` (holds a cache of the form state if the user hits cancel) be put into the Redux store or just be local to the component? It depends. In our case, this state doesn't need to be application wide so Redux is only storing things that are domain-centric rather than domain-centric and UI-centric. These things will often come down to requirements and what the opinions are of your resident seasoned Redux enthusiast(s).
 
 Service Layer
 =============
 
 ### 🌿 Store
 
-In Angular v1, application-wide state is put into services so that directive controllers can CRUD it. In React/Redux, all application-wide state is put into the store, an object tree. As shown in the above section components access the store via containers and parent components passing it to them. Components can alter said state by invoking module functions that containers and parent components pass down.
+In Angular v1, application-wide state is put into services so that directive controllers can CRUD it. In React/Redux, all application-wide state is put into the store, an object tree. As shown in the above section, components access the store via containers and parent components passing it to them. Components can alter said state by invoking module functions that containers and parent components pass down.
 
 One key difference between Angular v1 application-wide state in services and Redux store is that state mutation is not allowed. While this sounds weird and scary at first, you _can_ change this state but it must be done in a very specific way. The easiest way to think about this is whenever you update the store, you simply clone the object, mutate the clone to your heart's content, and send that to the store.
 
@@ -143,7 +146,7 @@ Think back to your Angular v1 directives that display information from a service
 
 A key difference between the updating of the state in an Angular v1 service and in the Redux store is that you don't "talk" to the store directly. In order to get the store to respond to data changes, you must issue an action. Actions simply send data from your application to your store.
 
-Recall that the `routes/Patient/Demographics/Basic/BasicComponent.js` calls `this.props.updatePatientData(formValues)` when it wishes to update basic patient information in the store. The `updatePatientData` function is defined in the module `routes/Patient/PatientModule.js` (modules will be overviewed in the next section) that looks like this:
+Recall that the `routes/Patient/Demographics/Basic/BasicComponent.js` calls `this.props.updatePatientData(formValues)` when it wishes to update basic patient information in the store. The `updatePatientData` function is defined in the module `routes/Patient/PatientModule.js` (modules will be covered in the next section) that looks like this:
 
 ```jsx
 export const updatePatientData = (data) => {
@@ -167,13 +170,39 @@ When the action has been dispatched, something needs to handle it so that the st
 const initialState = testData
 export default function patientReducer (state = initialState, action) {
   let result
+  let copy = clone(state)
   switch (action.type) {
     case 'SET_PATIENT_IN_CONTEXT':
-      result = { ...state, patientInContext: action.payload }
+      copy.patientInContext = action.payload
+      result = copy
       break
     case 'UPDATE_PATIENT_DATA':
-      let copy = clone(state)
       copy[action.payload[0]].basic = action.payload[1]
+      result = copy
+      break
+    case 'UPDATE_CONTACT_DATA':
+      const contactIndexForUpdation = _.findIndex(copy[action.payload[0]].contacts, (c) => {
+        return c.id === action.payload[1].id
+      })
+      copy[action.payload[0]].contacts[contactIndexForUpdation] = action.payload[1]
+      result = copy
+      break
+    case 'START_ADDING_CONTACT':
+      const lastContact = _.last(copy[action.payload[0]].contacts)
+      let newContactId = 0
+      if (lastContact != null && lastContact.hasOwnProperty('id')) {
+        newContactId = lastContact.id + 1
+      }
+      copy[action.payload[0]].contacts.push({ isNewContact: true, id: newContactId })
+      result = copy
+      break
+    case 'DELETING_CONTACT':
+      const contactIndexForDeletion = _.findIndex(copy[action.payload[0]].contacts, (c) => {
+        if (c && c.hasOwnProperty('id')) {
+          return c.id === action.payload[1]
+        }
+      })
+      delete copy[action.payload[0]].contacts[contactIndexForDeletion]
       result = copy
       break
     default:
@@ -186,22 +215,22 @@ export default function patientReducer (state = initialState, action) {
 
 There is a good amount going on here, but the most important thing to focus on is that `state` variable. This is the application store. Because we are `switch`ing on action types, the reducer will know to run the code in the `UPDATE_PATIENT_DATA` section. This code is simply making a copy of the store and editing it with the new basic information. At the end of the function `return result` is called and the Redux store is updated.
 
-What's interesting is that the reducer is [pure](https://www.sitepoint.com/functional-programming-pure-functions/) in that no mutations were made to the original store because [clone](https://www.npmjs.com/package/clone) (a nice NPM module) copied the store.
+What's interesting is that the reducer is [pure](https://www.sitepoint.com/functional-programming-pure-functions/) in that no mutations were made to the original store because [clone](https://www.npmjs.com/package/clone) (a nice NPM module) copied the store to a new object.
 
 ### 🏭 Modules
 
-In the last section, we learned that `routes/Patient/Demographics/Basic/BasicComponent.js` calls `this.props.updatePatientData(formValues)` which dispatches an action to the reducer so that the store can be updated. You may be thinking _"the module just a place where actions are created and reducers run based on those actions"_. This is correct, but there is an additional piece worth pointing out. Modules can serve as a centralized place for logic to run before the store updates.
+In the last section, we learned that `routes/Patient/Demographics/Basic/BasicComponent.js` calls `this.props.updatePatientData(formValues)` which dispatches an action to the reducer so that the store can be updated. You may be thinking _"the module is just a place where actions are created and reducers run based on those actions"_. This is correct, but there is an additional piece worth pointing out. Modules can serve as a centralized place for logic to run before the store updates.
 
 `routes/Patient/Demographics/Contact/ContactComponent.js` allows users to add a new contact. This data payload will eventually make it up to the module and the module may wish to perform an HTTP `POST` to a server (note that our sample application doesn't do this) before saving the new contact information to the store. This logic is totally appropriate for the module function and would look something like this:
 
 ```jsx
-export const addNewContactToPatient = (data) => {
+export const startAddingNewContact = (data) => {
   return (dispatch, getState) => {
     return HttpPost(endpoint, data)
       .then((response) => {
         data.id = response.data.id
         dispatch({
-          type    : 'ADD_NEW_CONTACT_TO_PATIENT',
+          type    : 'START_ADDING_CONTACT',
           payload : [getState().patient.patientInContext, data]
         })
       })
