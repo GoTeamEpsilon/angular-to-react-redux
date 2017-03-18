@@ -13,7 +13,7 @@ const testData = {
     basic: {
       name: 'John Doe',
       dob: '1990-11-04',
-      ss: '999999999',
+      ssn: '999999999',
       martialStatus: 'Single',
       gender: 'Male',
       billingNote: 'N/A',

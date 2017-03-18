@@ -46,6 +46,6 @@ export const FormsyInput = React.createClass({
         <br />
         <span className={className}>{this.getErrorMessage()}</span>
       </div>
-    );
+    )
   }
-});
+})
