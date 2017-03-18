@@ -31,7 +31,7 @@ const extractContactsInfo = (state) => {
 
 const mapStateToProps = (state) => ({
   patientInContext: state.patient.patientInContext,
-  info: extractBasicInfo(state),
+  basic: extractBasicInfo(state),
   contacts: extractContactsInfo(state)
 })
 

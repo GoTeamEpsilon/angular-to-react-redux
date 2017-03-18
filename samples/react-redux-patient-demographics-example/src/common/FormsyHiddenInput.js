@@ -24,6 +24,6 @@ export const FormsyHiddenInput = React.createClass({
                value={this.getValue()}
                name={this.props.name} />
       </div>
-    );
+    )
   }
-});
+})

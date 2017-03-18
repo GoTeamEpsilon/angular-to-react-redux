@@ -4,6 +4,7 @@ import { telephoneFormat, socialSecurityFormat } from '../../../../common/Format
 import Formsy from 'formsy-react'
 import { wireUpCustomFormsyValidators } from '../../../../common/CustomValidators'
 import { FormsyInput } from '../../../../common/FormsyInput'
+import { FormsySelect } from '../../../../common/FormsySelect'
 import { FormsyDatePicker } from '../../../../common/FormsyDatePicker'
 import { FormsyMaskedInput } from '../../../../common/FormsyMaskedInput'
 
@@ -28,7 +29,7 @@ class Basic extends React.Component {
     console.debug('Basic component in edit mode')
     this.setLocalStateToStoreValues()
     this.setState({ showForm: true })
-    this.setState({ cachedForm: this.props.info })
+    this.setState({ cachedForm: this.props.basic })
   }
 
   componentDidMount() {
@@ -61,7 +62,7 @@ class Basic extends React.Component {
       let value
       switch (event.target.name) {
         case 'phone':
-        case 'ss':
+        case 'ssn':
           value = this.sanitizeToJustNumbers(event.target.value.toString())
           break
         default:
@@ -79,7 +80,7 @@ class Basic extends React.Component {
   }
 
   setLocalStateToStoreValues() {
-    const keys = ['name', 'dob', 'ss', 'martialStatus', 'gender', 'address', 'postal', 'city', 'state',
+    const keys = ['name', 'dob', 'ssn', 'martialStatus', 'gender', 'address', 'postal', 'city', 'state',
                   'country', 'phone', 'email', 'billingNote', 'otherNote']
 
     keys.forEach((keyName) => {
@@ -87,14 +88,14 @@ class Basic extends React.Component {
 
       switch (keyName) {
         case 'dob':
-          value = moment(this.props.info[keyName])
+          value = moment(this.props.basic[keyName])
           break
         case 'phone':
-        case 'ss':
-          value = this.sanitizeToJustNumbers(this.props.info[keyName].toString())
+        case 'ssn':
+          value = this.sanitizeToJustNumbers(this.props.basic[keyName].toString())
           break
         default:
-          value = this.props.info[keyName]
+          value = this.props.basic[keyName]
       }
 
       this.setState({
@@ -104,38 +105,38 @@ class Basic extends React.Component {
   }
 
   render() {
-    if (this.props.info && this.state.showForm === false) {
+    if (this.props.basic && this.state.showForm === false) {
       return (
         <div>
           <table className='table'>
             <tbody>
               <tr>
-                <td><strong>Name:</strong> {this.props.info.name}</td>
-                <td><strong>DOB:</strong> {this.props.info.dob}</td>
+                <td><strong>Name:</strong> {this.props.basic.name}</td>
+                <td><strong>DOB:</strong> {this.props.basic.dob}</td>
               </tr>
               <tr>
-                <td><strong>S.S.:</strong> {socialSecurityFormat(this.props.info.ss)}</td>
-                <td><strong>Martial Status:</strong> {this.props.info.martialStatus}</td>
+                <td><strong>SSN:</strong> {socialSecurityFormat(this.props.basic.ssn)}</td>
+                <td><strong>Martial Status:</strong> {this.props.basic.martialStatus}</td>
               </tr>
               <tr>
-                <td><strong>Gender:</strong> {this.props.info.gender}</td>
-                <td><strong>Address:</strong> {this.props.info.address}</td>
+                <td><strong>Gender:</strong> {this.props.basic.gender}</td>
+                <td><strong>Address:</strong> {this.props.basic.address}</td>
               </tr>
               <tr>
-                <td><strong>City:</strong> {this.props.info.address}</td>
-                <td><strong>Postal:</strong> {this.props.info.postal}</td>
+                <td><strong>City:</strong> {this.props.basic.address}</td>
+                <td><strong>Postal:</strong> {this.props.basic.postal}</td>
               </tr>
               <tr>
-                <td><strong>State:</strong> {this.props.info.state}</td>
-                <td><strong>Country:</strong> {this.props.info.country}</td>
+                <td><strong>State:</strong> {this.props.basic.state}</td>
+                <td><strong>Country:</strong> {this.props.basic.country}</td>
               </tr>
               <tr>
-                <td><strong>Phone:</strong> {telephoneFormat(this.props.info.phone)}</td>
-                <td><strong>Email:</strong> {this.props.info.email}</td>
+                <td><strong>Phone:</strong> {telephoneFormat(this.props.basic.phone)}</td>
+                <td><strong>Email:</strong> {this.props.basic.email}</td>
               </tr>
               <tr>
-                <td><strong>Billing Note:</strong> {this.props.info.billingNote}</td>
-                <td><strong>Other Note:</strong> {this.props.info.otherNote}</td>
+                <td><strong>Billing Note:</strong> {this.props.basic.billingNote}</td>
+                <td><strong>Other Note:</strong> {this.props.basic.otherNote}</td>
               </tr>
             </tbody>
           </table>
@@ -143,7 +144,7 @@ class Basic extends React.Component {
           <button type='button' className='btn btn-default btn-sm' onClick={this.handleEdit}>EDIT</button>
         </div>
       )
-    } else if (this.props.info && this.state.showForm === true) {
+    } else if (this.props.basic && this.state.showForm === true) {
       return (
          <Formsy.Form onValidSubmit={this.handleSubmit.bind(this)}
                       name='basicInfoForm'
@@ -187,7 +188,7 @@ class Basic extends React.Component {
               <tr>
                 <td>
                   <FormsyMaskedInput mask={[/\d/,/\d/,/\d/,'-',/\d/,/\d/,'-',/\d/,/\d/,/\d/,/\d/]}
-                                     value={this.state.ss}
+                                     value={this.state.ssn}
                                      onChange={this.handleInputChange}
                                      validations={{
                                        isLength: 9
@@ -197,7 +198,7 @@ class Basic extends React.Component {
                                        isDefaultRequiredValue: 'Valid SSN is required',
                                        isLength: 'Valid SSN is required'
                                      }}
-                                     name='ss'
+                                     name='ssn'
                                      label='SSN'
                                      required />
                 </td>
@@ -220,14 +221,14 @@ class Basic extends React.Component {
               </tr>
               <tr>
                 <td>
-                  <strong>Gender: </strong>
-                  <select onChange={this.handleInputChange}
-                          name='gender'
-                          value={this.state.gender}>
-                    <option value='male'>Male</option>
-                    <option value='female'>Female</option>
-                    <option value='other'>Other</option>
-                  </select>
+                  <FormsySelect value={this.state.gender}
+                               onChange={this.handleInputChange}
+                               name='gender'
+                               label='Gender'
+                               options={[{option: 'male', title: 'Male'},
+                                         {option: 'female', title: 'Female'},
+                                         {option: 'other', title: 'Other'}]}
+                               required />
                 </td>
                 <td>
                   <FormsyInput value={this.state.address}

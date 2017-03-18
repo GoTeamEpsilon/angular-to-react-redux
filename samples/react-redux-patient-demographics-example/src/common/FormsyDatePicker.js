@@ -22,6 +22,6 @@ export const FormsyDatePicker = React.createClass({
         <br />
         <span className={className}>{this.getErrorMessage()}</span>
       </div>
-    );
+    )
   }
-});
+})
