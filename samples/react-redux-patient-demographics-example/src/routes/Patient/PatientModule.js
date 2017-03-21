@@ -90,7 +90,7 @@ export const updatePatientData = (data) => {
       console.debug(`updating basic patient data for ${getState().patient.patientInContext}`)
       dispatch({
         type    : 'UPDATE_PATIENT_DATA',
-        payload : [getState().patient.patientInContext, data]
+        payload : data
       })
       resolve()
     })
@@ -103,7 +103,7 @@ export const updateContactData = (data) => {
       console.debug(`updating contact data for ${getState().patient.patientInContext}`)
       dispatch({
         type    : 'UPDATE_CONTACT_DATA',
-        payload : [getState().patient.patientInContext, data]
+        payload : data
       })
       resolve()
     })
@@ -116,7 +116,7 @@ export const deleteContact = (data) => {
       console.debug(`deleting contact data for ${getState().patient.patientInContext}`)
       dispatch({
         type    : 'DELETING_CONTACT',
-        payload : [getState().patient.patientInContext, data]
+        payload : data
       })
       resolve()
     })
@@ -129,7 +129,7 @@ export const startAddingNewContact = (data) => {
       console.debug(`starting to add contact data for ${getState().patient.patientInContext}`)
       dispatch({
         type    : 'START_ADDING_CONTACT',
-        payload : [getState().patient.patientInContext, data]
+        payload : data
       })
       resolve()
     })
@@ -149,32 +149,34 @@ export default function patientReducer (state = initialState, action) {
       result = copy
       break
     case 'UPDATE_PATIENT_DATA':
-      copy[action.payload[0]].basic = action.payload[1]
+      copy[copy.patientInContext].basic = action.payload
       result = copy
       break
     case 'UPDATE_CONTACT_DATA':
-      const contactIndexForUpdation = _.findIndex(copy[action.payload[0]].contacts, (c) => {
-        return c.id === action.payload[1].id
+      const contactIndexForUpdation = _.findIndex(copy[copy.patientInContext].contacts, (c) => {
+        if (c && c.hasOwnProperty('id')) {
+          return c.id === action.payload.id
+        }
       })
-      copy[action.payload[0]].contacts[contactIndexForUpdation] = action.payload[1]
+      copy[copy.patientInContext].contacts[contactIndexForUpdation] = action.payload
       result = copy
       break
     case 'START_ADDING_CONTACT':
-      const lastContact = _.last(copy[action.payload[0]].contacts)
+      const lastContact = _.last(copy[copy.patientInContext].contacts)
       let newContactId = 0
       if (lastContact != null && lastContact.hasOwnProperty('id')) {
         newContactId = lastContact.id + 1
       }
-      copy[action.payload[0]].contacts.push({ isNewContact: true, id: newContactId })
+      copy[copy.patientInContext].contacts.push({ isNewContact: true, id: newContactId })
       result = copy
       break
     case 'DELETING_CONTACT':
-      const contactIndexForDeletion = _.findIndex(copy[action.payload[0]].contacts, (c) => {
+      const contactIndexForDeletion = _.findIndex(copy[copy.patientInContext].contacts, (c) => {
         if (c && c.hasOwnProperty('id')) {
-          return c.id === action.payload[1]
+          return c.id === action.payload
         }
       })
-      delete copy[action.payload[0]].contacts[contactIndexForDeletion]
+      delete copy[copy.patientInContext].contacts[contactIndexForDeletion]
       result = copy
       break
     default:
