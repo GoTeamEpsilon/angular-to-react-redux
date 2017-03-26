@@ -272,4 +272,6 @@ Additional Resources
 ## License & Credits
 
 - [MIT](LICENSE)
+- [https://github.com/xqwzts](Victor Choueiri), who reviewed the code
+- [https://github.com/manuelbieh](Manuel Bieh), who reviewed the code
 - [Google font used for header](https://fonts.google.com/specimen/Fjalla+One)
