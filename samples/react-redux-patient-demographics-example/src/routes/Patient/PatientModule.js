@@ -65,15 +65,11 @@ export const setPatientInContext = (patientId) => {
         if (!res) {
           var message = `Patient ${patientId} doesn't exist`
           console.warn(message)
-          dispatch({
-            type    : 'SET_PATIENT_IN_CONTEXT',
-            payload : patientId
-          })
           reject(message);
         } else {
           console.debug(`Setting patient ${patientId} as patient in context`);
           dispatch({
-            type    : 'SET_PATIENT_IN_CONTEXT',
+            type    : 'UPDATE_PATIENT_IN_CONTEXT',
             payload : patientId
           })
 
@@ -115,7 +111,7 @@ export const deleteContact = (data) => {
     return new Promise((resolve, reject) => {
       console.debug(`deleting contact data for ${getState().patient.patientInContext}`)
       dispatch({
-        type    : 'DELETING_CONTACT',
+        type    : 'DELETE_CONTACT',
         payload : data
       })
       resolve()
@@ -128,7 +124,7 @@ export const startAddingNewContact = (data) => {
     return new Promise((resolve, reject) => {
       console.debug(`starting to add contact data for ${getState().patient.patientInContext}`)
       dispatch({
-        type    : 'START_ADDING_CONTACT',
+        type    : 'INSERT_CONTACT',
         payload : data
       })
       resolve()
@@ -142,17 +138,20 @@ export const startAddingNewContact = (data) => {
 const initialState = testData
 export default function patientReducer (state = initialState, action) {
   let result
-  let copy = clone(state)
+  let copy
   switch (action.type) {
-    case 'SET_PATIENT_IN_CONTEXT':
+    case 'UPDATE_PATIENT_IN_CONTEXT':
+      copy = clone(state)
       copy.patientInContext = action.payload
       result = copy
       break
     case 'UPDATE_PATIENT_DATA':
+      copy = clone(state)
       copy[copy.patientInContext].basic = action.payload
       result = copy
       break
     case 'UPDATE_CONTACT_DATA':
+      copy = clone(state)
       const contactIndexForUpdation = _.findIndex(copy[copy.patientInContext].contacts, (c) => {
         if (c && c.hasOwnProperty('id')) {
           return c.id === action.payload.id
@@ -161,7 +160,8 @@ export default function patientReducer (state = initialState, action) {
       copy[copy.patientInContext].contacts[contactIndexForUpdation] = action.payload
       result = copy
       break
-    case 'START_ADDING_CONTACT':
+    case 'INSERT_CONTACT':
+      copy = clone(state)
       const lastContact = _.last(copy[copy.patientInContext].contacts)
       let newContactId = 0
       if (lastContact != null && lastContact.hasOwnProperty('id')) {
@@ -170,7 +170,8 @@ export default function patientReducer (state = initialState, action) {
       copy[copy.patientInContext].contacts.push({ isNewContact: true, id: newContactId })
       result = copy
       break
-    case 'DELETING_CONTACT':
+    case 'DELETE_CONTACT':
+      copy = clone(state)
       const contactIndexForDeletion = _.findIndex(copy[copy.patientInContext].contacts, (c) => {
         if (c && c.hasOwnProperty('id')) {
           return c.id === action.payload
