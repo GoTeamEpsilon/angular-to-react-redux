@@ -1,5 +1,3 @@
-![img](http://www.textfiles.com/underconstruction/HeHeartlandBluffs8237Photo_2000construction5_anim.gif)
-
 [![Build Status](https://travis-ci.org/GoTeamEpsilon/angular-to-react-redux.svg?branch=master)](https://travis-ci.org/GoTeamEpsilon/angular-to-react-redux)
 
 ![img](http://i.imgur.com/Gq1eJpa.png)
@@ -57,7 +55,7 @@ Scaffolding a project in React/Redux isn't very different from what is typically
                                                            └── core.scss
 ```
 
-Notice how everything is organized in modules rather than a flat approach with directories such as `services/`, `controllers/`, `views/`, etc. This is a best practice that helps one organize a complex user interface while still sharing generic pieces.
+Notice how everything is [organized in modules](https://medium.com/@scbarrus/the-ducks-file-structure-for-redux-d63c41b7035c#.ji6r2j61o) as opposed to a flat directory approach. This is a best practice that helps one organize a complex user interface while still sharing generic pieces.
 
 Now that the file structure (hopefully) makes sense, one can go back a directory and run the build tool (you won't find major differences between gulp/grunt and webpack). In our case, it's `grunt serve` and `npm start` for Angular v1 and React/Redux samples, respectively.
 
@@ -77,7 +75,7 @@ const mapStateToProps = (state) => ({
 })
 ```
 
-One other important thing that is done in this container is the binding of Redux-aware service functions like so:
+One other important thing that is done in this container is the binding of Redux-aware service functions (formally known as "action creators") like so:
 
 ```jsx
 const mapDispatchToProps = {
@@ -89,7 +87,7 @@ const mapDispatchToProps = {
 }
 ```
 
-With these two mappings out of the way, child components can access the state and service functions from above. Here are some  highlighted examples of this in `routes/Patient/Demographics/Basic/BasicComponent.js`:
+With these two mappings out of the way, child components can access the state and functions from above. Here are some  highlighted examples of this in `routes/Patient/Demographics/Basic/BasicComponent.js`:
 
 Displaying data from the store in a table:
 ```jsx
@@ -129,14 +127,14 @@ handleSubmit(formValues) {
 }
 ```
 
-At this point, you may be thinking _"wait, why are you copying the data from Redux into the local state/form rather than using it directly? Isn't the point of Redux to encapsulate _all_ application state?"_. Good question. As with most things in software engineering, it is always to be able to break the rules when it's justified. Should state such as `{ showForm: true/false }` (determines whether to render the form or not) and `{ cachedForm: this.props.info }` (holds a cache of the form state if the user hits cancel) be put into the Redux store or just be local to the component? It depends. In our case, this state doesn't need to be application wide so Redux is only storing things that are domain-centric rather than domain-centric and UI-centric. These things will often come down to requirements and what the opinions are of your resident seasoned Redux enthusiast(s).
+At this point, you may be thinking _"wait, why are you copying the data from Redux into the local state/form rather than using it directly? Isn't the point of Redux to encapsulate _all_ application state?"_. Good question. As with most things in software engineering, it is always best to be able to break the rules when it's justified. Should state such as `{ showForm: true/false }` (determines whether to render the form or not) and `{ cachedForm: this.props.info }` (holds a cache of the form state if the user hits cancel) be put into the Redux store or just be local to the component? It depends. In our case, this state doesn't need to be application wide so Redux is only storing things that are domain-centric rather than domain-centric and UI-centric. These things will often come down to requirements and what the opinions are of your resident seasoned Redux enthusiast(s).
 
 Service Layer
 =============
 
 ### 🌿 Store
 
-In Angular v1, application-wide state is put into services so that directive controllers can CRUD it. In React/Redux, all application-wide state is put into the store, an object tree. As shown in the above section, components access the store via containers and parent components passing it to them. Components can alter said state by invoking module functions that containers and parent components pass down.
+In Angular v1, application-wide state is put into services so that directive controllers can CRUD it. In React/Redux, all application-wide state is put into the store, an object tree. As shown in the above section, components access the store via containers and parent components passing it to them. Components can alter said state by invoking module functions (formally known as "action creators") that containers and parent components pass down.
 
 One key difference between Angular v1 application-wide state in services and Redux store is that state mutation is not allowed. While this sounds weird and scary at first, you _can_ change this state but it must be done in a very specific way. The easiest way to think about this is whenever you update the store, you simply clone the object, mutate the clone to your heart's content, and send that to the store.
 
@@ -144,7 +142,7 @@ Think back to your Angular v1 directives that display information from a service
 
 ### ✨ Actions & Pure Reducers
 
-A key difference between the updating of the state in an Angular v1 service and in the Redux store is that you don't "talk" to the store directly. In order to get the store to respond to data changes, you must issue an action. Actions simply send data from your application to your store.
+A key difference between the updating of the state in an Angular v1 service and in the Redux store is that you don't "talk" to the store directly. In order to get the store to respond to data changes, you must issue an action. Actions simply send data from your application to your store and then your app "reacts" (pardon the pun).
 
 Recall that the `routes/Patient/Demographics/Basic/BasicComponent.js` calls `this.props.updatePatientData(formValues)` when it wishes to update basic patient information in the store. The `updatePatientData` function is defined in the module `routes/Patient/PatientModule.js` (modules will be covered in the next section) that looks like this:
 
@@ -152,9 +150,10 @@ Recall that the `routes/Patient/Demographics/Basic/BasicComponent.js` calls `thi
 export const updatePatientData = (data) => {
   return (dispatch, getState) => {
     return new Promise((resolve, reject) => {
+      console.debug(`updating basic patient data for ${getState().patient.patientInContext}`)
       dispatch({
         type    : 'UPDATE_PATIENT_DATA',
-        payload : [getState().patient.patientInContext, data]
+        payload : data
       })
       resolve()
     })
@@ -162,7 +161,7 @@ export const updatePatientData = (data) => {
 }
 ```
 
-The important piece to focus on for now is the `dispatch` function. This function takes in something called an action. In our case, our action is of type `UPDATE_PATIENT_DATA` and the paloyad is the new basic data with a reference to the patient id that should recieve the update.
+The important piece to focus on for now is the `dispatch` function. This function takes in something called an action. In our case, our action is of type `UPDATE_PATIENT_DATA` and the payload is the new basic data.
 
 When the action has been dispatched, something needs to handle it so that the store is updated. This is the job of the reducer. Reducers look at an inbound action and figure out how to update the store with the new information. For example `routes/Patient/PatientModule.js` exposes the following reducer:
 
@@ -170,17 +169,20 @@ When the action has been dispatched, something needs to handle it so that the st
 const initialState = testData
 export default function patientReducer (state = initialState, action) {
   let result
-  let copy = clone(state)
+  let copy
   switch (action.type) {
-    case 'SET_PATIENT_IN_CONTEXT':
+    case 'UPDATE_PATIENT_IN_CONTEXT':
+      copy = clone(state)
       copy.patientInContext = action.payload
       result = copy
       break
     case 'UPDATE_PATIENT_DATA':
+      copy = clone(state)
       copy[copy.patientInContext].basic = action.payload
       result = copy
       break
     case 'UPDATE_CONTACT_DATA':
+      copy = clone(state)
       const contactIndexForUpdation = _.findIndex(copy[copy.patientInContext].contacts, (c) => {
         if (c && c.hasOwnProperty('id')) {
           return c.id === action.payload.id
@@ -189,7 +191,8 @@ export default function patientReducer (state = initialState, action) {
       copy[copy.patientInContext].contacts[contactIndexForUpdation] = action.payload
       result = copy
       break
-    case 'START_ADDING_CONTACT':
+    case 'INSERT_CONTACT':
+      copy = clone(state)
       const lastContact = _.last(copy[copy.patientInContext].contacts)
       let newContactId = 0
       if (lastContact != null && lastContact.hasOwnProperty('id')) {
@@ -198,7 +201,8 @@ export default function patientReducer (state = initialState, action) {
       copy[copy.patientInContext].contacts.push({ isNewContact: true, id: newContactId })
       result = copy
       break
-    case 'DELETING_CONTACT':
+    case 'DELETE_CONTACT':
+      copy = clone(state)
       const contactIndexForDeletion = _.findIndex(copy[copy.patientInContext].contacts, (c) => {
         if (c && c.hasOwnProperty('id')) {
           return c.id === action.payload
@@ -232,8 +236,8 @@ export const startAddingNewContact = (data) => {
       .then((response) => {
         data.id = response.data.id
         dispatch({
-          type    : 'START_ADDING_CONTACT',
-          payload : [getState().patient.patientInContext, data]
+          type    : 'INSERT_CONTACT',
+          payload : data
         })
       })
     })
@@ -241,7 +245,7 @@ export const startAddingNewContact = (data) => {
 }
 ```
 
-You may be thinking _"I see there's a mutation here (function is not pure)... `data` is getting an `id` added on, is that allowable?"_. The answer is "yes". Module functions can be asynchronous and perform have side effects. The important thing is that the reducer that will receive the action will be pure and synchronous.
+You may be thinking _"I see there's a mutation here (function is not pure)... `data` is getting an `id` added on, is that allowable?"_. The answer is "yes". Module functions can be asynchronous and have side effects. The important thing is that the reducer that will receive the action will be pure and synchronous.
 
 Unit Testing
 ============
@@ -262,6 +266,7 @@ Additional Resources
 - [1-way vs 2-way Databinding](http://stackoverflow.com/a/37566693/1525534)
 - [React Global Error Handling](http://stackoverflow.com/a/31112522/1525534)
 - [Redux Logger](https://github.com/evgenyrodionov/redux-logger)
+- [Redux Ducks File Structure](https://medium.com/@scbarrus/the-ducks-file-structure-for-redux-d63c41b7035c#.ji6r2j61o)
 - [React Logger](https://www.npmjs.com/package/react-logger)
 - [ES6 Highlights](https://pure-essence.net/2015/11/29/javascript-es6-highlights/)
 - [React/Redux Router Tutorial](https://github.com/reactjs/react-router-redux#tutorial)
