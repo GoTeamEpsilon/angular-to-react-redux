@@ -63,7 +63,7 @@ Now that the file structure (hopefully) makes sense, one can go back a directory
 
 The heart of Angular v1 is with directives. These discrete interfaces take in 1 and 2-way data parameters and inject services that really power up your view. Fortunately, directives are not that different from Redux-aware React components. Moreover, the stuff inside of React components can be easily translated from Angular v1 concepts (this repo won't go into those details, as they are easily "Googleable"... for instance Google _"React equivalent for ng-repeat"_ to see for yourself).
 
-In Angular v1, directives are typically introduced in views that are controlled by route-level controllers. In React/Redux, components are introduced in the same way, however, a container must be placed in the middle so that the component can get application-wide state. The container will also bring in functions from upper level services that child components will use. These topics (application-wide state and upper level services) will be explained later in the guide.
+In Angular v1, directives are typically introduced in views that are controlled by route-level controllers. In React/Redux, components are introduced in the same way, however, a container must be placed in the middle so that the component (also known as a [smart component](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.htl1bug49), in this case) can get application-wide state. The container will also bring in functions from upper level services that child components will use. These topics (application-wide state and upper level services) will be explained later in the guide.
 
 As mentioned before, Redux has to bind its store to child React components in a container. In our application, the `routes/Patient/Demographics/PatientDemographicsContainer.js` puts references to the Redux state like so (code simplified for sake of demonstration):
 
@@ -264,6 +264,7 @@ Additional Resources
 - [React Component Lifecycle](http://busypeoples.github.io/post/react-component-lifecycle/)
 - [The Difference Between Virtual DOM and DOM](http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/)
 - [1-way vs 2-way Databinding](http://stackoverflow.com/a/37566693/1525534)
+- [Presentational and Container Components](https://medium.com/@dan_abramov/smart-and-dumb-components-7ca2f9a7c7d0#.htl1bug49)
 - [React Global Error Handling](http://stackoverflow.com/a/31112522/1525534)
 - [Redux Logger](https://github.com/evgenyrodionov/redux-logger)
 - [Redux Ducks File Structure](https://medium.com/@scbarrus/the-ducks-file-structure-for-redux-d63c41b7035c#.ji6r2j61o)
